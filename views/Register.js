@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { Dimensions } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import SvgRegister from './svg/registerFrame.js'
 import SvgGoogle from './svg/google.js'
 
 import {
+  Dimensions,
   StyleSheet,
   Text,
   View, 
