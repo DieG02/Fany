@@ -18,7 +18,7 @@ import Footer from '../Footer/'
 const { width, height } = Dimensions.get('window')
 
 
-export default function Search() {
+export default function Main() {
 
   const arr = [1,2,3,4,5,6,7,8,9,10]
 
@@ -54,7 +54,7 @@ export default function Search() {
             let bot;
             if(arr.indexOf(index) === arr.length - 1) bot = '40%';
             return(
-              <Item index={ index } bot={ bot }/>
+              <Item key={ index } bot={ bot }/>
             )
           })}
         </ScrollView>

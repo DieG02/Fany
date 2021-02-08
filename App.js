@@ -4,12 +4,13 @@ import { StyleSheet, View } from 'react-native'
 // import Register from './views/Register.js'
 // import Home from './views/Home.js'
 // import Footer from './views/Footer'
-import Search from './views/Search'
+// import Search from './views/Search'
+import SearchBar from './views/Search/Search.js'
 
 
 export default function App() {
   return (
-    <Search/>
+    <SearchBar/>
   );
 }
 

@@ -31,7 +31,7 @@ export default function Playing({ props, isToggleOn, setToggle }) {
         { props.title }
       </Text>
       <Text style={ styles.content }>
-        { props.artist } · { props.album }
+        { props.artist } • { props.album }
       </Text>
       
       <View style={{ width: 45, height: '100%' }}> 

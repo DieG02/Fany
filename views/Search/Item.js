@@ -15,7 +15,7 @@ const { width, height } = Dimensions.get('window')
 const image = require('../../assets/linkin_park.jpg')
 
 
-export default function Item({ index, bot }) {
+export default function Item({ bot }) {
 
 
   const props = {
@@ -27,7 +27,6 @@ export default function Item({ index, bot }) {
 
   return(
     <View 
-      index={ index }
       style={ [styles.container, { marginBottom: bot || 10 }] }
     >    
       <TouchableOpacity 
@@ -51,10 +50,10 @@ export default function Item({ index, bot }) {
       style={ styles.icon }
      >
       <FontAwesomeIcon 
-          icon={ faTimes }
-          color='#eee'
-          size={ height > 600 ? 23 : 20 }
-        />
+        icon={ faTimes }
+        color='#eee'
+        size={ height > 600 ? 23 : 20 }
+      />
      </TouchableOpacity>
     </View>
   )
