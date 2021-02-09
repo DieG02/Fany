@@ -1,16 +1,20 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Dimensions } from 'react-native'
 // import Landing from './views/Landing.js'
 // import Register from './views/Register.js'
 // import Home from './views/Home.js'
 // import Footer from './views/Footer'
 // import Search from './views/Search'
-import SearchBar from './views/Search/Search.js'
+// import SearchBar from './views/Search/Search.js'
+import Song from './views/Song'
 
+const { height, width } = Dimensions.get('window');
 
 export default function App() {
   return (
-    <SearchBar/>
+    <View style={ styles.container }>
+      <Song/>
+    </View>
   );
 }
 
@@ -19,8 +23,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: height,
+    width: width,
   }
 });
 

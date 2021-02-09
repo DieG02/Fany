@@ -23,14 +23,14 @@ const _light = '#eeeeee',
 
 
 // ----- COMPONENT ----- //
-export default function Result() {
+export default function Result({ bot }) {
 
   return(
-    <View style={ styles.container }>
+    <View style={ [styles.container, { marginBottom: bot }] }>
       <TouchableOpacity 
         style={ styles.dataContainer }
-        delayPressIn={ 30 }
-        activeOpacity={ 0.6 }
+        delayPressIn={ 20 }
+        activeOpacity={ 0.5 }
       >
         <Image
           source={ image }
@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 60,
     flexDirection: 'row',
-    marginBottom: 10,
   },
   dataContainer: {
     flexDirection: 'row',

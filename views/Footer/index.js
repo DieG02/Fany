@@ -2,13 +2,12 @@ import React, { useState } from 'react'
 import {
   View,
   StyleSheet,
-  Dimensions
+  Dimensions,
 } from 'react-native'
 import Playing from './Playing.js'
 import Menu from './Menu.js'
 const unplugged = require('../../assets/unplugged.jpg')
-const { height } = Dimensions.get('window')
-
+const { height, width } = Dimensions.get('window')
 
 export default function Footer({ song, menuSelected }) {
 
@@ -41,16 +40,12 @@ export default function Footer({ song, menuSelected }) {
     </View>
   )
 }
-
-
+ 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#1dcce3', // Change to 'transparent' if you want
-    alignItems: 'flex-start',
-    justifyContent: 'flex-end',
     width: '100%',
-    position: 'absolute', // KEY to use menu correctly
+    position: 'absolute', 
     bottom: 0,
+    backgroundColor: '#1dcce3',
   }
 })

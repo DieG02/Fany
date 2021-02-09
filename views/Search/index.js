@@ -37,7 +37,7 @@ export default function Main() {
           <FontAwesomeIcon 
             icon={ faSearch } 
             color='#666'
-            size={ height > 600 ? 18 : 16 }
+            size={ height > 720 ? 18 : 16 }
             style={ styles.icon }
           />
           <Text style={ styles.content }>
@@ -71,7 +71,9 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     alignItems: 'flex-start',
-    backgroundColor: '#111'
+    backgroundColor: '#111',
+    width: '100%',
+    height: '100%',
   },
   container: {
     paddingLeft: 15,
@@ -79,16 +81,16 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#fff',
-    fontSize: height > 600 ? 40 : 38,
+    fontSize: 40,
     fontWeight: 'bold',
     marginRight: 'auto',
     marginLeft: 'auto',
-    marginTop: height > 600 ? '20%' : '15%',
-    marginBottom: height > 600 ? '10%' : '5%',
+    marginTop: height > 720 ? '20%' : '15%',
+    marginBottom: height > 720 ? '8%' : '5%',
   },
   button: {
     backgroundColor: '#fff',
-    height: height > 600 ? 44 : 40,
+    height: 44,
     width: '100%',
     borderRadius: 20,
     paddingLeft: 5,
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
     marginRight: -5,
   },
   content: {
-    fontSize: height > 600 ? 18 : 16,
+    fontSize: height > 720 ? 18 : 16,
     fontWeight: 'bold',
     color: '#666',
     marginLeft: 15,
@@ -112,12 +114,11 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     color: '#fff',
-    fontSize: height > 600 ? 24 : 20,
+    fontSize: height > 720 ? 24 : 20,
     fontWeight: 'bold',
     marginBottom: 20,
   },
   scroll: {
     maxWidth: '100%',
-    height: '100%',
   }
 })

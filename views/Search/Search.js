@@ -34,8 +34,7 @@ export default function Search() {
   const arr = [1,2,3,4,5,6,7,8,9,10,11,12]
 
   return(
-    <View style={ styles.main }>
-      
+    <View style={ styles.main }>  
       <View style={ styles.searchBar }>
         <TouchableHighlight
           style={ styles.icon }
@@ -71,29 +70,33 @@ export default function Search() {
         </TouchableHighlight>
       </View>
 
-      <View style={ styles.container }>
-        <Text style={ styles.subtitle }>
-          Results
-        </Text>
+     <View style={ styles.container }>
+        <View style={ styles.subtitleContainer }>
+          <Text style={ styles.subtitle }>
+            Results
+          </Text>
+        </View>
         <ScrollView
           style={ styles.scroll }
           showsVerticalScrollIndicator={ false }
         >
           {arr.map((index) => {
+            let bot;
+            if(arr.indexOf(index) === arr.length - 1) bot = '40%';
             return(
-              <Result key={index}/>
+              <Result key={ index } bot={ bot || 10}/>
             )
           })}
         </ScrollView>
-      </View>
-      
-      <Footer/>
+     </View>
+
       <StatusBar
         animated={true}
         backgroundColor={_dark}
         barStyle='light-content'
         showHideTransition='none'
       />
+      <Footer />
     </View>
   )
 }
@@ -102,26 +105,30 @@ export default function Search() {
 // ----- STYLERS ----- //
 const styles = StyleSheet.create({
   main: {
-    flex: 1,
+    flex: 1,  
     alignItems: 'flex-start',
     backgroundColor: _dark,
-  },
-  container: {
-    paddingLeft: 15,
-    paddingRight: 15,
+    width: '100%',
+    height: '100%',
   },
   searchBar: {
     backgroundColor: 'rgba(68, 68, 68, 0.6)',
     width: '100%',
     height: 50,
+    justifyContent: 'flex-start',
     flexDirection: 'row',
-    marginBottom: '10%',
+  },
+  container: {
+    paddingLeft: 15,
+    paddingRight: 15,
+    height: height - 50, 
   },
   input: {
     width: '76%',
-    textAlign: 'center',
+    paddingLeft: 5,
+
     color: _light,
-    fontSize: height > 600 ? 15 : 14,
+    fontSize: height > 725 ? 15 : 14,
     fontWeight: 'bold'
   },
   icon: {
@@ -130,14 +137,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  subtitleContainer: {
+    justifyContent: 'flex-end',
+    paddingBottom: 15,
+    height: '10%',
+  },
   subtitle: {
     color: '#fff',
     fontSize: height > 600 ? 24 : 20,
     fontWeight: 'bold',
-    marginBottom: 10,
   },
   scroll: {
     width: '100%',
-    maxHeight: height > 600 ? '79%' : '70%',
   },
 })

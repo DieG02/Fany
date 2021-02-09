@@ -53,7 +53,6 @@ export default function Menu({ menu,  setMenu }) {
 
 const styles = StyleSheet.create({
   menu: {
-    marginTop: 1,
     height:  height > 600 ? 45 : 40,
     width: '100%',
     backgroundColor: '#222',

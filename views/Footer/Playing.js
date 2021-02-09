@@ -22,19 +22,22 @@ const { width, height } = Dimensions.get('window')
 export default function Playing({ props, isToggleOn, setToggle }) {
   
   return(
-    <View style={ styles.play }>
+    <View style={ styles.container }>
       <Image 
         source={ props.src }
         style={ styles.image }
       />
-      <Text style={ styles.title }>
-        { props.title }
-      </Text>
-      <Text style={ styles.content }>
-        { props.artist } • { props.album }
-      </Text>
-      
-      <View style={{ width: 45, height: '100%' }}> 
+
+      <View style={ styles.dataContainer }>
+        <Text style={ styles.title }>
+          { props.title }
+        </Text>
+        <Text style={ styles.content }>
+          { props.artist } • { props.album }
+        </Text>
+      </View>
+
+      <View style={ styles.itemBox }> 
         <TouchableOpacity
           onPress={() => {
             setToggle({
@@ -52,13 +55,13 @@ export default function Playing({ props, isToggleOn, setToggle }) {
           <FontAwesomeIcon 
             icon={ isToggleOn.favourite ? faHeartFill : faHeart }  
             color={ isToggleOn.favourite ? '#1dcce3' : '#999'} 
-            size={ height > 600 ? 23 : 21 }
+            size={ 23 }
             style={ [styles.itemBox, styles.icons] }
           />
         </TouchableOpacity>
       </View>    
 
-      <View style={{ width: 45, height: '100%' }}>
+      <View style={ styles.itemBox }>
         <TouchableOpacity
           onPress={() => {
             setToggle({
@@ -72,8 +75,8 @@ export default function Playing({ props, isToggleOn, setToggle }) {
           <FontAwesomeIcon 
             icon={ isToggleOn.play ? faPause : faPlay }
             color='#fff'
-            size={ height > 600 ? 23 : 21 }
-            style={ [styles.itemBox, styles.icons] }
+            size={ 23 }
+            style={ styles.icons }
           />
         </TouchableOpacity>
       </View>
@@ -83,37 +86,46 @@ export default function Playing({ props, isToggleOn, setToggle }) {
 
 
 const styles = StyleSheet.create({
-  play: {
-    flexWrap: 'wrap',
-    height: height > 600 ? 74 : 64,
-    width: width,
+  container: {
+    flexDirection: 'row',
+    height: 74,
+    width: '100%',
     backgroundColor: '#222',
+    marginBottom: 1,
   },
   image: {
-    width:  height > 600 ? 74 : 64,
-    height:  height > 600 ? 74 : 64,
+    width:  74,
+    height:  74,
+  },
+  dataContainer: {
+    width: '58%',
+    height: '100%',
+    justifyContent: 'flex-start',
+    flexDirection: 'column',
+    paddingLeft: 10,
   },
   title: {
-    width: '50%',
+    width: '100%',
     color: '#fff',
-    fontSize:  height > 600 ? 14 : 13,
+    fontSize:  height > 725 ? 14 : 13,
     fontWeight: 'bold',
-    marginLeft: 10,
     marginRight: 15,
     marginTop: 'auto',
   },
   content: {
-    width: '50%',
+    width: '100%',
     color: '#ccc',  
-    fontSize:  height > 600 ? 13 : 12,
-    marginLeft: 10,
+    fontSize:  height > 725 ? 13 : 12,
     marginRight: 15,
     marginBottom: 'auto',
   },
+  itemBox: {
+    flex: 1, 
+  },
   icons: {
-    marginRight: 'auto',
-    marginLeft: 'auto',
     marginTop: 'auto',
     marginBottom: 'auto',
+    marginRight: 'auto',
+    marginLeft: 'auto',
   },
 })
