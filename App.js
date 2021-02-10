@@ -6,7 +6,7 @@ import { StyleSheet, View, Dimensions } from 'react-native'
 // import Footer from './views/Footer'
 // import Search from './views/Search'
 // import SearchBar from './views/Search/Search.js'
-import Song from './views/Song'
+import Song from './views/Song/index.js'
 
 const { height, width } = Dimensions.get('window');
 
