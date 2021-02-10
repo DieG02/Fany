@@ -8,6 +8,8 @@ import {
   StatusBar,
   Dimensions,
 } from 'react-native'
+import ProgressBar from 'react-native-progress/Bar'
+import { LinearGradient } from 'expo-linear-gradient'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import {
@@ -22,12 +24,14 @@ import Buttons from './Buttons.js'
 
 // ----- CONSTANTS ----- // 
 const image = require('../../assets/hybrid_theory.jpg');
-const { height, width } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 const _light = '#eeeeee',
       _grey = '#dddddd',
       _dark = '#151515',
       _blue = '#1dcce3';
-    
+const colorsGradient = ['#71BAC3', '#5D93A5', '#44637E', '#243442', '#111111'],
+      locationsGradient = [0.05, 0.2, 0.4, 0.6, 0.85];
+
 
 // ----- COMPONENT ----- // 
 export default function Song() {
@@ -47,6 +51,12 @@ export default function Song() {
   return(
     <View style={ styles.main }>
 
+      <LinearGradient
+        // Background Linear Gradient
+        colors={ colorsGradient }
+        locations={ locationsGradient }
+        style={styles.background}
+      />
       <View style={ styles.top }>
         <TouchableOpacity style={ styles.iconBox }>
           <FontAwesomeIcon
@@ -116,6 +126,15 @@ export default function Song() {
                 />
               </TouchableOpacity>
             </View>
+            <ProgressBar 
+              progress={0.85} 
+              color={ _grey }
+              unfilledColor='#444'
+              width={ width * 0.85 } 
+              height={ 3.5 }
+              borderWidth={ 0 }
+              borderRadius={ 1 }
+            />
             <Buttons isToggleOn={ isToggleOn } setToggle={ setToggle }/>
           </View>
         </View>
@@ -123,7 +142,6 @@ export default function Song() {
         animated={true}
         backgroundColor={_dark}
         barStyle='light-content'
-        showHideTransition='none'
       />
     </View>
   )
@@ -136,6 +154,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#67a4b3',
     width: '100%',
     height: '100%', 
+  },
+   background: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: '100%',
   },
   top: {
     width: '100%',

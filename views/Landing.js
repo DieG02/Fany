@@ -5,7 +5,7 @@ import {
   Text,
   View,
   Image,
-  TouchableHighlight
+  TouchableOpacity
 } from 'react-native';
 const logo = require('../assets/fany.png')
 const landing = require('../assets/landing_frame.png')
@@ -22,6 +22,7 @@ export default function Landing() {
         source={landing}
         style={styles.landing}
       />
+
       <Text style={styles.text}>
         Enjoy music{"\n"}
         in a different way
@@ -32,25 +33,26 @@ export default function Landing() {
         No complications, no advertisements.{"\n"}
         What are you waiting?{"\n"}
       </Text>
-      <TouchableHighlight style={styles.fillButton}>
-        <Text 
-          style={styles.fillButtonText} 
-          onPress={() => console.log('Must redirect to "SignUp" view')}
-        >
-        GET STARTED
-        </Text>
-      </TouchableHighlight>
 
-      <TouchableHighlight style={styles.emptyButton}>
-        <Text 
-          style={styles.emptyButtonText}
-          onPress={() => console.log('Must redirect to "Log in" view')}
-        >
+      <TouchableOpacity 
+        style={styles.fillButton}
+        onPress={() => console.log('Get Started')}
+        activeOpacity={ 0.7 }
+      >
+        <Text style={styles.fillButtonText}>
+          GET STARTED
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+        style={styles.emptyButton}
+        onPress={() => console.log('Must redirect to "Log in" view')}
+      >
+        <Text style={styles.emptyButtonText}>
           LOG IN
         </Text>
-      </TouchableHighlight>
+      </TouchableOpacity>
 
-   
       <StatusBar style='inverted'/>
     </View>
   );
@@ -69,13 +71,15 @@ const styles = StyleSheet.create({
     width: 80, 
     height: 80, 
     top: 60,
-    right: 130
+    right: 130,
+    resizeMode: 'stretch'
   },
   landing: { 
     width: 250,
     height: 250,
     top: -90,
-    left: 80
+    left: 80,
+    resizeMode: 'stretch'
   },
   text: {
     color: '#fff', 
