@@ -1,8 +1,4 @@
 import React, { useState } from 'react'
-import { StatusBar } from 'expo-status-bar'
-import SvgRegister from './svg/registerFrame.js'
-import SvgGoogle from './svg/google.js'
-
 import {
   Dimensions,
   StyleSheet,
@@ -12,13 +8,22 @@ import {
   TextInput,
   TouchableHighlight
 } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import SvgRegister from './svg/registerFrame.js'
+import SvgGoogle from './svg/google.js'
 
 
+
+// ----- CONSTANTS ----- // 
 const logo = require('../assets/fany.png')
-const { width, height } = Dimensions.get('window')
+const { height } = Dimensions.get('window')
+const _blue = '#1dcce3';
 
 
+
+// ----- COMPONENT ----- // 
 export default function Register() {
+
   const [ values, onChangeHandler ] = useState({
     email: '',
     password: '',
@@ -70,8 +75,8 @@ export default function Register() {
           <View style={{flex: 1, justifyContent: 'center'}}>
             <SvgGoogle 
             style={styles.googleLogo}
-              width={height > 600 ? 30 : 27}
-              height={height > 600 ? 33 : 30}
+              width={height > 725 ? 30 : 27}
+              height={height > 725 ? 33 : 30}
             />
             <Text style={styles.googleText}>
               Sign in with Google
@@ -94,8 +99,8 @@ export default function Register() {
   )
 }
 
-const _blue = '#1dcce3'
 
+// ----- STYLERS ----- //
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -103,20 +108,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: height > 600 ? 101 : 80,
-    height: height > 600 ? 100 : 79,
-    marginTop: height > 600 ? '15%' : '10%',
+    width: 90,
+    height: 90,
+    marginTop: height > 725 ? '15%' : '10%',
+    resizeMode: 'stretch'
   },
   div: {
     width: '87%',
   },
   label: {
-    fontSize: height > 600 ? 16 : 15,
+    fontSize: 15,
     color: '#ddd',
-    marginTop: height > 600 ? '10%' : '7%',
+    marginTop: height > 725 ? '10%' : '7%',
   },
   inputTitle: {
-    fontSize: height > 600 ? 16: 14,
+    fontSize: 15,
     color: '#ddd',
     marginTop: 50,
     marginLeft: 10,
@@ -124,18 +130,18 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '100%',
-    height: height > 600 ? 40 : 35,
+    height: 40,
     color: '#888',
     fontSize: 15,
     paddingLeft: 15,
     borderRadius: 20,
     backgroundColor: '#fff',
-    marginBottom: height > 600 ? 15 : -10,
+    marginBottom: height > 725 ? 15 : 10,
   },
   local: {
     width: '100%',
-    height:  height > 600 ? 45 : 39,
-    marginTop: height > 600 ? 130 : 95,
+    height:  45,
+    marginTop: height > 725 ? 130 : 95,
     zIndex: 5,
     backgroundColor: _blue,
     borderRadius: 25,
@@ -143,7 +149,7 @@ const styles = StyleSheet.create({
     borderColor: '#000',
   },
   localText: {
-    fontSize: height > 600 ? 21 : 19,
+    fontSize: height > 725 ? 21 : 19,
     fontWeight: 'bold',
     textAlign: 'center',
     marginTop: 'auto',
@@ -151,23 +157,23 @@ const styles = StyleSheet.create({
   },
   google: {
     width: '100%',
-    height: height > 600 ? 45 : 39,
+    height: 45,
     backgroundColor: '#fff',
     borderRadius: 25,
-    marginTop: height > 600 ? 30 : 15,
+    marginTop: height > 725 ? 30 : 15,
     zIndex: 58
   },
   googleLogo: {
-    left: '15%',  // 30% looks good
+    left: '15%',
     top: 13
   },
   googleText: {
     color: '#666',
-    fontSize: height > 600 ? 20 : 18,
-    left: '30%',  // 30% looks good
+    fontSize: height > 725 ? 20 : 18,
+    left: '30%',
     bottom: 17,
   },
   register: {
-    bottom: height > 600 ?  190 : 150,
+    bottom: height > 725 ?  190 : 170,
   }
 })

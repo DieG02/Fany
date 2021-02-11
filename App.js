@@ -13,7 +13,7 @@ const { height, width } = Dimensions.get('window');
 export default function App() {
   return (
     <View style={ styles.container }>
-      <Landing/>
+      <Home/>
     </View>
   );
 }

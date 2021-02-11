@@ -8,16 +8,35 @@ import {
   ScrollView,
   TouchableHighlight,
 } from 'react-native'
-// import LinearGradient from 'react-native-linear-gradient'
-import {  StatusBar } from 'expo-status-bar'
+import { LinearGradient } from 'expo-linear-gradient'
+import { StatusBar } from 'expo-status-bar'
+import Footer from './Footer'
 import SvgHome from './svg/homeFrame.js'
-const artist = require('../assets/sum_41.jpg') 
 
+// ----- CONSTANTS ----- // 
+const artist = require('../assets/sum_41.jpg') 
 const { height, width } = Dimensions.get('window')
-console.log(height, width)
+const _light = '#eeeeee',
+      _grey = '#dddddd',
+      _dark = '#151515',
+      _blue = '#1dcce3';
+const colorsGradient = ['#111111','#242424', '#3A3A3A', '#626262'],
+      locationsGradient = [0.3, 0.5 ,0.7, 0.9];
+
+
+// ----- COMPONENT ----- // 
 export default function Home() {
+
   return( 
     <View style={styles.container}>
+
+      <LinearGradient
+        // Background Linear Gradient
+        colors={ colorsGradient }
+        locations={ locationsGradient }
+        style={styles.background}
+      />
+
       <SvgHome style={styles.frame} height={height > 600 ? 125 : 95}/>
       <Text style={styles.title}>Home</Text>
 
@@ -108,20 +127,27 @@ export default function Home() {
         </TouchableHighlight>
       </ScrollView>
 
-
+      <Footer/>
       <StatusBar style='inverted'/>
     </View>
   )
 }
 
 
-
+// ----- STYLERS ----- //
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'flex-start',
     backgroundColor: '#333',
     paddingLeft: 15,
+  },
+   background: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: '100%',
   },
   frame: {
     right: '15%',
