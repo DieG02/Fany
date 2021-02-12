@@ -8,26 +8,27 @@ import {
   Dimensions,
 } from 'react-native'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { 
-  faTimes,
-} from '@fortawesome/free-solid-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+
+
+// ----- CONSTANTS ----- //
 const { width, height } = Dimensions.get('window')
 const image = require('../../assets/linkin_park.jpg')
 
 
-export default function Item({ bot }) {
+// ----- COMPONENT ----- //
+export default function Item({}) {
 
 
   const props = {
     src: image,
     title: 'Leave Out All The Rest',
-    artist: 'Linkin Park',
-    // album: 'Minutes to Midnight',
+    artist: 'Linkin Park'
   }
 
   return(
     <View 
-      style={ [styles.container, { marginBottom: bot || 10 }] }
+      style={ styles.container }
     >    
       <TouchableOpacity 
         style={ styles.dataContainer }
@@ -51,7 +52,7 @@ export default function Item({ bot }) {
      >
       <FontAwesomeIcon 
         icon={ faTimes }
-        color='#eee'
+        color='#aaa'
         size={ height > 600 ? 23 : 20 }
       />
      </TouchableOpacity>
@@ -60,44 +61,41 @@ export default function Item({ bot }) {
 }
 
 
+// ----- STYLERS ----- //
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: 50,
     width: '100%',
     backgroundColor: 'transparent',
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(29, 204, 227, 0.9)',
+    justifyContent: 'center',
+    marginBottom: 15, 
   },
   image: {
-    height: 49,
-    width: 49,
-    marginRight: 10,
+    height: 50,
+    width: 50,
+    marginRight: 15,
   },
   dataContainer: {
-    flexDirection: 'row', // Better than flexWrap: 'wrap'
+    flexDirection: 'row',
     height: '100%',
     width: `${(1 - (50 / (width- 30))) * 100}%`,
-    marginTop: 'auto',
-    marginBottom: 'auto',
+    alignItems: 'center',
   },
   title: {
-    color: '#eee',
-    fontSize: height > 600 ? 16 : 14,
-    fontWeight: 'bold',
-    marginTop: 'auto',
+    color: '#fff',
+    fontSize: 14,
   },
   content: {
-    color: '#ddd',
-    fontSize: height > 600 ? 12 : 11,
-    marginBottom: 'auto'
+    color: '#aaa',
+    fontSize: 12,
   },
   icon: {
     position: 'absolute',
     right: 0,
     width: 50,
     height: 50,
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'center',
   },
 })

@@ -23,10 +23,10 @@ const _light = '#eeeeee',
 
 
 // ----- COMPONENT ----- //
-export default function Result({ bot }) {
+export default function Result({ }) {
 
   return(
-    <View style={ [styles.container, { marginBottom: bot }] }>
+    <View style={ styles.container }>
       <TouchableOpacity 
         style={ styles.dataContainer }
         delayPressIn={ 20 }
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 60,
     flexDirection: 'row',
+    marginBottom: 15,
   },
   dataContainer: {
     flexDirection: 'row',
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
   image: {
     width: 60,
     height: 60,
-    marginRight: 10,
+    marginRight: 15,
   },
   title: {
     color: _light,

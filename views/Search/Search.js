@@ -19,13 +19,12 @@ import {
 import Result from './Result.js'
 import Footer from '../Footer'
 
-// ----- CONSTANTS ----- //
-const { width, height } = Dimensions.get('window')
-const _light = '#eeeeee',
-      _dark = '#151515',
-      _blue = '#1dcce3';
-    
 
+// ----- CONSTANTS ----- //
+const { height } = Dimensions.get('window')
+const _light = '#eeeeee',
+      _dark = '#151515';
+    
 
 // ----- COMPONENT ----- //
 export default function Search() {
@@ -80,13 +79,9 @@ export default function Search() {
           style={ styles.scroll }
           showsVerticalScrollIndicator={ false }
         >
-          {arr.map((index) => {
-            let bot;
-            if(arr.indexOf(index) === arr.length - 1) bot = '40%';
-            return(
-              <Result key={ index } bot={ bot || 10}/>
-            )
-          })}
+          <View style={{ marginTop: '5%', marginBottom: '40%' }}>
+            {arr.map((index) => <Result key={ index }/> )}
+          </View>
         </ScrollView>
      </View>
 
@@ -139,7 +134,7 @@ const styles = StyleSheet.create({
   },
   subtitleContainer: {
     justifyContent: 'flex-end',
-    paddingBottom: 15,
+    paddingBottom: 10,
     height: '10%',
   },
   subtitle: {

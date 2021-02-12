@@ -7,28 +7,38 @@ import {
   Dimensions,
   StyleSheet,
 } from 'react-native'
+import { LinearGradient } from 'expo-linear-gradient'
 import { StatusBar } from 'expo-status-bar'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import {
-  faSearch,
-  faPlus, // --> +
-} from '@fortawesome/free-solid-svg-icons'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import Item from './Item.js'
 import Footer from '../Footer/'
-const { width, height } = Dimensions.get('window')
 
 
+// ----- CONSTANTS ----- // 
+const { height } = Dimensions.get('window')
+const _light = '#eeeeee';
+const colorsGradient = ['#404040', '#343434','#111111', '#000000'],
+      locationsGradient = [0.05, 0.15, 0.3, 0.5];
+
+
+// ----- COMPONENT ----- //
 export default function Main() {
 
   const arr = [1,2,3,4,5,6,7,8,9,10]
-
+  const song = true;
 
   return(
     <View style={ styles.main }>
+
+      <LinearGradient
+        colors={ colorsGradient }
+        locations={ locationsGradient }
+        style={ styles.background }
+      />
+
       <View style={ styles.container }>
-        <Text style={ styles.title }>
-          Search
-        </Text>   
+        <Text style={ styles.title }>Search</Text>   
 
         <TouchableOpacity
           style={ styles.button }
@@ -37,88 +47,82 @@ export default function Main() {
           <FontAwesomeIcon 
             icon={ faSearch } 
             color='#666'
-            size={ height > 720 ? 18 : 16 }
+            size={ 17 }
             style={ styles.icon }
           />
-          <Text style={ styles.content }>
-            Enter name or URL
-          </Text>
+          <Text style={ styles.content }>Enter name or URL</Text>
         </TouchableOpacity>
 
         <Text style={ styles.subtitle }>
           Lasts
         </Text>
 
-        <ScrollView showsVerticalScrollIndicator={ false } style={ styles.scroll }>      
-          {arr.map(index => {
-            let bot;
-            if(arr.indexOf(index) === arr.length - 1) bot = '40%';
-            return(
-              <Item key={ index } bot={ bot }/>
-            )
-          })}
+        <ScrollView showsVerticalScrollIndicator={ false } style={{ maxWidth: '100%' }}>  
+          <View style={{ width: '100%', marginTop: '5%', marginBottom: song ? '35%' : '10%' }}>
+            {arr.map(index => <Item key={ index }/> )}
+          </View>    
         </ScrollView>
       </View>
 
-      <Footer/>
+      { song ? <Footer/> : null }
       <StatusBar style='inverted'/>
     </View>
   )
 }
 
 
+// ----- STYLERS ----- //
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    alignItems: 'flex-start',
-    backgroundColor: '#111',
+    alignItems: 'center',
     width: '100%',
     height: '100%',
   },
+  background: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: '100%',
+  },
+
   container: {
     paddingLeft: 15,
     paddingRight: 15,
   },
   title: {
-    color: '#fff',
+    color: _light,
     fontSize: 40,
     fontWeight: 'bold',
     marginRight: 'auto',
     marginLeft: 'auto',
-    marginTop: height > 720 ? '20%' : '15%',
+    marginTop: height > 720 ? '20%' : '10%',
     marginBottom: height > 720 ? '8%' : '5%',
   },
   button: {
-    backgroundColor: '#fff',
+    backgroundColor: _light,
     height: 44,
     width: '100%',
     borderRadius: 20,
-    paddingLeft: 5,
     flexDirection: 'row',
-    marginBottom: '10%',
+    marginBottom: '8%',
+    alignItems: 'center',
   },
   icon: {
-    marginTop: 'auto',
-    marginBottom: 'auto',
     marginLeft: 'auto',
     marginRight: -5,
   },
   content: {
-    fontSize: height > 720 ? 18 : 16,
+    fontSize: 17,
     fontWeight: 'bold',
     color: '#666',
     marginLeft: 15,
-    marginTop: 'auto',
     marginRight: 'auto', 
-    marginBottom: 'auto',
   },
   subtitle: {
-    color: '#fff',
+    color: _light,
     fontSize: height > 720 ? 24 : 20,
     fontWeight: 'bold',
-    marginBottom: 20,
   },
-  scroll: {
-    maxWidth: '100%',
-  }
 })

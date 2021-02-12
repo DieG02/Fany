@@ -59,7 +59,7 @@ export default function Home() {
 
         <View style={ styles.playlist }>
           <Text style={ styles.subtittles }>My playlists</Text>
-          <ScrollView style={ [styles.squareScroll, { marginBottom: song ? '50%' : '15%'}] } horizontal showsHorizontalScrollIndicator={ false }>
+          <ScrollView style={ [styles.squareScroll, { marginBottom: song ? '50%' : '15%' }] } horizontal showsHorizontalScrollIndicator={ false }>
             {arr.map(item => <Square src={ artist } key={ item }/> )}
           </ScrollView>
         </View>
