@@ -13,7 +13,6 @@ import SvgRegister from './svg/registerFrame.js'
 import SvgGoogle from './svg/google.js'
 
 
-
 // ----- CONSTANTS ----- // 
 const logo = require('../assets/fany.png')
 const { height } = Dimensions.get('window')

@@ -7,13 +7,17 @@ import Footer from './views/Footer'
 import Search from './views/Search'
 import SearchBar from './views/Search/Search.js'
 import Song from './views/Song/index.js'
+import Youtube from './views/Youtube.js'
+import YoutubeExample from './views/YoutubeReact.js'
+import Snippet from './views/Snippet.js'
+import Audio from './views/Audio.js'
 
 const { height, width } = Dimensions.get('window');
 
 export default function App() {
   return (
     <View style={ styles.container }>
-      <SearchBar/>
+      <Audio />
     </View>
   );
 }

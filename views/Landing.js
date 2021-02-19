@@ -30,6 +30,12 @@ export default function Landing() {
           source={ landing }
           style={ styles.landing }
         />
+        <Image
+          source={{
+            uri: 'https://reactnative.dev/img/tiny_logo.png',
+          }}
+          style={ styles.logo }
+        />
       </View>
       
       <View style={ styles.container }>
