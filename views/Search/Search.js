@@ -16,21 +16,32 @@ import {
   faArrowLeft,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons'
+import { GOOGLE_API_KEY } from '@env'
 import Result from './Result.js'
 import Footer from '../Footer'
 
 
 // ----- CONSTANTS ----- //
-const { height } = Dimensions.get('window')
+const { height, width } = Dimensions.get('window')
 const _light = '#eeeeee',
-      _dark = '#151515';
-    
+_grey = '#cccccc',
+_dark = '#151515';
 
 // ----- COMPONENT ----- //
 export default function Search() {
 
-  const [value, setValue] = useState('')
-  const arr = [1,2,3,4,5,6,7,8,9,10,11,12]
+  const [value, setValue] = useState('');
+  const [data, setData] = useState({});
+
+  let input =  value.replace(/\s+/g, '%20') 
+
+  const search = function(){
+    fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${input}&key=${GOOGLE_API_KEY}`)
+    .then(res => res.json())
+    .then((data) => {
+      setData(data)
+    })
+  }
 
   return(
     <View style={ styles.main }>  
@@ -54,7 +65,7 @@ export default function Search() {
           onChange={({ nativeEvent }) => {
             setValue(nativeEvent.text)
           }}
-          onSubmitEditing={() => console.log(value)}
+          onSubmitEditing={() => search()}  // --> Add another search button 
         />
         <TouchableHighlight
           style={ styles.icon }
@@ -80,13 +91,25 @@ export default function Search() {
           showsVerticalScrollIndicator={ false }
         >
           <View style={{ marginTop: '5%', marginBottom: '40%' }}>
-            {arr.map((index) => <Result key={ index }/> )}
+
+          {data.items ? data.items.map(item => {
+            // const { urlImage } = item.snippet.thumbnails.high;
+            return (
+              <Result 
+                key={ item.id.videoId } 
+                videoId={ item.id.videoId }
+                data={ item.snippet }           
+              />
+            )
+          })
+          : <Text style={ styles.alternativeText }>Your search results will apear here!</Text>}
+
           </View>
         </ScrollView>
      </View>
 
       <StatusBar
-        animated={true}
+    
         backgroundColor={_dark}
         barStyle='light-content'
         showHideTransition='none'
@@ -145,4 +168,10 @@ const styles = StyleSheet.create({
   scroll: {
     width: '100%',
   },
+  alternativeText: {
+    color: _grey,
+    fontSize: 15,
+    fontWeight: 'bold',
+    width: width,
+  }
 })

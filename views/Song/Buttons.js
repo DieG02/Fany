@@ -23,9 +23,12 @@ const _light = '#eeeeee',
     
 
 // ----- COMPONENT ----- // 
-export default function Buttons({ isToggleOn, setToggle }) {
+export default function Buttons({ props }) {
+
+  const { setToggle, isToggleOn, playSound, pauseSound, isLooping } = props
 
   const { icon, loop } = isToggleOn;
+
 
   return(
     <View style= { styles.buttonContent }>
@@ -64,7 +67,7 @@ export default function Buttons({ isToggleOn, setToggle }) {
               ...isToggleOn,
               play: !isToggleOn.play
             })
-            alert('Do something')
+            isToggleOn.play ? pauseSound() : playSound() 
           }}
         >
           <FontAwesomeIcon 
@@ -91,20 +94,25 @@ export default function Buttons({ isToggleOn, setToggle }) {
         onPress={() => {
           switch(icon){
             case 'noRepeat':
-              return setToggle({
+              setToggle({
                 ...isToggleOn,
                 icon: 'repeat'
               })
+              return console.log('Must repeat List!')
+  
             case 'repeat':
-              return setToggle({
+              setToggle({
                 ...isToggleOn,
                 icon: 'repeatOne'
               })
+              return isLooping(true)
+
             case 'repeatOne':
-              return setToggle({
+              setToggle({
                 ...isToggleOn,
                 icon: 'noRepeat'
               })
+              return isLooping(false)
           }
         }}
       >

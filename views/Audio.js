@@ -4,12 +4,12 @@ import Slider from '@react-native-community/slider';
 import { Audio } from 'expo-av';
 
 
-const URL = 'https://r6---sn-uxaxjxougv-x1xes.googlevideo.com/videoplayback?expire=1613763729&ei=McAvYKO2LsuLwQSsnaOACQ&ip=2800%3A810%3A459%3A8562%3Acc00%3Ae349%3Aa098%3A56c9&id=o-ALlmzz_qgJ9mwd4a7h_6FH1uu3RpbmhULg1usyTadbAh&itag=251&source=youtube&requiressl=yes&mh=6Y&mm=31%2C29&mn=sn-uxaxjxougv-x1xes%2Csn-x1x7zne7&ms=au%2Crdu&mv=m&mvi=6&pcm2cms=yes&pl=48&initcwndbps=990000&vprv=1&mime=audio%2Fwebm&ns=MdPOm4qFqP7ZWORQgfnLzToF&gir=yes&clen=2946318&otfp=1&dur=191.141&lmt=1587043079036925&mt=1613741802&fvip=6&keepalive=yes&c=WEB&txp=2211222&n=vpqeZT2DzxYVm7Fw&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cotfp%2Cdur%2Clmt&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpcm2cms%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhANnvgItoBVln_2o0MO4hPOJGl9blivfzIWr9meGfhDNqAiB6KugIlscUrEaTWzNII2-ZMcnvLAl36nT8N_8blC2yeA%3D%3D&ratebypass=yes&sig=AOq0QJ8wRAIgOib0AlHM5y0EWwaCLOU36UQAM3rf4hXrfVrYogIAkTMCIDeh6iLW5UDuGs_RIobjlQgYJHnpp37yX7zY8QA4cTw8';
+const URL = 'https://r6---sn-uxaxjxougv-x1xes.googlevideo.com/videoplayback?expire=1613785436&ei=_BQwYJ6pGIOcxwSy1Y34Cw&ip=2800%3A810%3A459%3A8562%3Aa9ce%3Ac0ae%3A6e03%3Af9cc&id=o-AMk_kIfolIlqUaCqikqjKAajHAkUBWKOjMeCG5_1vsNu&itag=251&source=youtube&requiressl=yes&mh=6Y&mm=31%2C29&mn=sn-uxaxjxougv-x1xes%2Csn-x1x7zne7&ms=au%2Crdu&mv=m&mvi=6&pl=48&initcwndbps=1017500&vprv=1&mime=audio%2Fwebm&ns=IuMI0Tk4UFk9wVAj4htFtOUF&gir=yes&clen=2946318&otfp=1&dur=191.141&lmt=1587043079036925&mt=1613763402&fvip=6&keepalive=yes&c=WEB&txp=2211222&n=BKWDhtiELuYcKudC&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cotfp%2Cdur%2Clmt&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAL61AIyb7dh-6kKdKkZLmsPQkLOoUdwb7WNAe0ER-OyxAiEA7JCntktggTAHjbE6IemgjdvfIwk_MzDeaiA9A1vcKjA%3D&ratebypass=yes&sig=AOq0QJ8wRQIhAJohHVxcLgFjW0FsmrMm3Zt66WqePHmqrXbAuf_gJeMmAiAdJEo_qPxuGJulvNavvNeoHVprt4Z-Iq6bQVF10bRMBg%3D%3D'
 
 
-
-export default function App() {
+export default function AudioComponent() {
   const [sound, setSound] = useState();
+  const [value, setValue] = useState();
   const [status, setStatus] = useState({
     isPlaying: false,
     isLooping: false,
@@ -17,11 +17,11 @@ export default function App() {
   const [slider, setSlider] = useState(0)
 
 
-  
   async function loadSound() {
     console.log('Loading Sound');
     const sound = new Audio.Sound();
     setSound(sound);
+    setStatus({ ...status, isPlaying: true });
     await sound.loadAsync({ uri: URL });
     await sound.playAsync();
   }
@@ -54,14 +54,17 @@ export default function App() {
     await sound.setIsLoopingAsync(value)
   }
 
-  useEffect(() => {
-    sound 
-    ? (async () => {
+
+  { sound 
+    ? setTimeout(() => {
+      async function onSlider() {
         const state = await sound.getStatusAsync();
         setSlider(state.positionMillis / state.durationMillis)
-      })()
+      } 
+      onSlider()
+    }, 750)
     : console.log(null)
-  })
+  }
 
 
   useEffect(() => {
@@ -74,11 +77,15 @@ export default function App() {
   }, [sound]);
 
 
+  useEffect(() => {
+    loadSound();
+  }, [])
+
 
   return (
     <View style={styles.container}>
       <Slider
-        style={{width: '100%', height: 40, backgroundColor: '#0000ff33' }}
+        style={{width: '100%', height: 40, backgroundColor: '#0000ff33', paddingLeft: -50 }}
         value={ slider || 0}
         step={ 0 } // 0.005
         minimumValue={ 0 }
@@ -86,9 +93,10 @@ export default function App() {
         thumbTintColor='#1dcce3'
         minimumTrackTintColor='#FFFFFF'
         maximumTrackTintColor='#000000'
-        onValueChange={async (value) => {
-          const state = await sound.getStatusAsync();
-          await sound.setPositionAsync(state.durationMillis * value)
+        onValueChange={(value) => setValue(value)}
+        onSlidingComplete={async () => {
+          const { durationMillis } = await sound.getStatusAsync();
+          await sound.setPositionAsync(durationMillis * value)
         }}
       />
 

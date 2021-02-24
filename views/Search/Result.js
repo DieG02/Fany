@@ -23,7 +23,12 @@ const _light = '#eeeeee',
 
 
 // ----- COMPONENT ----- //
-export default function Result({ }) {
+export default function Result({ videoId, data }) {
+
+  //         Artist       Image      Name
+  const { channelTitle, thumbnails, title } = data
+
+  const name = title.replace(/&amp;/g, "&").replace(/&quot;/g, "\"");
 
   return(
     <View style={ styles.container }>
@@ -31,21 +36,22 @@ export default function Result({ }) {
         style={ styles.dataContainer }
         delayPressIn={ 20 }
         activeOpacity={ 0.5 }
+        onPress={() => console.log(`https://www.youtube.com/watch?v=${videoId}`)}
       >
         <Image
-          source={ image }
+          source={{ uri: thumbnails.high.url }}    
           style={ styles.image }
         />
         <View style={{ width: '60%', justifyContent: 'space-around' }}>
-          <Text style={ styles.title }>Best of me</Text>
-          <Text style={ styles.content }>NEFFEX • 3:49</Text>
+          <Text style={ styles.title }>{ name }</Text>
+          <Text style={ styles.content }>{ channelTitle }</Text>
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={ styles.icon }
         activeOpacity={ 0.5 }
-        onPress={() => console.log('Add to list')}
+        onPress={() => console.log('Add to playlist')}
       >
         <FontAwesomeIcon
           icon={ faPlus }
@@ -71,7 +77,7 @@ const styles = StyleSheet.create({
   dataContainer: {
     flexDirection: 'row',
     height: '100%',
-    width: '85%',
+    width: '90%',
     marginTop: 'auto',
     marginBottom: 'auto',
   },
@@ -82,17 +88,19 @@ const styles = StyleSheet.create({
   },
   title: {
     color: _light,
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: 'bold',
     marginTop: 'auto',
+    width: '120%',
+    
   },
   content: {
     color: _grey,
-    fontSize: 13,
+    fontSize: 11,
     marginBottom: 'auto',
   },
   icon: {
-    width: '15%',
+    width: '10%',
     height: 60,
     alignItems: 'flex-end',
     justifyContent: 'center',
