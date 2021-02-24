@@ -11,7 +11,7 @@ import { StatusBar } from 'expo-status-bar'
 
 
 // ----- CONFIGURATIONS ----- //
-const API_KEY = 'AIzaSyB0oQg_yzXTiaNox4DZfN2asm7t6boKTbY';
+const API_KEY = 'YOUR API KEY HERE';
 
 
 
