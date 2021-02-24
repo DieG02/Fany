@@ -17,25 +17,16 @@ const _light = '#eeeeee',
 
 
 // ----- COMPONENT ----- //    
-export default function Landing() {
+export default function Landing(props) {
+
+  const { navigation } = props;
+
   return (
     <View style={ styles.main }>
 
       <View style={ styles.imageContainer }>
-        <Image 
-        source={ logo }
-        style={ styles.logo }
-        />    
-        <Image
-          source={ landing }
-          style={ styles.landing }
-        />
-        <Image
-          source={{
-            uri: 'https://reactnative.dev/img/tiny_logo.png',
-          }}
-          style={ styles.logo }
-        />
+        <Image source={ logo } style={ styles.logo } />    
+        <Image source={ landing } style={ styles.landing } />
       </View>
       
       <View style={ styles.container }>
@@ -55,7 +46,7 @@ export default function Landing() {
         <View style={ styles.buttons }>       
           <TouchableOpacity 
             style={ styles.fillButton }
-            onPress={() => console.log('Get Started')}
+            onPress={() => navigation.navigate('Register')}
             activeOpacity={ 0.7 }
           >
             <Text style={ styles.fillButtonText }>
@@ -171,3 +162,21 @@ const styles = StyleSheet.create({
 
 
 
+
+
+const acciones = [ 3,5,29,6,2,8,1,19,10,24,4 ]
+
+function dif(arr) {
+  let min = arr[0];
+  let max = 0;
+
+  arr.map(i => {if(min > i) min = i})
+  const minArr = arr.slice(arr.indexOf(min));
+  minArr.map(i => {if(max < i) max = i})
+
+  return {
+    min,
+    max, 
+    ganancia: max - min
+  }
+} 

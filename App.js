@@ -1,25 +1,46 @@
 import React from 'react'
 import { StyleSheet, View, Dimensions } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+
+const Stack = createStackNavigator()
+
 import Landing from './views/Landing.js'
 import Register from './views/Register.js'
 import Home from './views/Home'
-import Footer from './views/Footer'
 import Search from './views/Search'
 import SearchBar from './views/Search/Search.js'
 import Song from './views/Song/index.js'
-import Youtube from './views/Youtube.js'
-import YoutubeExample from './views/YoutubeReact.js'
-import Audio from './views/Audio.js'
+
+
+// import Footer from './views/Footer'
+// import Youtube from './views/Youtube.js'
+// import YoutubeExample from './views/YoutubeReact.js'
+// import Audio from './views/Audio.js'
+
 
 const { height, width } = Dimensions.get('window');
 
+
+
 export default function App() {
   return (
-    <View style={ styles.container }>
-      <SearchBar />
-    </View>
+    <NavigationContainer style={ styles.container }>
+      <Stack.Navigator
+        screenOptions={{
+        headerShown: false
+      }}>
+        <Stack.Screen name='Landing' component={ Landing } />
+        <Stack.Screen name='Register' component={ Register } />
+        <Stack.Screen name='Home' component={ Home } />
+        <Stack.Screen name='Search' component={ Search } />
+        <Stack.Screen name='SearchBar' component={ SearchBar } />
+        <Stack.Screen name='Song' component={ Song } />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
+
 
 const styles = StyleSheet.create({
   //Don't care by the moment
