@@ -37,29 +37,43 @@ export default function Home() {
         style={ styles.background }
       />
 
-      <ScrollView style={ styles.container } showsVerticalScrollIndicator={ false }>
+      <ScrollView 
+        style={ styles.container } 
+        showsVerticalScrollIndicator={ false }
+      >
         <View style={ styles.header }>
-          <SvgHome style={{ right: '8%' }} height={ 120 }/>
+        <SvgHome style={{ right: '8%' }} height={ 120 }/>
           <Text style={ styles.title }>Home</Text>
         </View>
 
         <View style={ styles.artist }>
           <Text style={ styles.subtittles }>My favourite artists</Text>
-          <ScrollView style={ styles.circleScroll } horizontal showsHorizontalScrollIndicator={ false }>  
+          <ScrollView 
+            style={ styles.circleScroll } 
+            horizontal 
+            showsHorizontalScrollIndicator={ false }
+          >  
             {arr.map(item => <Circle src={ artist } key={ item }/> )}
           </ScrollView>
         </View>
 
         <View style={ styles.recent }>
           <Text style={ styles.subtittles }>Recents</Text>
-          <ScrollView style={ styles.squareScroll } horizontal showsHorizontalScrollIndicator={ false }>
+          <ScrollView 
+            style={ styles.squareScroll } 
+            horizontal 
+            showsHorizontalScrollIndicator={ false }
+          >
             {arr.map(item =>  <Square src={ artist } key={ item } song={ song }/> )}
           </ScrollView>
         </View>
 
         <View style={ styles.playlist }>
           <Text style={ styles.subtittles }>My playlists</Text>
-          <ScrollView style={ [styles.squareScroll, { marginBottom: song ? '50%' : '15%' }] } horizontal showsHorizontalScrollIndicator={ false }>
+          <ScrollView 
+            style={ [styles.squareScroll, { marginBottom: song ? '50%' : '15%' }] } 
+            horizontal showsHorizontalScrollIndicator={ false }
+          >
             {arr.map(item => <Square src={ artist } key={ item }/> )}
           </ScrollView>
         </View>

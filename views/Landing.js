@@ -17,9 +17,7 @@ const _light = '#eeeeee',
 
 
 // ----- COMPONENT ----- //    
-export default function Landing(props) {
-
-  const { navigation } = props;
+export default function Landing({ navigation }) {
 
   return (
     <View style={ styles.main }>
@@ -55,7 +53,7 @@ export default function Landing(props) {
           </TouchableOpacity>
           <TouchableOpacity 
             style={ styles.emptyButton }
-            onPress={() => console.log('Must redirect to "Log in" view')}
+            onPress={() => navigation.navigate('Login')}
           >
             <Text style={ styles.emptyButtonText }>
               LOG IN
@@ -164,19 +162,3 @@ const styles = StyleSheet.create({
 
 
 
-const acciones = [ 3,5,29,6,2,8,1,19,10,24,4 ]
-
-function dif(arr) {
-  let min = arr[0];
-  let max = 0;
-
-  arr.map(i => {if(min > i) min = i})
-  const minArr = arr.slice(arr.indexOf(min));
-  minArr.map(i => {if(max < i) max = i})
-
-  return {
-    min,
-    max, 
-    ganancia: max - min
-  }
-} 

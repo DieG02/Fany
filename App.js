@@ -7,6 +7,7 @@ const Stack = createStackNavigator()
 
 import Landing from './views/Landing.js'
 import Register from './views/Register.js'
+import Login from './views/Login.js'
 import Home from './views/Home'
 import Search from './views/Search'
 import SearchBar from './views/Search/Search.js'
@@ -28,9 +29,11 @@ export default function App() {
     <NavigationContainer style={ styles.container }>
       <Stack.Navigator
         screenOptions={{
-        headerShown: false
-      }}>
+          headerShown: false
+        }}
+      >
         <Stack.Screen name='Landing' component={ Landing } />
+        <Stack.Screen name='Login' component={ Login } />
         <Stack.Screen name='Register' component={ Register } />
         <Stack.Screen name='Home' component={ Home } />
         <Stack.Screen name='Search' component={ Search } />
@@ -43,7 +46,6 @@ export default function App() {
 
 
 const styles = StyleSheet.create({
-  //Don't care by the moment
   container: {
     flex: 1,
     backgroundColor: '#000',

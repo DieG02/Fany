@@ -9,21 +9,20 @@ import {
   TouchableHighlight
 } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
-import SvgRegister from './svg/registerFrame.js'
+import SvgLogin from './svg/loginFrame.js'
 import SvgGoogle from './svg/google.js'
 import firebase from '../database/firebase.js'
 
 
 // ----- CONSTANTS ----- // 
 const logo = require('../assets/fany.png')
-const { height } = Dimensions.get('window')
+const { height, width } = Dimensions.get('window')
 const _blue = '#1dcce3';
 
 
 
 // ----- COMPONENT ----- // 
-export default function Register({ navigation }) {
-
+export default function Login({ navigation }) {
 
   const [ values, setValues ] = useState({
     email: '',
@@ -37,7 +36,7 @@ export default function Register({ navigation }) {
     })
   } 
   
-  const localSignIn = async () => {
+  const localLogIn = async () => {
     if(values.email === '') alert('Please provide a email');
     else {
       console.log(values)
@@ -52,39 +51,43 @@ export default function Register({ navigation }) {
 
 
   return(
-    <View style={styles.container}>  
-      <Image
-        source={logo}
-        style={styles.logo}
-      />
-      <Text style={styles.label}>----------   Sign up   ----------</Text>
+    <View style={styles.main}>  
+
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Image
+            source={logo}
+            style={styles.logo}
+          />
+        <Text style={styles.label}>----------   Log In   ----------</Text>
+        </View>
+        <View style={styles.inputs}>
+          <TextInput 
+            style={styles.input}
+            autoCompleteType='email'
+            placeholder='Email'
+            onChangeText={value => onChangeHandler('email', value)}
+          />
+      
+          <TextInput 
+            style={styles.input}
+            autoCompleteType='password'
+            placeholder='Password'
+            onChangeText={value => onChangeHandler('password', value)}
+          />
+        </View>
+      </View>
 
      <View style={styles.div}>
-        <Text style={styles.inputTitle}>What is your email?</Text>
-        <TextInput 
-          style={styles.input}
-          autoCompleteType='email'
-          placeholder='example@gmail.com'
-          onChangeText={value => onChangeHandler('email', value)}
-        />
-    
-        <Text style={styles.inputTitle}>Enter your password</Text>
-        <TextInput 
-          style={styles.input}
-          autoCompleteType='password'
-          placeholder='8 characters min'
-          onChangeText={value => onChangeHandler('password', value)}
-        />
-     
       
         <TouchableHighlight 
           style={styles.local} 
-          onPress={() => localSignIn()}
-          activeOpacity={0.8}
-          underlayColor='#289ead'
+          onPress={() => localLogIn()}
+          activeOpacity={0.4}
+          underlayColor='#000'
         >
           <Text style={styles.localText}>
-            SIGN UP
+            LOG IN
           </Text>
         </TouchableHighlight>
         
@@ -96,7 +99,7 @@ export default function Register({ navigation }) {
         >
           <View style={{flex: 1, justifyContent: 'center'}}>
             <SvgGoogle 
-              style={styles.googleLogo}
+            style={styles.googleLogo}
               width={28}
               height={28}
             />
@@ -107,12 +110,8 @@ export default function Register({ navigation }) {
         </TouchableHighlight>
       </View>
 
-      {/* <Image
-        source={register}
-        style={styles.register}
-      /> */}
-      <SvgRegister
-        style={styles.register}
+      <SvgLogin
+        style={styles.login}
         color={_blue}
       />
 
@@ -121,74 +120,87 @@ export default function Register({ navigation }) {
   )
 }
 
+const totalH = Math.floor(height);
+const totalW = width;
 
 // ----- STYLERS ----- //
 const styles = StyleSheet.create({
-  container: {
+  main: {
     flex: 1,
     backgroundColor: '#111',
     alignItems: 'center',
+    width: width,
+    height: height,
+    justifyContent: 'space-around',
+  },
+  container: {
+    height: totalH * 0.4,
+    width: '85%',
+    marginTop: totalH * 0.1,
+    justifyContent: 'space-between',
+  },
+  header: {
+    width: '50%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    alignItems: 'center',
   },
   logo: {
-    width: 90,
-    height: 90,
-    marginTop: height > 725 ? '15%' : '10%',
+    width: 80,
+    height: 80,
     resizeMode: 'stretch'
-  },
-  div: {
-    width: '85%',
   },
   label: {
     fontSize: 15,
     color: '#ddd',
-    marginTop: height > 725 ? '10%' : '7%',
+    marginTop: height > 725 ? '10%' : '7%',  
   },
-  inputTitle: {
-    fontSize: 15,
-    color: '#ddd',
-    marginTop: 50,
-    marginLeft: 10,
-    marginBottom: 5,
+  inputs: {
+    height: '50%',
+    justifyContent: 'space-around',
   },
   input: {
     width: '100%',
     height: 40,
-    color: '#888',
+    color: '#222',
     fontSize: 15,
     paddingLeft: 15,
     borderRadius: 20,
     backgroundColor: '#fff',
-    marginBottom: height > 725 ? 15 : 10,
+  },
+
+  
+  div: {
+    width: '85%',
+    height: '25%',
+    zIndex: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   local: {
-    width: '85%',
+    width: '80%',
     height:  45,
-    marginTop: height > 725 ? 130 : 95,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    zIndex: 5,
-    backgroundColor: _blue,
+    backgroundColor: 'transparent',
     borderRadius: 25,
     borderWidth: 2,
-    borderColor: '#000',
+    borderColor: _blue,
+    marginTop: '-5%',
   },
   localText: {
     fontSize: height > 725 ? 21 : 19,
+    color: _blue,
     fontWeight: 'bold',
     textAlign: 'center',
     marginTop: 'auto',
     marginBottom: 'auto',
   },
-  
   google: {
-    width: '85%',
+    width: '80%',
     height: 45,
     backgroundColor: '#fff',
     borderRadius: 25,
-    marginTop: height > 725 ? 30 : 15,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    zIndex: 58
+    flexDirection: 'row',
+    marginTop: '7%',
   },
   googleLogo: {
     left: '11%',
@@ -200,7 +212,10 @@ const styles = StyleSheet.create({
     left: '25%',
     bottom: 15,
   },
-  register: {
-    bottom: height > 725 ?  190 : 170,
+  login: {
+    position: 'absolute',
+    top: height > 720 ? totalH - 210 : totalH - 240,
   }
 })
+
+// onContentSizeChange={ (width, height) => this.refs.scrollView.scrollTo({ y: this.state.onInputSelectScrollViewPaddingSize} ) }
