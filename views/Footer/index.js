@@ -18,6 +18,7 @@ export default function Footer({ song, menuSelected, navigation }) {
   const [menu, setMenu] = useState(`${menuSelected || 'Home'}`)
 
   // Change for 'song'
+  const song2 = false;
   const objSong = {
     src: unplugged, 
     title: 'The Man Who Sold The World', 
@@ -27,7 +28,7 @@ export default function Footer({ song, menuSelected, navigation }) {
 
   return(
     <View style={ styles.container }>
-      {objSong ?
+      {song2 ?
         <Playing 
           props={ objSong } 
           isToggleOn={ isToggleOn } 

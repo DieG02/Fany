@@ -23,7 +23,7 @@ const colorsGradient = ['#404040', '#343434','#111111', '#000000'],
 
 
 // ----- COMPONENT ----- //
-export default function Main() {
+export default function Main({ navigation }) {
 
   const arr = [1,2,3,4,5,6,7,8,9,10]
   const song = true;
