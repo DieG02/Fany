@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   StyleSheet,
   Dimensions,
@@ -8,7 +8,7 @@ import {
   StatusBar,
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import Footer from '../Footer'
+import Menu from '../Footer/Menu.js'
 import Circle from './Circle.js'
 import Square from './Square.js'
 import SvgHome from '../svg/homeFrame.js'
@@ -24,10 +24,20 @@ const colorsGradient = ['#090909','#242424', '#3A3A3A', '#626262'],
 
 
 // ----- COMPONENT ----- // 
-export default function Home() {
+export default function Home({ navigation }) {
+
+  console.log('Home', navigation)
 
   const arr = [1,2,3,4,5,6,7]
+  const [menu, setMenu] = useState()
   const song = true;
+  const navegator = (path) => {
+    navigation.navigate(path)
+  } 
+
+  useEffect(() => {
+    setMenu('Home')
+  })
 
   return( 
     <View style={ styles.main }>
@@ -79,7 +89,11 @@ export default function Home() {
         </View>
       </ScrollView>
 
-      { song ? <Footer/>  : null }
+      <Menu 
+        menu={ menu }
+        setMenu={ setMenu }
+        navegator={ navegator }
+      /> 
       <StatusBar
         animated={true}
         backgroundColor={_dark}

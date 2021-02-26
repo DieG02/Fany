@@ -17,7 +17,7 @@ const image = require('../../assets/linkin_park.jpg')
 
 
 // ----- COMPONENT ----- //
-export default function Item({}) {
+export default function Item() {
 
 
   const props = {

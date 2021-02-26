@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Dimensions } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
@@ -14,7 +14,7 @@ import SearchBar from './views/Search/Search.js'
 import Song from './views/Song/index.js'
 
 
-// import Footer from './views/Footer'
+import Footer from './views/Footer'
 // import Youtube from './views/Youtube.js'
 // import YoutubeExample from './views/YoutubeReact.js'
 // import Audio from './views/Audio.js'
@@ -39,6 +39,7 @@ export default function App() {
         <Stack.Screen name='Search' component={ Search } />
         <Stack.Screen name='SearchBar' component={ SearchBar } />
         <Stack.Screen name='Song' component={ Song } />
+        <Stack.Screen name='Footer' component={ Footer } />
       </Stack.Navigator>
     </NavigationContainer>
   );

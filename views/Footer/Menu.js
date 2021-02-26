@@ -15,7 +15,7 @@ import {
 const { width, height } = Dimensions.get('window')
 
 
-export default function Menu({ menu,  setMenu }) {
+export default function Menu({ menu, setMenu, navegator }) {
   
   const arr = [
     { name: 'Home', icon: faHome },
@@ -29,7 +29,10 @@ export default function Menu({ menu,  setMenu }) {
         return (
           <View style={ styles['item' + name] } key={ name }>
             <TouchableOpacity
-              onPress={() => setMenu(name)}
+              onPress={() => {
+                setMenu(name);
+                navegator(name);
+              }}
               accessibilityRole='imagebutton'
               disabled={ menu === name }
             >

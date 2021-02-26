@@ -9,7 +9,7 @@ import Menu from './Menu.js'
 const unplugged = require('../../assets/unplugged.jpg')
 const { height, width } = Dimensions.get('window')
 
-export default function Footer({ song, menuSelected }) {
+export default function Footer({ song, menuSelected, navigation }) {
 
   const [isToggleOn, setToggle] = useState({
     favourite: false,
@@ -36,7 +36,11 @@ export default function Footer({ song, menuSelected }) {
       :
         null 
       }
-      <Menu menu={ menu } setMenu={ setMenu }/>
+      <Menu 
+        menu={ menu }
+        setMenu={ setMenu }
+        navigation={ navigation }
+      />
     </View>
   )
 }
