@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import {
   StyleSheet,
   Dimensions,
@@ -7,10 +7,12 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native'
+import { useDispatch } from 'react-redux'
+import { setMenu } from '../../redux/actions/uiAction.js'
 import { LinearGradient } from 'expo-linear-gradient'
-import Menu from '../Footer/Menu.js'
 import Circle from './Circle.js'
 import Square from './Square.js'
+import Footer from '../Footer'
 import SvgHome from '../svg/homeFrame.js'
 
 
@@ -24,19 +26,13 @@ const colorsGradient = ['#090909','#242424', '#3A3A3A', '#626262'],
 
 
 // ----- COMPONENT ----- // 
-export default function Home({ navigation }) {
-
-  console.log('Home', navigation)
+export default function Home() {
 
   const arr = [1,2,3,4,5,6,7]
-  const [menu, setMenu] = useState()
   const song = true;
-  const navegator = (path) => {
-    navigation.navigate(path)
-  } 
-
+  const dispatch = useDispatch()
   useEffect(() => {
-    setMenu('Home')
+    dispatch(setMenu('Home'))
   })
 
   return( 
@@ -45,6 +41,11 @@ export default function Home({ navigation }) {
         colors={ colorsGradient }
         locations={ locationsGradient }
         style={ styles.background }
+      />
+      <StatusBar
+        animated={true}
+        backgroundColor={_dark}
+        barStyle='light-content'
       />
 
       <ScrollView 
@@ -88,17 +89,7 @@ export default function Home({ navigation }) {
           </ScrollView>
         </View>
       </ScrollView>
-
-      <Menu 
-        menu={ menu }
-        setMenu={ setMenu }
-        navegator={ navegator }
-      /> 
-      <StatusBar
-        animated={true}
-        backgroundColor={_dark}
-        barStyle='light-content'
-      />
+      <Footer/>      
     </View>
   )
 }
@@ -135,7 +126,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 15,
     position: 'absolute',
-    top: '15%', 
+    top: '25%', 
   },
 
   subtittles: {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   View,
   Text,
@@ -6,9 +6,11 @@ import {
   ScrollView,
   Dimensions,
   StyleSheet,
+  StatusBar
 } from 'react-native'
+import { useDispatch } from 'react-redux'
+import { setMenu } from '../../redux/actions/uiAction.js'
 import { LinearGradient } from 'expo-linear-gradient'
-import { StatusBar } from 'expo-status-bar'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import Item from './Item.js'
@@ -27,6 +29,11 @@ export default function Main({ navigation }) {
 
   const arr = [1,2,3,4,5,6,7,8,9,10]
   const song = true;
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(setMenu('Search'))
+  })
+
 
   return(
     <View style={ styles.main }>
@@ -36,13 +43,22 @@ export default function Main({ navigation }) {
         locations={ locationsGradient }
         style={ styles.background }
       />
+      <StatusBar 
+        translucent={true}
+        backgroundColor='transparent'
+        barStyle='light-content'
+        showHideTransition='none'
+      />
 
       <View style={ styles.container }>
         <Text style={ styles.title }>Search</Text>   
 
         <TouchableOpacity
           style={ styles.button }
-          activeOpacity={ 0.8 }
+          activeOpacity={ 1 }
+          onPress={() => {
+            navigation.navigate('SearchBar')
+          }}
         >
           <FontAwesomeIcon 
             icon={ faSearch } 
@@ -64,8 +80,7 @@ export default function Main({ navigation }) {
         </ScrollView>
       </View>
 
-      { song ? <Footer/> : null }
-      <StatusBar style='inverted'/>
+      <Footer/>
     </View>
   )
 }

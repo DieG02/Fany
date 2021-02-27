@@ -6,17 +6,23 @@ import {
   Dimensions,
   TouchableOpacity, // TouchableHighlight --> Show us a border / dark background
 } from 'react-native'
+import { useDispatch } from 'react-redux'
+import { useNavigation } from '@react-navigation/native'
+import { setMenu } from '../../redux/actions/uiAction.js'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import {
   faHome,
   faSearch,
   faCompactDisc as faLibrary
 } from '@fortawesome/free-solid-svg-icons'
-const { width, height } = Dimensions.get('window')
+const { height } = Dimensions.get('window')
 
 
-export default function Menu({ menu, setMenu, navegator }) {
+export default function Menu({ menu }) {
   
+  const dispatch = useDispatch()
+  const navigation = useNavigation()
+
   const arr = [
     { name: 'Home', icon: faHome },
     { name: 'Search', icon: faSearch },
@@ -30,8 +36,8 @@ export default function Menu({ menu, setMenu, navegator }) {
           <View style={ styles['item' + name] } key={ name }>
             <TouchableOpacity
               onPress={() => {
-                setMenu(name);
-                navegator(name);
+                dispatch(setMenu(name))
+                navigation.navigate(name)
               }}
               accessibilityRole='imagebutton'
               disabled={ menu === name }

@@ -4,21 +4,22 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native'
+import { useSelector } from 'react-redux'
 import Playing from './Playing.js'
 import Menu from './Menu.js'
 const unplugged = require('../../assets/unplugged.jpg')
 const { height, width } = Dimensions.get('window')
 
-export default function Footer({ song, menuSelected, navigation }) {
+export default function Footer({ song }) {
 
   const [isToggleOn, setToggle] = useState({
     favourite: false,
     play: false,
   })
-  const [menu, setMenu] = useState(`${menuSelected || 'Home'}`)
+  
+  const ui = useSelector(state => state.app.ui);
 
   // Change for 'song'
-  const song2 = false;
   const objSong = {
     src: unplugged, 
     title: 'The Man Who Sold The World', 
@@ -28,7 +29,7 @@ export default function Footer({ song, menuSelected, navigation }) {
 
   return(
     <View style={ styles.container }>
-      {song2 ?
+      {ui.showSong ?
         <Playing 
           props={ objSong } 
           isToggleOn={ isToggleOn } 
@@ -38,9 +39,7 @@ export default function Footer({ song, menuSelected, navigation }) {
         null 
       }
       <Menu 
-        menu={ menu }
-        setMenu={ setMenu }
-        navigation={ navigation }
+        menu={ ui.menuSelected }
       />
     </View>
   )

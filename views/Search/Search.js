@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   View,
   TextInput,
+  Keyboard,
   Text,
   TouchableHighlight,
   Dimensions,
@@ -11,6 +12,8 @@ import {
   // BackHandler,
   // Alert,
 } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
+import { showMenu } from '../../redux/actions/uiAction.js'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import {
   faArrowLeft,
@@ -28,7 +31,7 @@ _grey = '#cccccc',
 _dark = '#151515';
 
 // ----- COMPONENT ----- //
-export default function Search() {
+export default function Search({ navigation }) {
 
   const [value, setValue] = useState('');
   const [data, setData] = useState({});
@@ -43,13 +46,47 @@ export default function Search() {
     })
   }
 
+  const dispatch = useDispatch();
+  const ui = useSelector(state => state.app.ui)
+
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+    Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
+
+    // cleanup function
+    return () => {
+      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
+      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
+    };
+  }, []);
+
+  const _keyboardDidShow = () => {
+    dispatch(showMenu(false))
+  };
+
+  const _keyboardDidHide = () => {
+    dispatch(showMenu(true))
+  };
+
   return(
     <View style={ styles.main }>  
+    
+      <StatusBar
+        backgroundColor={_dark}
+        translucent={false}
+        barStyle='light-content'
+        showHideTransition='none'
+      />
+
       <View style={ styles.searchBar }>
         <TouchableHighlight
           style={ styles.icon }
           activeOpacity={ 0.8 }
-          onPress={() => console.log('Back to index')}
+          onPress={() => {
+            StatusBar.setTranslucent(true);
+            StatusBar.setBackgroundColor('transparent')
+            navigation.goBack()
+          }}
         >
           <FontAwesomeIcon
             icon={ faArrowLeft }
@@ -58,6 +95,7 @@ export default function Search() {
           />
         </TouchableHighlight>
         <TextInput
+          autoFocus
           style={ styles.input }
           placeholder='Enter name or URL'
           placeholderTextColor={ _light }
@@ -65,7 +103,10 @@ export default function Search() {
           onChange={({ nativeEvent }) => {
             setValue(nativeEvent.text)
           }}
-          onSubmitEditing={() => search()}  // --> Add another search button 
+          onSubmitEditing={() => {
+            Keyboard.dismiss()
+            search();
+          }}  // --> Add another search button 
         />
         <TouchableHighlight
           style={ styles.icon }
@@ -102,19 +143,13 @@ export default function Search() {
               />
             )
           })
-          : <Text style={ styles.alternativeText }>Your search results will apear here!</Text>}
+          : <Text style={ styles.alternativeText }>Your search results will appear here!</Text>}
 
           </View>
         </ScrollView>
-     </View>
+      </View>
 
-      <StatusBar
-    
-        backgroundColor={_dark}
-        barStyle='light-content'
-        showHideTransition='none'
-      />
-      <Footer />
+      { ui.showMenu ? <Footer/> : null}
     </View>
   )
 }

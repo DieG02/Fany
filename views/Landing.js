@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   logo: { 
     width: 80, 
     height: 80, 
-    top: 45,
+    top: 50,
     left: 25,
     resizeMode: 'stretch'
   },
