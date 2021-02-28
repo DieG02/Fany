@@ -7,6 +7,8 @@ import {
   Dimensions,
   StyleSheet,
 } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
+import { setSong } from '../../redux/actions/uiAction.js'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import {
   faPlus,
@@ -18,6 +20,7 @@ const { width, height } = Dimensions.get('window')
 const image = require('../../assets/neffex.jpg')
 const _light = '#eeeeee',
       _grey = '#cccccc',
+      _blue = '#1dcce3',
       _dark = '#151515';
     
 
@@ -26,9 +29,13 @@ const _light = '#eeeeee',
 export default function Result({ videoId, data }) {
 
   //         Artist       Image      Name
-  const { channelTitle, thumbnails, title } = data
+  const { channelTitle, thumbnails, title } = data;
 
   const name = title.replace(/&amp;/g, "&").replace(/&quot;/g, "\"");
+  const song = useSelector(state => state.app.song)
+  const dispatch = useDispatch();
+
+  let color = song.title === name ? _blue : _light;
 
   return(
     <View style={ styles.container }>
@@ -36,14 +43,21 @@ export default function Result({ videoId, data }) {
         style={ styles.dataContainer }
         delayPressIn={ 20 }
         activeOpacity={ 0.5 }
-        onPress={() => console.log(`https://www.youtube.com/watch?v=${videoId}`)}
+        onPress={() => {
+          dispatch(setSong({
+            image: thumbnails.high.url,
+            title: name,
+            artist: channelTitle,
+            url: `https://www.youtube.com/watch?v=${videoId}`
+          }))
+        }}
       >
         <Image
           source={{ uri: thumbnails.high.url }}    
           style={ styles.image }
         />
         <View style={{ width: '60%', justifyContent: 'space-around' }}>
-          <Text style={ styles.title }>{ name }</Text>
+          <Text style={[styles.title, { color: color }]}>{ name }</Text>
           <Text style={ styles.content }>{ channelTitle }</Text>
         </View>
       </TouchableOpacity>

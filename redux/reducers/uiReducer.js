@@ -1,4 +1,11 @@
-import { SET_MENU, SET_SONG, SHOW_MENU, SHOW_SONG } from '../types.js'
+import {
+  SET_MENU,
+  SET_SONG,
+  IS_PLAYING,
+  IS_FAVOURITE,
+  SHOW_MENU,
+  SHOW_SONG,
+} from '../types.js'
 
 
 const initialState = {
@@ -23,10 +30,11 @@ const initialState = {
     title: '',
     artist: '',
     album: '',
-    like: false,
+    favourite: false,
+    playing: false,
     url: '',
+    mp3: '',
     duration: 0,
-    // isPlaying: false,
     isLoaded: false,
   }
 }
@@ -46,6 +54,41 @@ export default function userInterface(state = initialState, action) {
           menuSelected: action.menu
         }
       };
+
+    case SET_SONG:
+      const { image, title, artist, url } = action.song
+      return {
+        ...state,
+        ui: {
+          ...state.ui,
+          showSong: action.exist
+        },
+        song: {
+          ...state.song,
+          image, 
+          title, 
+          artist,
+          url,
+        }
+      }  
+
+    case IS_PLAYING:
+      return {
+        ...state,
+        song: {
+          ...state.song,
+          playing: action.value
+        }
+      }
+      
+    case IS_FAVOURITE:
+      return {
+        ...state,
+        song: {
+          ...state.song,
+          favourite: action.value
+        }
+      }
 
     case SHOW_MENU: 
       return {

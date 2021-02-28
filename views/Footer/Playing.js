@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   View,
   Text,
@@ -7,6 +7,9 @@ import {
   Dimensions,
   TouchableOpacity // TouchableHighlight --> Show us a border / dark background
 } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
+import { isPlaying, isFavourite } from '../../redux/actions/uiAction.js'
+import { useNavigation } from '@react-navigation/native'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import {
@@ -15,46 +18,61 @@ import {
   faPlay
 } from '@fortawesome/free-solid-svg-icons'
 
-const { width, height } = Dimensions.get('window')
+const { height } = Dimensions.get('window')
 
 
 
-export default function Playing({ props, isToggleOn, setToggle }) {
-  
+export default function Playing() {
+
+  const { url, image, title, artist, album, favourite, playing } = useSelector(state => state.app.song)
+  const navigation = useNavigation()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    url
+  }, [])
+
   return(
     <View style={ styles.container }>
-      <Image 
-        source={ props.src }
-        style={ styles.image }
-      />
 
-      <View style={ styles.dataContainer }>
-        <Text style={ styles.title }>
-          { props.title }
-        </Text>
-        <Text style={ styles.content }>
-          { props.artist } • { props.album }
-        </Text>
-      </View>
+      <TouchableOpacity
+        style={ styles.song }
+        delayPressIn={ 10 }
+        activeOpacity={ 0.5 }
+        onPress={() => {
+          navigation.push('Song')
+        }}
+      >
+        <Image 
+          source={{ uri: image }}
+          style={ styles.image }
+        />
+
+        <View style={ styles.dataContainer }>
+          <Text style={ styles.title }>
+            { title }
+          </Text>
+          <Text style={ styles.content }>
+            { artist } 
+            {/* • { album } */}
+          </Text>
+        </View>
+      </TouchableOpacity>
 
       <View style={ styles.itemBox }> 
         <TouchableOpacity
           onPress={() => {
-            setToggle({
-              ...isToggleOn,
-              favourite: !isToggleOn.favourite
-            })
-            isToggleOn.favourite !== true ?
+            dispatch(isFavourite(!favourite))
+            favourite !== true ?
               alert('Add to Favourites')
             :
               alert('Remove from Favourites')
-
           }}
-          style={{height: '100%'}}
+          style={{ height: '100%' }}
         >
           <FontAwesomeIcon 
-            icon={ isToggleOn.favourite ? faHeartFill : faHeart }  
-            color={ isToggleOn.favourite ? '#1dcce3' : '#999'} 
+            icon={ favourite ? faHeartFill : faHeart }  
+            color={ favourite ? '#1dcce3' : '#999'} 
             size={ 23 }
             style={ [styles.itemBox, styles.icons] }
           />
@@ -64,16 +82,13 @@ export default function Playing({ props, isToggleOn, setToggle }) {
       <View style={ styles.itemBox }>
         <TouchableOpacity
           onPress={() => {
-            setToggle({
-              ...isToggleOn,
-              play: !isToggleOn.play
-            })
+            dispatch(isPlaying(!playing))
             alert('Do something')
           }}
           style={{ height: '100%' }}
         >
           <FontAwesomeIcon 
-            icon={ isToggleOn.play ? faPause : faPlay }
+            icon={ playing ? faPause : faPlay }
             color='#fff'
             size={ 23 }
             style={ styles.icons }
@@ -93,12 +108,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#222',
     marginBottom: 1,
   },
+
+  song: {
+    flexDirection: 'row',
+    height: '100%',
+    width: '75%',
+    backgroundColor: '#222',
+  },
   image: {
-    width:  74,
+    width:  75,
     height:  74,
   },
   dataContainer: {
-    width: '58%',
+    width: '75%',
     height: '100%',
     justifyContent: 'flex-start',
     flexDirection: 'column',
@@ -107,7 +129,7 @@ const styles = StyleSheet.create({
   title: {
     width: '100%',
     color: '#fff',
-    fontSize:  height > 725 ? 14 : 13,
+    fontSize:  13,
     fontWeight: 'bold',
     marginRight: 15,
     marginTop: 'auto',
@@ -115,7 +137,7 @@ const styles = StyleSheet.create({
   content: {
     width: '100%',
     color: '#ccc',  
-    fontSize:  height > 725 ? 13 : 12,
+    fontSize:  11,
     marginRight: 15,
     marginBottom: 'auto',
   },

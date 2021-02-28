@@ -1,26 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   View,
   StyleSheet,
 } from 'react-native';
 import { Audio } from 'expo-av'
 import ytdl from 'react-native-ytdl'
-
 import Slider from './SliderBar.js'
 import Buttons from './Buttons.js'
 
 
-
 // ----- CONSTANTS ----- // 
 const youtubeURL = 'https://www.youtube.com/watch?v=OnuuYcqhzCE';
-const _light = '#eeeeee',
-      _grey = '#dddddd',
-      _blue = '#1dcce3';
-
 
 
 // ----- COMPONENT ----- //
-export default function Control({ uri, isToggleOn, setToggle }) {
+export default function Control({ isToggleOn, setToggle }) {
   const [sound, setSound] = useState();
   const [value, setValue] = useState();
   const [status, setStatus] = useState({
@@ -29,11 +23,6 @@ export default function Control({ uri, isToggleOn, setToggle }) {
     value: 0,
   })
   const [slider, setSlider] = useState(0)
-
-  // const video = useRef(null);
-  // const [status, setStatus] = useState({});
-  
-
 
   async function playSound() {
     setStatus({
@@ -81,7 +70,6 @@ export default function Control({ uri, isToggleOn, setToggle }) {
       setStatus({ ...status, isPlaying: true });
       setToggle({...isToggleOn, play: true });
       const data = await ytdl(youtubeURL, { quality: 'highestaudio' });
-      // setData(data);
       await sound.loadAsync({ uri: data[0].url });
       await sound.playAsync();
     }

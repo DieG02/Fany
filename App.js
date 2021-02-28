@@ -32,13 +32,13 @@ export default function App() {
           headerShown: false
         }}
       >    
-       <Stack.Screen name='SearchBar' component={ SearchBar } />
+        <Stack.Screen name='Search' component={ Search } />
         <Stack.Screen name='Landing' component={ Landing } />
         <Stack.Screen name='Login' component={ Login } />
         <Stack.Screen name='Register' component={ Register } />
         <Stack.Screen name='Home' component={ Home } />
-        <Stack.Screen name='Search' component={ Search } />
- 
+        
+        <Stack.Screen name='SearchBar' component={ SearchBar } />
         <Stack.Screen name='Song' component={ Song } />
       </Stack.Navigator>
     </NavigationContainer>

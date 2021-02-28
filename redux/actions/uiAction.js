@@ -1,10 +1,11 @@
 import {
   SET_MENU,
   SET_SONG,
+  IS_PLAYING,
+  IS_FAVOURITE,
   SHOW_MENU,
   SHOW_SONG,
 } from '../types.js'
-
 
 
 
@@ -20,6 +21,20 @@ export const setSong = (object) => {
     type: SET_SONG,
     song: object,
     exist: true,
+  }  
+}
+
+export const isPlaying = (boolean) => {
+  return {
+    type: IS_PLAYING,
+    value: boolean,
+  }  
+}
+
+export const isFavourite = (boolean) => {
+  return {
+    type: IS_FAVOURITE,
+    value: boolean,
   }  
 }
 
