@@ -62,7 +62,7 @@ export default function Menu({ menu }) {
 
 const styles = StyleSheet.create({
   menu: {
-    height:  height > 600 ? 45 : 40,
+    height: 45,
     width: '100%',
     backgroundColor: '#222',
     flexDirection: 'row', // <--- Nice!!!

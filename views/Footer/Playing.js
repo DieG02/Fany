@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { isPlaying, isFavourite } from '../../redux/actions/uiAction.js'
+import { loadSound, pauseSound, playSound, isLooping } from '../../redux/actions/soundAction.js'
 import { useNavigation } from '@react-navigation/native'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
@@ -18,19 +19,31 @@ import {
   faPlay
 } from '@fortawesome/free-solid-svg-icons'
 
-const { height } = Dimensions.get('window')
-
 
 
 export default function Playing() {
 
   const { url, image, title, artist, album, favourite, playing } = useSelector(state => state.app.song)
+  const sound = useSelector(state => state.audio.sound);
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
+  useEffect(() => { 
+    dispatch(isPlaying(true))
+    console.log(url)
+    url ? loadSound(url, dispatch) : null 
+  }, [url])
+
   useEffect(() => {
-    url
-  }, [])
+    return sound.unloadAsync
+      ? () => {
+          console.log('Unloading Sound');
+          sound.unloadAsync(); 
+        }
+      : undefined;
+  }, [sound]);
+
+
 
   return(
     <View style={ styles.container }>
@@ -64,9 +77,9 @@ export default function Playing() {
           onPress={() => {
             dispatch(isFavourite(!favourite))
             favourite !== true ?
-              alert('Add to Favourites')
+              isLooping(true, sound)
             :
-              alert('Remove from Favourites')
+              isLooping(false, sound)
           }}
           style={{ height: '100%' }}
         >
@@ -83,7 +96,7 @@ export default function Playing() {
         <TouchableOpacity
           onPress={() => {
             dispatch(isPlaying(!playing))
-            alert('Do something')
+           playing ? pauseSound(sound) : playSound(sound);
           }}
           style={{ height: '100%' }}
         >

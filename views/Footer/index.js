@@ -12,7 +12,13 @@ export default function Footer() {
   const ui = useSelector(state => state.app.ui);
   
   return(
-    <View style={ styles.container }>
+    <View 
+      style={ styles.container } 
+      onLayout={(event) => {
+      const { y } = event.nativeEvent.layout;
+        console.log('y', y);
+      }}
+    >
       {ui.showSong ?
         <Playing />
       :
@@ -28,8 +34,10 @@ export default function Footer() {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    position: 'absolute', 
+    position: 'absolute',
     bottom: 0,
     backgroundColor: '#1dcce3',
   }
 })
+
+

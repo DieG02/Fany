@@ -9,6 +9,7 @@ import {
   StyleSheet,
   StatusBar,
   ScrollView,
+  useWindowDimensions,
   // BackHandler,
   // Alert,
 } from 'react-native'
@@ -37,6 +38,7 @@ export default function Search({ navigation }) {
   const [data, setData] = useState({});
 
   let input =  value.replace(/\s+/g, '%20') 
+  const dispatch = useDispatch()
 
   const search = function(){
     fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${input}&key=${GOOGLE_API_KEY}`)
@@ -46,27 +48,11 @@ export default function Search({ navigation }) {
     })
   }
 
-  const dispatch = useDispatch();
-  const ui = useSelector(state => state.app.ui)
-
   useEffect(() => {
-    Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
-    Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
-
-    // cleanup function
-    return () => {
-      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
-      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
-    };
-  }, []);
-
-  const _keyboardDidShow = () => {
-    dispatch(showMenu(false))
-  };
-
-  const _keyboardDidHide = () => {
     dispatch(showMenu(true))
-  };
+  }, [])
+
+  const ui = useSelector(state => state.app.ui)
 
   return(
     <View style={ styles.main }>  
@@ -95,7 +81,7 @@ export default function Search({ navigation }) {
           />
         </TouchableHighlight>
         <TextInput
-          autoFocus
+          //autoFocus
           style={ styles.input }
           placeholder='Enter name or URL'
           placeholderTextColor={ _light }
@@ -131,7 +117,7 @@ export default function Search({ navigation }) {
           style={ styles.scroll }
           showsVerticalScrollIndicator={ false }
         >
-          <View style={{ marginTop: '5%', marginBottom: '40%' }}>
+          <View style={{ marginTop: '0%', marginBottom: '0%' }}>
 
           {data.items ? data.items.map(item => {
             // const { urlImage } = item.snippet.thumbnails.high;
@@ -163,6 +149,7 @@ const styles = StyleSheet.create({
     backgroundColor: _dark,
     width: '100%',
     height: '100%',
+    minHeight: height,
   },
   searchBar: {
     backgroundColor: 'rgba(68, 68, 68, 0.6)',
@@ -174,14 +161,14 @@ const styles = StyleSheet.create({
   container: {
     paddingLeft: 15,
     paddingRight: 15,
-    height: height - 50, 
+    width: '100%',
+    height: height - 170, 
   },
   input: {
     width: '76%',
     paddingLeft: 5,
-
     color: _light,
-    fontSize: height > 725 ? 15 : 14,
+    fontSize: 15,
     fontWeight: 'bold'
   },
   icon: {
@@ -208,5 +195,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     width: width,
+    marginTop: '5%',
   }
 })

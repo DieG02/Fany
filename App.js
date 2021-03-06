@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
-import { StyleSheet, Dimensions } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
+import React from 'react'
+import { StyleSheet, Dimensions ,View } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Stack = createStackNavigator()
+const Tab = createBottomTabNavigator()
 
 import Landing from './views/Landing.js'
 import Register from './views/Register.js'
@@ -17,31 +18,29 @@ import Song from './views/Song'
 // import Footer from './views/Footer'
 // import Youtube from './views/Youtube.js'
 // import YoutubeExample from './views/YoutubeReact.js'
-// import Audio from './views/Audio.js'
+// import Example from './views/example.js'
 
 
 const { height, width } = Dimensions.get('window');
 
-
 export default function App() {
-  
   return (
-    <NavigationContainer style={ styles.container }>
+    <View style={ styles.container }>
       <Stack.Navigator 
         screenOptions={{ 
           headerShown: false
         }}
       >    
-        <Stack.Screen name='Search' component={ Search } />
         <Stack.Screen name='Landing' component={ Landing } />
         <Stack.Screen name='Login' component={ Login } />
         <Stack.Screen name='Register' component={ Register } />
         <Stack.Screen name='Home' component={ Home } />
         
+        <Stack.Screen name='Search' component={ Search } />
         <Stack.Screen name='SearchBar' component={ SearchBar } />
         <Stack.Screen name='Song' component={ Song } />
       </Stack.Navigator>
-    </NavigationContainer>
+    </View>
   );
 }
 

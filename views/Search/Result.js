@@ -33,9 +33,10 @@ export default function Result({ videoId, data }) {
 
   const name = title.replace(/&amp;/g, "&").replace(/&quot;/g, "\"");
   const song = useSelector(state => state.app.song)
+  const sound = useSelector(state => state.audio.sound);
   const dispatch = useDispatch();
 
-  let color = song.title === name ? _blue : _light;
+  let color = song.title === name && song.artist === channelTitle ? _blue : _light;
 
   return(
     <View style={ styles.container }>
@@ -57,7 +58,7 @@ export default function Result({ videoId, data }) {
           style={ styles.image }
         />
         <View style={{ width: '60%', justifyContent: 'space-around' }}>
-          <Text style={[styles.title, { color: color }]}>{ name }</Text>
+          <Text style={[ styles.title, { color: color }]}>{ name }</Text>
           <Text style={ styles.content }>{ channelTitle }</Text>
         </View>
       </TouchableOpacity>
