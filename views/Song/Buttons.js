@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faBookmark } from '@fortawesome/free-regular-svg-icons'
 import {
@@ -13,21 +14,20 @@ import {
   faStepBackward,
   faStepForward,
 } from '@fortawesome/free-solid-svg-icons'
+import { playSound, pauseSound, isLooping } from '../../redux/actions/soundAction.js'
 
 
 // ----- CONSTANTS ----- // 
-const _light = '#eeeeee',
-      _grey = '#dddddd',
-      _dark = '#151515',
-      _blue = '#1dcce3';
+const _grey = '#dddddd';
     
 
 // ----- COMPONENT ----- // 
 export default function Buttons({ props }) {
 
-  const { setToggle, isToggleOn, playSound, pauseSound, isLooping } = props
-
+  const { setToggle, isToggleOn } = props
   const { icon, loop } = isToggleOn;
+
+  const sound = useSelector(state => state.audio.sound);
 
 
   return(
@@ -67,7 +67,7 @@ export default function Buttons({ props }) {
               ...isToggleOn,
               play: !isToggleOn.play
             })
-            isToggleOn.play ? pauseSound() : playSound() 
+            isToggleOn.play ? pauseSound(sound) : playSound(sound) 
           }}
         >
           <FontAwesomeIcon 
@@ -105,14 +105,14 @@ export default function Buttons({ props }) {
                 ...isToggleOn,
                 icon: 'repeatOne'
               })
-              return isLooping(true)
+              return isLooping(true, sound)
 
             case 'repeatOne':
               setToggle({
                 ...isToggleOn,
                 icon: 'noRepeat'
               })
-              return isLooping(false)
+              return isLooping(false, sound)
           }
         }}
       >

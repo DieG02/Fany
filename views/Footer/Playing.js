@@ -53,7 +53,7 @@ export default function Playing() {
         delayPressIn={ 10 }
         activeOpacity={ 0.5 }
         onPress={() => {
-          navigation.push('Song')
+          navigation.navigate('Song')
         }}
       >
         <Image 

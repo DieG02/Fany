@@ -7,30 +7,33 @@ import Slider from './SliderBar.js'
 import Buttons from './Buttons.js'
 
 
-// ----- CONSTANTS ----- // 
-const youtubeURL = 'https://www.youtube.com/watch?v=OnuuYcqhzCE';
+
+
+// ----- CONSTANTS ----- //  
 
 
 // ----- COMPONENT ----- //
 export default function Control({ isToggleOn, setToggle }) {
+
+  const [value, setValue] = useState();
+  const [slider, setSlider] = useState(0)
+
 
 
   return(
     <View style={ styles.container }>
       <Slider 
         props={{
-          // slider,
-          // setValue,
-          // setTiming,
+          value,
+          setValue,
+          slider,
+          setSlider,
         }}
       />
       <Buttons 
         props={{
-          // setToggle,
-          // isToggleOn,
-          // playSound,
-          // pauseSound,
-          // isLooping,
+          setToggle,
+          isToggleOn,
         }}
       />
     </View>

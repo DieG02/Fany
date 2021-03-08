@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { StyleSheet } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
 import Slider from '@react-native-community/slider'
+import { setTiming } from '../../redux/actions/soundAction.js'
 
 
 // ----- CONSTANTS ----- // 
@@ -12,9 +14,19 @@ const _light = '#eeeeee',
 // ----- COMPONENT ----- // 
 export default function Audio({ props }) {
   
-  const { slider, setValue, setTiming } = props;
+  const { value, setValue, slider, setSlider } = props;
+  const sound = useSelector(state => state.audio.sound);
 
 
+  { sound 
+    && setTimeout(() => {
+      async function onSlider() {
+        const state = await sound.getStatusAsync();
+        setSlider(state.positionMillis / state.durationMillis)
+      } 
+      onSlider()
+    }, 200)
+  }
 
   return (
     <Slider
@@ -27,7 +39,7 @@ export default function Audio({ props }) {
       minimumTrackTintColor={ _light }
       maximumTrackTintColor={ _grey }
       onValueChange={(e) => setValue(e)}
-      onSlidingComplete={async () => setTiming()}
+      onSlidingComplete={() => setTiming(value, sound)}
     />
   )
 }

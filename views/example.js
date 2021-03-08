@@ -10,6 +10,7 @@ const URL = 'https://r8---sn-uxaxjxougv-x1xed.googlevideo.com/videoplayback?expi
 export default function AudioComponent() {
   const [sound, setSound] = useState();
   const [value, setValue] = useState();
+  
   const [status, setStatus] = useState({
     isPlaying: false,
     isLooping: false,

@@ -36,7 +36,7 @@ locationsGradient = [0.05, 0.2, 0.4, 0.6, 0.85];
 
 
 // ----- COMPONENT ----- // 
-export default function Song({ navigation}) {
+export default function Song({ navigation }) {
 
   const [isToggleOn, setToggle] = useState({
     favourite: false,
@@ -61,7 +61,7 @@ export default function Song({ navigation}) {
         style={styles.background}
       />
       <StatusBar
-        animated={true}
+        translucent={false}
         backgroundColor={_dark}
         barStyle='light-content'
       />
@@ -70,7 +70,7 @@ export default function Song({ navigation}) {
         <TouchableOpacity 
           style={ styles.iconBox }
           onPress={() => {
-            navigation.pop()
+            navigation.goBack()
           }}
         >
           <FontAwesomeIcon
@@ -79,7 +79,12 @@ export default function Song({ navigation}) {
             size={ 25 }
           />
         </TouchableOpacity>
-        <TouchableOpacity style={ styles.iconBox }>
+        <TouchableOpacity 
+          style={ styles.iconBox }
+          onPress={() => {
+            navigation.navigate('Home')
+          }} 
+        >
           <FontAwesomeIcon
             icon={ faBars }
             color={ _light }
