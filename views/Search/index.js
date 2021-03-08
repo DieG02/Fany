@@ -6,15 +6,14 @@ import {
   ScrollView,
   Dimensions,
   StyleSheet,
-  StatusBar
 } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
 import { useDispatch } from 'react-redux'
 import { setMenu } from '../../redux/actions/uiAction.js'
 import { LinearGradient } from 'expo-linear-gradient'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import Item from './Item.js'
-import Footer from '../Footer/'
 
 
 // ----- CONSTANTS ----- // 
@@ -31,8 +30,8 @@ export default function Main({ navigation }) {
   const song = true;
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(setMenu('Search'))
-  })
+    dispatch(setMenu('Search'));
+  }, [])
 
 
   return(
@@ -47,7 +46,6 @@ export default function Main({ navigation }) {
         translucent={true}
         backgroundColor='transparent'
         barStyle='light-content'
-        showHideTransition='none'
       />
 
       <View style={ styles.container }>
@@ -79,8 +77,6 @@ export default function Main({ navigation }) {
           </View>    
         </ScrollView>
       </View>
-
-      <Footer/>
     </View>
   )
 }

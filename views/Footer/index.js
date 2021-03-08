@@ -12,17 +12,10 @@ export default function Footer() {
   const ui = useSelector(state => state.app.ui);
   
   return(
-    <View 
-      style={ styles.container } 
-      onLayout={(event) => {
-      const { y } = event.nativeEvent.layout;
-        console.log('y', y);
-      }}
-    >
-      {ui.showSong ?
-        <Playing />
-      :
-        null 
+    <View style={ styles.container }>
+      {ui.showSong 
+        ? <Playing />
+        : null 
       }
       <Menu 
         menu={ ui.menuSelected }

@@ -45,7 +45,7 @@ export default function Register({ navigation }) {
         email: values.email,
         password: values.password
       })
-      navigation.navigate('Home')
+      navigation.navigate('MyTabBar')
     }
   }
 

@@ -7,12 +7,11 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native'
-import { useDispatch } from 'react-redux'
-import { setMenu } from '../../redux/actions/uiAction.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { setMenu, setStatusBar } from '../../redux/actions/uiAction.js'
 import { LinearGradient } from 'expo-linear-gradient'
 import Circle from './Circle.js'
 import Square from './Square.js'
-import Footer from '../Footer'
 import SvgHome from '../svg/homeFrame.js'
 
 
@@ -31,9 +30,21 @@ export default function Home() {
   const arr = [1,2,3,4,5,6,7]
   const song = true;
   const dispatch = useDispatch()
+  const setMenuDispatch = (name) => dispatch(setMenu(name)),
+        setStatusBarDispatch = (object) => dispatch(setStatusBar(object));
+  const { translucent, backgroundColor, barStyle } = useSelector(state => state.app.statusBar)
+
+
+
   useEffect(() => {
-    dispatch(setMenu('Home'))
-  })
+    setMenuDispatch('Home')
+    // console.log('useEffect en Home works')
+    // setStatusBarDispatch({
+    //   translucent: true,
+    //   backgroundColor: 'transparent',
+    //   barStyle: 'light-content',
+    // })
+  }, [])
 
   return( 
     <View style={ styles.main }>
@@ -42,9 +53,9 @@ export default function Home() {
         locations={ locationsGradient }
         style={ styles.background }
       />
-      <StatusBar
-        animated={true}
-        backgroundColor={_dark}
+      <StatusBar 
+        translucent={true}
+        backgroundColor='transparent'
         barStyle='light-content'
       />
 
@@ -89,7 +100,6 @@ export default function Home() {
           </ScrollView>
         </View>
       </ScrollView>
-      <Footer/>      
     </View>
   )
 }

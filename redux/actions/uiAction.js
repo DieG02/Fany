@@ -5,6 +5,7 @@ import {
   IS_FAVOURITE,
   SHOW_MENU,
   SHOW_SONG,
+  STATUS_BAR,
 } from '../types.js'
 
 
@@ -49,5 +50,12 @@ export const showSong = (boolean) => {
   return {
     type: SHOW_SONG,
     value: boolean
+  }
+}
+
+export const setStatusBar = (properties) => {
+  return {
+    type: STATUS_BAR,
+    payload: properties 
   }
 }

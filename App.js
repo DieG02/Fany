@@ -15,13 +15,29 @@ import SearchBar from './views/Search/Search.js'
 import Song from './views/Song'
 
 
-// import Footer from './views/Footer'
+import Footer from './views/Footer'
 // import Youtube from './views/Youtube.js'
 // import YoutubeExample from './views/YoutubeReact.js'
 // import Example from './views/example.js'
 
 
 const { height, width } = Dimensions.get('window');
+
+function MyTabBar () {
+  return(
+    <Tab.Navigator
+      initialRouteName='Home'
+      tabBar={(props) => <Footer {...props}/>}
+    >
+      <Tab.Screen name='Home' component={ Home } />
+      <Tab.Screen name='Search' component={ Search } />
+      <Tab.Screen name='SearchBar' component={ SearchBar } />
+      
+      <Stack.Screen name='Song' component={ Song } />
+    </Tab.Navigator>
+  )
+}
+
 
 export default function App() {
   return (
@@ -34,11 +50,7 @@ export default function App() {
         <Stack.Screen name='Landing' component={ Landing } />
         <Stack.Screen name='Login' component={ Login } />
         <Stack.Screen name='Register' component={ Register } />
-        <Stack.Screen name='Home' component={ Home } />
-        
-        <Stack.Screen name='Search' component={ Search } />
-        <Stack.Screen name='SearchBar' component={ SearchBar } />
-        <Stack.Screen name='Song' component={ Song } />
+        <Stack.Screen name='MyTabBar' component={ MyTabBar }/>
       </Stack.Navigator>
     </View>
   );

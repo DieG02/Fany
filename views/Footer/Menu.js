@@ -33,7 +33,7 @@ export default function Menu({ menu }) {
     <View style={ styles.menu }>
       {arr.map(({ name, icon }) => {
         return (
-          <View style={ styles['item' + name] } key={ name }>
+          <View style={ styles['item' + name] }  key={ name }>
             <TouchableOpacity
               onPress={() => {
                 dispatch(setMenu(name))

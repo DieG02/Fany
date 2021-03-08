@@ -9,7 +9,6 @@ import {
   StyleSheet,
   StatusBar,
   ScrollView,
-  useWindowDimensions,
   // BackHandler,
   // Alert,
 } from 'react-native'
@@ -22,14 +21,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { GOOGLE_API_KEY } from '@env'
 import Result from './Result.js'
-import Footer from '../Footer'
 
 
 // ----- CONSTANTS ----- //
 const { height, width } = Dimensions.get('window')
 const _light = '#eeeeee',
-_grey = '#cccccc',
-_dark = '#151515';
+      _grey = '#cccccc',
+      _dark = '#151515';
 
 // ----- COMPONENT ----- //
 export default function Search({ navigation }) {
@@ -58,19 +56,17 @@ export default function Search({ navigation }) {
     <View style={ styles.main }>  
     
       <StatusBar
-        backgroundColor={_dark}
         translucent={false}
+        backgroundColor={_dark}
         barStyle='light-content'
-        showHideTransition='none'
-      />
+       />
 
       <View style={ styles.searchBar }>
         <TouchableHighlight
           style={ styles.icon }
           activeOpacity={ 0.8 }
           onPress={() => {
-            StatusBar.setTranslucent(true);
-            StatusBar.setBackgroundColor('transparent')
+
             navigation.goBack()
           }}
         >
@@ -81,7 +77,7 @@ export default function Search({ navigation }) {
           />
         </TouchableHighlight>
         <TextInput
-          //autoFocus
+          autoFocus
           style={ styles.input }
           placeholder='Enter name or URL'
           placeholderTextColor={ _light }
@@ -134,8 +130,6 @@ export default function Search({ navigation }) {
           </View>
         </ScrollView>
       </View>
-
-      { ui.showMenu ? <Footer/> : null}
     </View>
   )
 }

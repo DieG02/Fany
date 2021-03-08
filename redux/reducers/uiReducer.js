@@ -5,6 +5,7 @@ import {
   IS_FAVOURITE,
   SHOW_MENU,
   SHOW_SONG,
+  STATUS_BAR
 } from '../types.js'
 
 
@@ -15,6 +16,11 @@ const initialState = {
     isLoading: false,
     showSong: false,
     showMenu: false,
+  },
+  statusBar: {
+    translucent: true,
+    backgroundColor: '',
+    barStyle: '',
   },
   user: {
     isAuthenticated: false,
@@ -108,6 +114,16 @@ export default function userInterface(state = initialState, action) {
         }
       }
 
+    case STATUS_BAR:
+      return {
+        ...state,
+        statusbar: {
+          translucent: action.payload.translucent,
+          backgroundColor: action.payload.backgroundColor,
+          barStyle: action.payload.barStyle,
+          showHideTransition: action.payload.showHideTransition,
+        }
+      }
 
     default:
       return state;
