@@ -3,9 +3,11 @@ import {
   SET_SONG,
   IS_PLAYING,
   IS_FAVOURITE,
+  IS_SAVED,
+  SET_LOOP,
+  SET_DURATION,
   SHOW_MENU,
   SHOW_SONG,
-  STATUS_BAR
 } from '../types.js'
 
 
@@ -36,13 +38,14 @@ const initialState = {
     title: '',
     artist: '',
     album: '',
+    url: '',
+    videoId: '',
     favourite: false,
     playing: false,
-    url: '',
-    mp3: '',
-    duration: 0,
-    isLoaded: false,
-  }
+    save: false,
+    icon: 'noRepeat'
+  },
+
 }
 
 
@@ -62,7 +65,7 @@ export default function userInterface(state = initialState, action) {
       };
 
     case SET_SONG:
-      const { image, title, artist, url } = action.song
+      const { iconImage, image, title, artist, url, videoId } = action.song
       return {
         ...state,
         ui: {
@@ -75,8 +78,18 @@ export default function userInterface(state = initialState, action) {
           title, 
           artist,
           url,
+          videoId,
         }
       }  
+
+    case SET_DURATION:
+      return {
+        ...state,
+        song: {
+          ...state.song,
+          duration: action.payload,
+        }
+      }
 
     case IS_PLAYING:
       return {
@@ -95,6 +108,33 @@ export default function userInterface(state = initialState, action) {
           favourite: action.value
         }
       }
+         
+    case IS_SAVED:
+      return {
+        ...state,
+        song: {
+          ...state.song,
+          save: action.value
+        }
+      }
+
+    case SET_LOOP: 
+      return {
+        ...state,
+        song: {
+          ...state.song,
+          icon: action.icon
+        }
+      }
+ 
+    case SET_DURATION: 
+      return {
+        ...state,
+        song: {
+          ...state.song,
+          duration: action.miliseconds
+      }
+    }
 
     case SHOW_MENU: 
       return {
@@ -114,16 +154,6 @@ export default function userInterface(state = initialState, action) {
         }
       }
 
-    case STATUS_BAR:
-      return {
-        ...state,
-        statusbar: {
-          translucent: action.payload.translucent,
-          backgroundColor: action.payload.backgroundColor,
-          barStyle: action.payload.barStyle,
-          showHideTransition: action.payload.showHideTransition,
-        }
-      }
 
     default:
       return state;

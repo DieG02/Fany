@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
+import { isPlaying, isSaved, setLoop } from '../../redux/actions/uiAction.js'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faBookmark } from '@fortawesome/free-regular-svg-icons'
 import {
@@ -13,21 +14,34 @@ import {
   faPauseCircle,
   faStepBackward,
   faStepForward,
+  faReply,
+  faReplyAll,
 } from '@fortawesome/free-solid-svg-icons'
 import { playSound, pauseSound, isLooping } from '../../redux/actions/soundAction.js'
 
 
 // ----- CONSTANTS ----- // 
-const _grey = '#dddddd';
-    
+const _light = '#eeeeee',
+      _grey = '#dddddd',
+      _dark = '#151515',
+      _blue = '#1dcce3';
+
 
 // ----- COMPONENT ----- // 
-export default function Buttons({ props }) {
+export default function Buttons() {
 
-  const { setToggle, isToggleOn } = props
-  const { icon, loop } = isToggleOn;
+  const loop = {
+    noRepeat: [faReply, _grey],
+    repeat: [faReply, _blue],
+    repeatOne: [faReplyAll, _blue]
+  };
 
   const sound = useSelector(state => state.audio.sound);
+  const { playing, save, icon } = useSelector(state => state.app.song)
+  const dispatch = useDispatch();
+  const isPlayingDispatch = (value) => dispatch(isPlaying(value)),
+        isSavedDispatch = (value) => dispatch(isSaved(value)),
+        setLoopDispatch = (value) => dispatch(setLoop(value));
 
 
   return(
@@ -35,16 +49,13 @@ export default function Buttons({ props }) {
       <TouchableOpacity
         style={{ height: '100%', justifyContent: 'center' }}
         onPress={() => {
-          setToggle({
-            ...isToggleOn,
-            save: !isToggleOn.save
-          })
-          if(isToggleOn.save !== true) alert('Saved sucessfull');
+          isSavedDispatch(!save)
+          if(save !== true) alert('Saved sucessfull');
         }}
       >
         <FontAwesomeIcon 
-          icon={ isToggleOn.save ? faBookmarkFill : faBookmark }  
-          color={ _grey} 
+          icon={ save ? faBookmarkFill : faBookmark }  
+          color={ _grey } 
           size={ 20 }
         />
       </TouchableOpacity>
@@ -63,15 +74,12 @@ export default function Buttons({ props }) {
         <TouchableOpacity
           style={{ height: '100%', justifyContent: 'center' }}
           onPress={() => {
-            setToggle({
-              ...isToggleOn,
-              play: !isToggleOn.play
-            })
-            isToggleOn.play ? pauseSound(sound) : playSound(sound) 
+            isPlayingDispatch(!playing)
+            playing ? pauseSound(sound) : playSound(sound) 
           }}
         >
           <FontAwesomeIcon 
-            icon={ isToggleOn.play ? faPauseCircle : faPlayCircle }
+            icon={ playing ? faPauseCircle : faPlayCircle }
             color={ _grey }
             size={ 55 }
             style={ styles.icons }
@@ -94,24 +102,15 @@ export default function Buttons({ props }) {
         onPress={() => {
           switch(icon){
             case 'noRepeat':
-              setToggle({
-                ...isToggleOn,
-                icon: 'repeat'
-              })
+              setLoopDispatch('repeat')
               return console.log('Must repeat List!')
   
             case 'repeat':
-              setToggle({
-                ...isToggleOn,
-                icon: 'repeatOne'
-              })
+              setLoopDispatch('repeatOne')
               return isLooping(true, sound)
 
             case 'repeatOne':
-              setToggle({
-                ...isToggleOn,
-                icon: 'noRepeat'
-              })
+              setLoopDispatch('noRepeat')
               return isLooping(false, sound)
           }
         }}

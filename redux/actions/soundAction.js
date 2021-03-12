@@ -1,7 +1,6 @@
 import {
   LOAD_SOUND,
-  LOADING,
-  AUTO_PLAY,
+  SET_DURATION,
 } from '../types.js'
 import { Audio } from 'expo-av'
 import ytdl from 'react-native-ytdl'
@@ -15,7 +14,13 @@ export const loadSound = async (url, dispatch) => {
   const { sound } = await Audio.Sound.createAsync({
     uri: data[0].url
   }, { shouldPlay: true });
-  
+  const { durationMillis } = await sound.getStatusAsync();
+
+  dispatch({
+    type: SET_DURATION,
+    payload: durationMillis,
+  })
+
   return dispatch({
     type: LOAD_SOUND,
     sound: sound,
@@ -41,7 +46,7 @@ export async function isLooping(value, sound) {
 
 export async function setTiming(value, sound) {
   const { durationMillis } = await sound.getStatusAsync();
-  await sound.setPositionAsync(durationMillis * value)
+  await sound.setPositionAsync(durationMillis * value); 
 }
 
 

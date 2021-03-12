@@ -6,9 +6,9 @@ import {
   ScrollView,
   Dimensions,
   StyleSheet,
+  StatusBar
 } from 'react-native'
-import { StatusBar } from 'expo-status-bar'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setMenu } from '../../redux/actions/uiAction.js'
 import { LinearGradient } from 'expo-linear-gradient'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
@@ -28,6 +28,7 @@ export default function Main({ navigation }) {
 
   const arr = [1,2,3,4,5,6,7,8,9,10]
   const song = true;
+  const sound = useSelector(state => state.audio.sound);
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(setMenu('Search'));
@@ -72,7 +73,7 @@ export default function Main({ navigation }) {
         </Text>
 
         <ScrollView showsVerticalScrollIndicator={ false } style={{ maxWidth: '100%' }}>  
-          <View style={{ width: '100%', marginTop: '5%', marginBottom: song ? '35%' : '10%' }}>
+          <View style={{ width: '100%', marginTop: '5%', marginBottom: Object.entries(sound).length ? '33 %' : 50 }}>
             {arr.map(index => <Item key={ index }/> )}
           </View>    
         </ScrollView>

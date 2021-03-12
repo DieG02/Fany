@@ -7,6 +7,7 @@ import {
   Dimensions,
   TouchableOpacity // TouchableHighlight --> Show us a border / dark background
 } from 'react-native'
+import MarqueeText from 'react-native-marquee'
 import { useDispatch, useSelector } from 'react-redux'
 import { isPlaying, isFavourite } from '../../redux/actions/uiAction.js'
 import { loadSound, pauseSound, playSound, isLooping } from '../../redux/actions/soundAction.js'
@@ -23,15 +24,25 @@ import {
 
 export default function Playing() {
 
-  const { url, image, title, artist, album, favourite, playing } = useSelector(state => state.app.song)
+  const { url, image, title, artist, duration, favourite, playing } = useSelector(state => state.app.song)
   const sound = useSelector(state => state.audio.sound);
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
+  const isPlayingDispatch = (value) => dispatch(isPlaying(value)),
+        isFavouriteDispatch = (value) => dispatch(isFavourite(value));
+
+  const time = (ms) => {
+    const a = ms / 1000   // 251,821
+    const b = Math.floor(a / 60)
+    const c = Math.floor(a - (60 * b))
+    return `${b}:${c > 10 ? c : '0' + c}`
+  }
+
   useEffect(() => { 
-    dispatch(isPlaying(true))
+    isPlayingDispatch(true)
     console.log(url)
-    url ? loadSound(url, dispatch) : null 
+    url && loadSound(url, dispatch)
   }, [url])
 
   useEffect(() => {
@@ -62,20 +73,27 @@ export default function Playing() {
         />
 
         <View style={ styles.dataContainer }>
-          <Text style={ styles.title }>
-            { title }
-          </Text>
-          <Text style={ styles.content }>
-            { artist } 
-            {/* • { album } */}
-          </Text>
+          <MarqueeText
+            style={ styles.title }
+            duration={title.length * 200}
+            marqueeOnStart={ true }
+            loop
+            marqueeDelay={1500}
+            marqueeResetDelay={1000}
+          >
+            { title } 
+          </MarqueeText>
+         
+          <MarqueeText style={ styles.content }>
+            { artist }  •  { duration ? time(duration) : '00:00' }
+          </MarqueeText>
         </View>
       </TouchableOpacity>
 
       <View style={ styles.itemBox }> 
         <TouchableOpacity
           onPress={() => {
-            dispatch(isFavourite(!favourite))
+            isFavouriteDispatch(!favourite)
             favourite !== true ?
               isLooping(true, sound)
             :
@@ -95,8 +113,8 @@ export default function Playing() {
       <View style={ styles.itemBox }>
         <TouchableOpacity
           onPress={() => {
-            dispatch(isPlaying(!playing))
-           playing ? pauseSound(sound) : playSound(sound);
+            isPlayingDispatch(!playing)
+            playing ? pauseSound(sound) : playSound(sound);
           }}
           style={{ height: '100%' }}
         >
@@ -135,24 +153,23 @@ const styles = StyleSheet.create({
   dataContainer: {
     width: '75%',
     height: '100%',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     flexDirection: 'column',
     paddingLeft: 10,
   },
   title: {
     width: '100%',
-    color: '#fff',
+    color: '#ccc',
     fontSize:  13,
     fontWeight: 'bold',
     marginRight: 15,
-    marginTop: 'auto',
+
   },
   content: {
     width: '100%',
-    color: '#ccc',  
+    color: '#999',  
     fontSize:  11,
     marginRight: 15,
-    marginBottom: 'auto',
   },
   itemBox: {
     flex: 1, 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import {
   View,
   Text,
@@ -8,6 +8,9 @@ import {
   StatusBar,
   Dimensions,
 } from 'react-native'
+import MarqueeText from 'react-native-marquee'
+import { isPlaying, isFavourite } from '../../redux/actions/uiAction.js'
+import { useSelector, useDispatch } from 'react-redux'
 import { LinearGradient } from 'expo-linear-gradient'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
@@ -15,8 +18,6 @@ import {
   faHeart as faHeartFill,
   faArrowLeft,
   faBars,
-  faReply,
-  faReplyAll,
 } from '@fortawesome/free-solid-svg-icons'
 import Controls from './Controls.js'
 
@@ -26,9 +27,9 @@ import Controls from './Controls.js'
 const IMAGE = require('../../assets/hybrid_theory.jpg');
 const { width } = Dimensions.get('window');
 const _light = '#eeeeee',
-_grey = '#dddddd',
-_dark = '#151515',
-_blue = '#1dcce3';
+      _grey = '#dddddd',
+      _dark = '#151515',
+      _blue = '#1dcce3';
 const colorsGradient = ['#71BAC3', '#5D93A5', '#44637E', '#243442', '#111111'],
 locationsGradient = [0.05, 0.2, 0.4, 0.6, 0.85];
 
@@ -38,17 +39,12 @@ locationsGradient = [0.05, 0.2, 0.4, 0.6, 0.85];
 // ----- COMPONENT ----- // 
 export default function Song({ navigation }) {
 
-  const [isToggleOn, setToggle] = useState({
-    favourite: false,
-    play: false,
-    save: false,
-    icon: 'noRepeat',
-    loop: {
-      noRepeat: [faReply, _grey],
-      repeat: [faReply, _blue],
-      repeatOne: [faReplyAll, _blue]
-    }
-  })
+  const { image, title, artist, duration, favourite } = useSelector(state => state.app.song)
+  const dispatch = useDispatch()
+
+  const isPlayingDispatch = (value) => dispatch(isPlaying(value)),
+        isFavouriteDispatch = (value) => dispatch(isFavourite(value));
+
 
 
   return(
@@ -76,7 +72,7 @@ export default function Song({ navigation }) {
           <FontAwesomeIcon
             icon={ faArrowLeft }
             color={ _light }
-            size={ 25 }
+            size={ 23 }
           />
         </TouchableOpacity>
         <TouchableOpacity 
@@ -88,7 +84,7 @@ export default function Song({ navigation }) {
           <FontAwesomeIcon
             icon={ faBars }
             color={ _light }
-            size={ 25 }
+            size={ 23 }
           />
         </TouchableOpacity>
       </View>
@@ -99,11 +95,11 @@ export default function Song({ navigation }) {
             height: '60%', 
             width: '100%', 
             justifyContent: 'center', 
-            // backgroundColor: '#ff0000' 
+            // backgroundColor: '#000' 
           }}
         >
           <Image
-            source={ IMAGE }
+            source={{ uri: image }}
             style={ styles.image }
           />
         </View>
@@ -118,36 +114,41 @@ export default function Song({ navigation }) {
         >
           <View style={ styles.content }>
               <View style={ styles.text }>         
-                <Text style={{ fontSize: 22, color: 'white', fontWeight: 'bold' }}>
-                  Don't stay - Live in texas
-                </Text>
-                <Text style={{ fontSize: 13, color: _grey }}>
-                  Hybrid Theory
+                <MarqueeText
+                  style={{ fontSize: 20, color: _grey, fontWeight: 'bold' }}
+                  duration={title.length * 200}
+                  marqueeOnStart={ true }
+                  loop
+                  marqueeDelay={1500}
+                  marqueeResetDelay={1000}
+                >
+                  { title } 
+                </MarqueeText>
+                  
+                <Text style={{ fontSize: 13, color: '#999' }}>
+                  { artist }
                 </Text>
               </View>
 
               <TouchableOpacity
                 style={{ height: '100%', justifyContent: 'center' }}
                 onPress={() => {
-                  setToggle({
-                    ...isToggleOn,
-                    favourite: !isToggleOn.favourite
-                  })
-                  isToggleOn.favourite !== true ?
+                  isFavouriteDispatch(!favourite)
+                  favourite !== true ?
                     alert('Add to Favourites')
                   :
                     alert('Remove from Favourites')
                 }}
               >
                 <FontAwesomeIcon 
-                  icon={ isToggleOn.favourite ? faHeartFill : faHeart }  
-                  color={ isToggleOn.favourite ? _blue : _grey} 
+                  icon={ favourite ? faHeartFill : faHeart }  
+                  color={ favourite ? _blue : _grey} 
                   size={ 20 }
                 />
               </TouchableOpacity>
             </View>
             
-            <Controls setToggle={ setToggle } isToggleOn={ isToggleOn }/>
+            <Controls/>
   
           </View>
         </View>
@@ -172,8 +173,8 @@ const styles = StyleSheet.create({
   },
   top: {
     width: '100%',
-    minHeight: 50,
-    backgroundColor: 'rgba(50, 50, 50, 0.3)',
+    maxHeight: 45, // 50 and icons 25 original
+    backgroundColor: 'rgba(50, 50, 50, 0.0)',
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
@@ -195,11 +196,12 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: width * 0.85,
-    resizeMode: 'stretch'
+    resizeMode: 'cover'
   },
   content: {
     width: '100%', 
     height: '30%', 
+    marginTop: '5%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

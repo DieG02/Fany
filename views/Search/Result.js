@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   View,
   Text,
@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import {
   faPlus,
 } from '@fortawesome/free-solid-svg-icons'
+import { GOOGLE_API_KEY } from '@env'
 
 
 // ----- CONSTANTS ----- //
@@ -29,15 +30,30 @@ const _light = '#eeeeee',
 export default function Result({ videoId, data }) {
 
   //         Artist       Image      Name
-  const { channelTitle, thumbnails, title } = data;
+  const { channelTitle, thumbnails, title,  } = data;
 
-  const name = title.replace(/&amp;/g, "&").replace(/&quot;/g, "\"");
-  const song = useSelector(state => state.app.song)
-  const sound = useSelector(state => state.audio.sound);
+  const name = title.replace(/&amp;/g, "&").replace(/&quot;/g, "\"").replace(/&#39;/g, "'");
+  const song = useSelector(state => state.app.song);
   const dispatch = useDispatch();
+  
+  let color = song.videoId === videoId ? _blue : _grey;
+  let shortName = name.length < 65 ? name : name.slice(0, 65).concat('...')
+  // const [ extraData, setExtraData ] = useState()
 
-  let color = song.title === name && song.artist === channelTitle ? _blue : _light;
+  
+  // const search = function(){
+  //   fetch(`https://www.googleapis.com/youtube/v3/videos?part=id%2C+snippet&id=${videoId}&key=${GOOGLE_API_KEY}`)
+  //   .then(res => res.json())
+  //   .then((data) => {
+  //     setExtraData(data.items[0].snippet.thumbnails)
+  //     console.log(data.items[0].snippet.thumbnails)
+  //   })
+  // }
 
+  // useEffect(() => {
+  //   search()
+  // })
+  
   return(
     <View style={ styles.container }>
       <TouchableOpacity 
@@ -46,10 +62,12 @@ export default function Result({ videoId, data }) {
         activeOpacity={ 0.5 }
         onPress={() => {
           dispatch(setSong({
+            iconImage: thumbnails.high.url,
             image: thumbnails.high.url,
             title: name,
             artist: channelTitle,
-            url: `https://www.youtube.com/watch?v=${videoId}`
+            url: `https://www.youtube.com/watch?v=${videoId}`,
+            videoId: videoId,
           }))
         }}
       >
@@ -58,7 +76,7 @@ export default function Result({ videoId, data }) {
           style={ styles.image }
         />
         <View style={{ width: '60%', justifyContent: 'space-around' }}>
-          <Text style={[ styles.title, { color: color }]}>{ name }</Text>
+          <Text style={[ styles.title, { color: color }]}>{ shortName }</Text>
           <Text style={ styles.content }>{ channelTitle }</Text>
         </View>
       </TouchableOpacity>
@@ -110,7 +128,7 @@ const styles = StyleSheet.create({
     
   },
   content: {
-    color: _grey,
+    color: '#aaa',
     fontSize: 11,
     marginBottom: 'auto',
   },

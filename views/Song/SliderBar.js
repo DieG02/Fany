@@ -35,7 +35,7 @@ export default function Audio({ props }) {
       step={ 0 }
       minimumValue={ 0 }
       maximumValue={ 1 }
-      thumbTintColor={ _blue }
+      thumbTintColor={ _grey }  // _blue
       minimumTrackTintColor={ _light }
       maximumTrackTintColor={ _grey }
       onValueChange={(e) => setValue(e)}
@@ -48,7 +48,7 @@ export default function Audio({ props }) {
 // ----- STYLERS ----- //
 const styles = StyleSheet.create({
   slider: {
-    height: 40,
+    height: 30,
     width: '108%', 
     backgroundColor: 'transparent',
     marginLeft: '-4%' 

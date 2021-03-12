@@ -29,21 +29,13 @@ export default function Home() {
 
   const arr = [1,2,3,4,5,6,7]
   const song = true;
+  const sound = useSelector(state => state.audio.sound);
   const dispatch = useDispatch()
-  const setMenuDispatch = (name) => dispatch(setMenu(name)),
-        setStatusBarDispatch = (object) => dispatch(setStatusBar(object));
-  const { translucent, backgroundColor, barStyle } = useSelector(state => state.app.statusBar)
-
+  const setMenuDispatch = (name) => dispatch(setMenu(name));
 
 
   useEffect(() => {
     setMenuDispatch('Home')
-    // console.log('useEffect en Home works')
-    // setStatusBarDispatch({
-    //   translucent: true,
-    //   backgroundColor: 'transparent',
-    //   barStyle: 'light-content',
-    // })
   }, [])
 
   return( 
@@ -93,7 +85,7 @@ export default function Home() {
         <View style={ styles.playlist }>
           <Text style={ styles.subtittles }>My playlists</Text>
           <ScrollView 
-            style={ [styles.squareScroll, { marginBottom: song ? '50%' : '15%' }] } 
+            style={ [styles.squareScroll, { marginBottom: Object.entries(sound).length ? '45 %' : 100 }] } 
             horizontal showsHorizontalScrollIndicator={ false }
           >
             {arr.map(item => <Square src={ artist } key={ item }/> )}

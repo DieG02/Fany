@@ -6,7 +6,8 @@ import {
   View, 
   Image,
   TextInput,
-  TouchableHighlight
+  TouchableHighlight,
+  LogBox
 } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import SvgRegister from './svg/registerFrame.js'
@@ -41,6 +42,7 @@ export default function Register({ navigation }) {
     if(values.email === '') alert('Please provide a email');
     else {
       console.log(values)
+      LogBox.ignoreAllLogs()
       await firebase.db.collection('users').add({
         email: values.email,
         password: values.password
@@ -48,6 +50,7 @@ export default function Register({ navigation }) {
       navigation.navigate('MyTabBar')
     }
   }
+  
 
 
 

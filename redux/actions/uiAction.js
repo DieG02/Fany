@@ -3,9 +3,10 @@ import {
   SET_SONG,
   IS_PLAYING,
   IS_FAVOURITE,
+  IS_SAVED,
+  SET_LOOP,
   SHOW_MENU,
   SHOW_SONG,
-  STATUS_BAR,
 } from '../types.js'
 
 
@@ -39,6 +40,27 @@ export const isFavourite = (boolean) => {
   }  
 }
 
+export const isSaved = (boolean) => {
+  return {
+    type: IS_SAVED,
+    value: boolean,
+  }  
+}
+
+export const setLoop = (string) => {
+  return{
+    type: SET_LOOP,
+    icon: string
+  }
+}
+
+export const setDuration = (number) => {
+  return {
+    type: SET_DURATION,
+    miliseconds: number
+  }
+}
+
 export const showMenu = (boolean) => {
   return {
     type: SHOW_MENU,
@@ -50,12 +72,5 @@ export const showSong = (boolean) => {
   return {
     type: SHOW_SONG,
     value: boolean
-  }
-}
-
-export const setStatusBar = (properties) => {
-  return {
-    type: STATUS_BAR,
-    payload: properties 
   }
 }

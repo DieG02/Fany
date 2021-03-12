@@ -35,11 +35,12 @@ export default function Search({ navigation }) {
   const [value, setValue] = useState('');
   const [data, setData] = useState({});
 
+  const sound = useSelector(state => state.audio.sound);
   let input =  value.replace(/\s+/g, '%20') 
   const dispatch = useDispatch()
 
   const search = function(){
-    fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${input}&key=${GOOGLE_API_KEY}`)
+    fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=${input}&key=${GOOGLE_API_KEY}`)
     .then(res => res.json())
     .then((data) => {
       setData(data)
@@ -66,7 +67,6 @@ export default function Search({ navigation }) {
           style={ styles.icon }
           activeOpacity={ 0.8 }
           onPress={() => {
-
             navigation.goBack()
           }}
         >
@@ -109,26 +109,26 @@ export default function Search({ navigation }) {
             Results
           </Text>
         </View>
-        <ScrollView
-          style={ styles.scroll }
-          showsVerticalScrollIndicator={ false }
-        >
-          <View style={{ marginTop: '0%', marginBottom: '0%' }}>
-
-          {data.items ? data.items.map(item => {
-            // const { urlImage } = item.snippet.thumbnails.high;
-            return (
-              <Result 
-                key={ item.id.videoId } 
-                videoId={ item.id.videoId }
-                data={ item.snippet }           
-              />
-            )
-          })
-          : <Text style={ styles.alternativeText }>Your search results will appear here!</Text>}
-
-          </View>
-        </ScrollView>
+        <View style={{ height: '90%' }}>
+          <ScrollView
+            style={ styles.scroll }
+            showsVerticalScrollIndicator={ false }
+          >
+            <View style={{ marginBottom: Object.entries(sound).length ? '23 %' : 10 }}>
+              {data.items ? data.items.map(item => {
+                // const { urlImage } = item.snippet.thumbnails.high;
+                return (
+                  <Result 
+                    key={ item.id.videoId } 
+                    videoId={ item.id.videoId }
+                    data={ item.snippet }           
+                  />
+                )
+              })
+              : <Text style={ styles.alternativeText }>Your search results will appear here!</Text>}
+            </View>           
+          </ScrollView>
+        </View>
       </View>
     </View>
   )
@@ -141,9 +141,8 @@ const styles = StyleSheet.create({
     flex: 1,  
     alignItems: 'flex-start',
     backgroundColor: _dark,
-    width: '100%',
-    height: '100%',
-    minHeight: height,
+    width: width,
+    height: height,
   },
   searchBar: {
     backgroundColor: 'rgba(68, 68, 68, 0.6)',
@@ -153,10 +152,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   container: {
+    height: '88%', 
+    width: '100%',
     paddingLeft: 15,
     paddingRight: 15,
-    width: '100%',
-    height: height - 170, 
   },
   input: {
     width: '76%',
@@ -178,7 +177,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     color: '#fff',
-    fontSize: height > 600 ? 24 : 20,
+    fontSize: 22,
     fontWeight: 'bold',
   },
   scroll: {
