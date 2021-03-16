@@ -84,7 +84,14 @@ export default function Playing() {
             { title } 
           </MarqueeText>
          
-          <MarqueeText style={ styles.content }>
+          <MarqueeText 
+            style={ styles.content }
+            duration={artist.length * 120}
+            marqueeOnStart={ true }
+            loop
+            marqueeDelay={1000}
+            marqueeResetDelay={750}
+          >
             { artist }  •  { duration ? time(duration) : '00:00' }
           </MarqueeText>
         </View>

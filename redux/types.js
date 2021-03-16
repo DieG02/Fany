@@ -8,7 +8,6 @@ export const SET_LOOP = 'SET_LOOP';
 export const SET_DURATION = 'SET_DURATION';
 export const SHOW_MENU = 'SHOW_MENU';
 export const SHOW_SONG = 'SHOW_SONG';
-export const STATUS_BAR = 'STATUS_BAR';
 
 
 export const LOAD_SOUND = 'LOAD_SOUND';

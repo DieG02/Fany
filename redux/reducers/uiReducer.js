@@ -19,11 +19,6 @@ const initialState = {
     showSong: false,
     showMenu: false,
   },
-  statusBar: {
-    translucent: true,
-    backgroundColor: '',
-    barStyle: '',
-  },
   user: {
     isAuthenticated: false,
     email: '',
@@ -153,7 +148,6 @@ export default function userInterface(state = initialState, action) {
           showSong: action.value
         }
       }
-
 
     default:
       return state;

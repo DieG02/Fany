@@ -31,7 +31,7 @@ export default function Menu({ menu }) {
 
   return(
     <View style={ styles.menu }>
-      {arr.map(({ name, icon }) => {
+       {arr.map(({ name, icon }) => {
         return (
           <View style={ styles['item' + name] }  key={ name }>
             <TouchableOpacity

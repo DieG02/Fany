@@ -24,14 +24,13 @@ import Controls from './Controls.js'
 
 
 // ----- CONSTANTS ----- // 
-const IMAGE = require('../../assets/hybrid_theory.jpg');
 const { width } = Dimensions.get('window');
 const _light = '#eeeeee',
       _grey = '#dddddd',
       _dark = '#151515',
       _blue = '#1dcce3';
 const colorsGradient = ['#71BAC3', '#5D93A5', '#44637E', '#243442', '#111111'],
-locationsGradient = [0.05, 0.2, 0.4, 0.6, 0.85];
+locationsGradient = [0.05, 0.2, 0.35, 0.55, 0.75];
 
 
 
@@ -116,11 +115,11 @@ export default function Song({ navigation }) {
               <View style={ styles.text }>         
                 <MarqueeText
                   style={{ fontSize: 20, color: _grey, fontWeight: 'bold' }}
-                  duration={title.length * 85}
+                  duration={title.length * 200}
                   marqueeOnStart={ true }
                   loop
-                  marqueeDelay={1500}
-                  marqueeResetDelay={1000}
+                  marqueeDelay={1750}
+                  marqueeResetDelay={1250}
                 >
                   { title } 
                 </MarqueeText>
@@ -208,7 +207,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'rgba(50, 50, 50, 0.5)'
   },
   text: {
-    width: '90%',
+    width: '87%',
     justifyContent: 'center',
   },
 })

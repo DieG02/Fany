@@ -9,11 +9,10 @@ import {
   StyleSheet,
   StatusBar,
   ScrollView,
-  // BackHandler,
-  // Alert,
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { showMenu } from '../../redux/actions/uiAction.js'
+import { useIsFocused } from '@react-navigation/native'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import {
   faArrowLeft,
@@ -28,6 +27,13 @@ const { height, width } = Dimensions.get('window')
 const _light = '#eeeeee',
       _grey = '#cccccc',
       _dark = '#151515';
+
+
+function FocusAwareStatusBar(props) {
+  const isFocused = useIsFocused();
+  return isFocused ? <StatusBar {...props} /> : null;
+}
+
 
 // ----- COMPONENT ----- //
 export default function Search({ navigation }) {
@@ -51,12 +57,10 @@ export default function Search({ navigation }) {
     dispatch(showMenu(true))
   }, [])
 
-  const ui = useSelector(state => state.app.ui)
-
   return(
     <View style={ styles.main }>  
     
-      <StatusBar
+      <FocusAwareStatusBar
         translucent={false}
         backgroundColor={_dark}
         barStyle='light-content'
@@ -116,11 +120,10 @@ export default function Search({ navigation }) {
           >
             <View style={{ marginBottom: Object.entries(sound).length ? '23 %' : 10 }}>
               {data.items 
-              ? data.items.map(item => {
-                // const { urlImage } = item.snippet.thumbnails.high;
+              ? data.items.map((item, index) => {
                 return (
                   <Result 
-                    key={ item.id.videoId } 
+                    key={ index } 
                     videoId={ item.id.videoId }
                     data={ item.snippet }           
                   />

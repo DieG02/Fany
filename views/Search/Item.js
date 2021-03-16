@@ -25,7 +25,7 @@ const _light = '#eeeeee',
 export default function Item({ song, setSong, removeLastItem }) {
 
   const { image, title, artist, videoId } = song
-  let shortTitle = title.length < 40 ? title : title.slice(0, 40).concat('...')
+  
   return(
     <View 
       style={ styles.container }
@@ -39,7 +39,7 @@ export default function Item({ song, setSong, removeLastItem }) {
         <Image source={{ uri: image }} style={ styles.image }/>
         <View style={{ width: '80%', height: '80%' }}>
           <Text style={ styles.title }>
-            { shortTitle }
+            { title }
           </Text>
           <Text style={ styles.content }>
             { artist }

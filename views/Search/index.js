@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import {
   View,
   Text,
+  Keyboard,
   TouchableOpacity,
   ScrollView,
   Dimensions,
@@ -12,6 +13,7 @@ import { connect } from 'react-redux'
 import { setMenu, setSong } from '../../redux/actions/uiAction.js'
 import { removeLastItem } from '../../redux/actions/userActions.js'
 import { LinearGradient } from 'expo-linear-gradient'
+import { useIsFocused } from '@react-navigation/native'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import Item from './Item.js'
@@ -28,10 +30,18 @@ const colorsGradient = ['#404040', '#343434','#111111', '#000000'],
 
 
 
+
+
+
+function FocusAwareStatusBar(props) {
+  const isFocused = useIsFocused();
+  isFocused ? Keyboard.dismiss() : null;
+  return isFocused ? <StatusBar {...props} /> : null;
+}
+      
 // ----- COMPONENT ----- //
 function Main({ navigation, sound, lasts, setMenu, setSong, removeLastItem }) {
 
-  const arr = [1,2,3,4,5,6,7,8,9,10]
 
   useEffect(() => {
     setMenu('Search');
@@ -46,7 +56,7 @@ function Main({ navigation, sound, lasts, setMenu, setSong, removeLastItem }) {
         locations={ locationsGradient }
         style={ styles.background }
       />
-      <StatusBar 
+      <FocusAwareStatusBar 
         translucent={true}
         backgroundColor='transparent'
         barStyle='light-content'

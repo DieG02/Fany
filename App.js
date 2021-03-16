@@ -33,7 +33,6 @@ function MyTabBar () {
       <Tab.Screen name='Search' component={ Search } />
       <Tab.Screen name='SearchBar' component={ SearchBar } />
       
-      
     </Tab.Navigator>
   )
 }
@@ -52,8 +51,7 @@ export default function App() {
         <Stack.Screen name='Landing' component={ Landing } />
         <Stack.Screen name='Login' component={ Login } />
         <Stack.Screen name='Register' component={ Register } />
-     
-        
+
         <Stack.Screen name='Song' component={ Song } />
       </Stack.Navigator>
     </View>

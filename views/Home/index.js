@@ -8,8 +8,10 @@ import {
   StatusBar,
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { setMenu, setStatusBar } from '../../redux/actions/uiAction.js'
+import { setMenu } from '../../redux/actions/uiAction.js'
 import { LinearGradient } from 'expo-linear-gradient'
+import { useIsFocused } from '@react-navigation/native'
+
 import Circle from './Circle.js'
 import Square from './Square.js'
 import SvgHome from '../svg/homeFrame.js'
@@ -34,6 +36,12 @@ export default function Home() {
   const setMenuDispatch = (name) => dispatch(setMenu(name));
 
 
+  function FocusAwareStatusBar(props) {
+    const isFocused = useIsFocused();
+    return isFocused ? <StatusBar {...props} /> : null;
+  }
+
+
   useEffect(() => {
     setMenuDispatch('Home')
   }, [])
@@ -45,7 +53,7 @@ export default function Home() {
         locations={ locationsGradient }
         style={ styles.background }
       />
-      <StatusBar 
+      <FocusAwareStatusBar 
         translucent={true}
         backgroundColor='transparent'
         barStyle='light-content'
@@ -54,6 +62,7 @@ export default function Home() {
       <ScrollView 
         style={ styles.container } 
         showsVerticalScrollIndicator={ false }
+        onScroll={({ nativeEvent }) => nativeEvent.contentOffset.y}
       >
         <View style={ styles.header }>
         <SvgHome style={{ right: '8%' }} height={ 120 }/>
@@ -128,7 +137,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 15,
     position: 'absolute',
-    top: '25%', 
+    top: '21%', 
   },
 
   subtittles: {
