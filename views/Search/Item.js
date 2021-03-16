@@ -13,19 +13,19 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 // ----- CONSTANTS ----- //
 const { width, height } = Dimensions.get('window')
-const image = require('../../assets/linkin_park.jpg')
+const _light = '#eeeeee',
+      _grey = '#cccccc',
+      _blue = '#1dcce3',
+      _dark = '#151515';
+    
+
 
 
 // ----- COMPONENT ----- //
-export default function Item() {
+export default function Item({ song, setSong, removeLastItem }) {
 
-
-  const props = {
-    src: image,
-    title: 'Leave Out All The Rest',
-    artist: 'Linkin Park'
-  }
-
+  const { image, title, artist, videoId } = song
+  let shortTitle = title.length < 40 ? title : title.slice(0, 40).concat('...')
   return(
     <View 
       style={ styles.container }
@@ -34,26 +34,29 @@ export default function Item() {
         style={ styles.dataContainer }
         delayPressIn={ 30 }
         activeOpacity={ 0.6 }
-        onPress={() => console.log('Good job')} 
+        onPress={() => setSong(song)} 
       >
-        <Image source={ props.src } style={ styles.image }/>
-        <View>
+        <Image source={{ uri: image }} style={ styles.image }/>
+        <View style={{ width: '80%', height: '80%' }}>
           <Text style={ styles.title }>
-            { props.title }
+            { shortTitle }
           </Text>
           <Text style={ styles.content }>
-            { props.artist }
+            { artist }
           </Text>
         </View>
       </TouchableOpacity>
 
      <TouchableOpacity 
       style={ styles.icon }
+      onPress={() => {
+        removeLastItem(videoId)
+      }}
      >
       <FontAwesomeIcon 
         icon={ faTimes }
         color='#aaa'
-        size={ height > 600 ? 23 : 20 }
+        size={ 22 }
       />
      </TouchableOpacity>
     </View>
@@ -74,21 +77,27 @@ const styles = StyleSheet.create({
   image: {
     height: 50,
     width: 50,
-    marginRight: 15,
+    marginRight: 10,
+    resizeMode: 'cover'
   },
   dataContainer: {
     flexDirection: 'row',
     height: '100%',
-    width: `${(1 - (50 / (width- 30))) * 100}%`,
+    width: `${(1 - (45 / width)) * 100}%`,
     alignItems: 'center',
   },
   title: {
-    color: '#fff',
-    fontSize: 14,
+    marginTop: 'auto',
+    fontSize: 13,
+    width: '100%',
+    color: _light,
+    fontWeight: 'bold',
+    height: 20,
   },
   content: {
     color: '#aaa',
-    fontSize: 12,
+    fontSize: 11,
+    marginBottom: 'auto',
   },
   icon: {
     position: 'absolute',

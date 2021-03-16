@@ -12,8 +12,6 @@ const initialState = {
 }
 
 
-// ...state --> devuelvo todo lo demás
-// ...state-ui --> devuelvo las propiedades de ui, alterando solamente la indicada
 
 export default function userInterface(state = initialState, action) {
   switch (action.type) {
@@ -21,7 +19,7 @@ export default function userInterface(state = initialState, action) {
     case ADD_RECENT_ITEM:
       return {
         ...state,
-        recents: [action.item, ...state.recents]  // Array.unshift(value)
+        recents: [action.item, ...state.recents]  // Array.unshift(item)
       }
 
     case REMOVE_RECENT_ITEM:
@@ -33,7 +31,7 @@ export default function userInterface(state = initialState, action) {
     case ADD_LAST_ITEM:
       return {
         ...state,
-        lasts: [action.last, ...state.lasts]
+        lasts: [action.item, ...state.lasts]
       }  
 
     case REMOVE_LAST_ITEM:

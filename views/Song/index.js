@@ -116,7 +116,7 @@ export default function Song({ navigation }) {
               <View style={ styles.text }>         
                 <MarqueeText
                   style={{ fontSize: 20, color: _grey, fontWeight: 'bold' }}
-                  duration={title.length * 200}
+                  duration={title.length * 85}
                   marqueeOnStart={ true }
                   loop
                   marqueeDelay={1500}

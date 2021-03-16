@@ -33,10 +33,11 @@ export const addLastItem = (song) => {
   }
 }
 
-export const removeLastItem = () => {
+export const removeLastItem = (id) => {
   return function (dispatch) {
     return dispatch({
-      type: REMOVE_LAST_ITEM
+      type: REMOVE_LAST_ITEM,
+      videoId: id
     })
   }
 }

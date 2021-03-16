@@ -115,7 +115,8 @@ export default function Search({ navigation }) {
             showsVerticalScrollIndicator={ false }
           >
             <View style={{ marginBottom: Object.entries(sound).length ? '23 %' : 10 }}>
-              {data.items ? data.items.map(item => {
+              {data.items 
+              ? data.items.map(item => {
                 // const { urlImage } = item.snippet.thumbnails.high;
                 return (
                   <Result 

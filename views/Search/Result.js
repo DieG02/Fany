@@ -1,58 +1,45 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import {
   View,
   Text,
   Image,
   TouchableOpacity,
-  Dimensions,
   StyleSheet,
 } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import { setSong } from '../../redux/actions/uiAction.js'
+import { addRecentItem, addLastItem } from '../../redux/actions/userActions.js'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import {
-  faPlus,
-} from '@fortawesome/free-solid-svg-icons'
-import { GOOGLE_API_KEY } from '@env'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 
 // ----- CONSTANTS ----- //
-const { width, height } = Dimensions.get('window')
-const image = require('../../assets/neffex.jpg')
-const _light = '#eeeeee',
-      _grey = '#cccccc',
+const _light = '#dedede',
+      _grey = '#aaaaaa',
       _blue = '#1dcce3',
       _dark = '#151515';
     
 
 
 // ----- COMPONENT ----- //
-export default function Result({ videoId, data }) {
+function Result({ videoId, data, song, setSong, addLastItem, addRecentItem }) {
 
   //         Artist       Image      Name
   const { channelTitle, thumbnails, title,  } = data;
 
   const name = title.replace(/&amp;/g, "&").replace(/&quot;/g, "\"").replace(/&#39;/g, "'");
-  const song = useSelector(state => state.app.song);
-  const dispatch = useDispatch();
-  
-  let color = song.videoId === videoId ? _blue : _grey;
   let shortName = name.length < 65 ? name : name.slice(0, 65).concat('...')
-  // const [ extraData, setExtraData ] = useState()
-
-  
-  // const search = function(){
+  const newSong = {
+    image: thumbnails.high.url,
+    title: name,
+    artist: channelTitle,
+    url: `https://www.youtube.com/watch?v=${videoId}`,
+    videoId: videoId,
+  }
+  let color = song.videoId === videoId ? _blue : _light;
+   
   //   fetch(`https://www.googleapis.com/youtube/v3/videos?part=id%2C+snippet&id=${videoId}&key=${GOOGLE_API_KEY}`)
-  //   .then(res => res.json())
-  //   .then((data) => {
-  //     setExtraData(data.items[0].snippet.thumbnails)
-  //     console.log(data.items[0].snippet.thumbnails)
-  //   })
-  // }
 
-  // useEffect(() => {
-  //   search()
-  // })
   
   return(
     <View style={ styles.container }>
@@ -61,14 +48,9 @@ export default function Result({ videoId, data }) {
         delayPressIn={ 20 }
         activeOpacity={ 0.5 }
         onPress={() => {
-          dispatch(setSong({
-            iconImage: thumbnails.high.url,
-            image: thumbnails.high.url,
-            title: name,
-            artist: channelTitle,
-            url: `https://www.youtube.com/watch?v=${videoId}`,
-            videoId: videoId,
-          }))
+          setSong(newSong)
+          addLastItem(newSong)
+          addRecentItem(newSong)
         }}
       >
         <Image
@@ -96,6 +78,14 @@ export default function Result({ videoId, data }) {
   )
 }
 
+function mapStateToProps(state) {
+  return {
+    song: state.app.song,
+  };
+}
+
+export default connect(mapStateToProps, { setSong, addLastItem, addRecentItem })(Result);
+
 
 
 // ----- STYLERS ----- //
@@ -118,14 +108,13 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     marginRight: 15,
+    resizeMode: 'cover'
   },
   title: {
-    color: _light,
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: 'bold',
     marginTop: 'auto',
     width: '120%',
-    
   },
   content: {
     color: '#aaa',

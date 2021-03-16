@@ -8,30 +8,33 @@ import {
   StyleSheet,
   StatusBar
 } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
-import { setMenu } from '../../redux/actions/uiAction.js'
+import { connect } from 'react-redux'
+import { setMenu, setSong } from '../../redux/actions/uiAction.js'
+import { removeLastItem } from '../../redux/actions/userActions.js'
 import { LinearGradient } from 'expo-linear-gradient'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import Item from './Item.js'
 
 
+
 // ----- CONSTANTS ----- // 
 const { height } = Dimensions.get('window')
-const _light = '#eeeeee';
+const _light = '#eeeeee',
+      _grey = '#cccccc',
+      _dark = '#151515';
 const colorsGradient = ['#404040', '#343434','#111111', '#000000'],
       locationsGradient = [0.05, 0.15, 0.3, 0.5];
 
 
+
 // ----- COMPONENT ----- //
-export default function Main({ navigation }) {
+function Main({ navigation, sound, lasts, setMenu, setSong, removeLastItem }) {
 
   const arr = [1,2,3,4,5,6,7,8,9,10]
-  const song = true;
-  const sound = useSelector(state => state.audio.sound);
-  const dispatch = useDispatch()
+
   useEffect(() => {
-    dispatch(setMenu('Search'));
+    setMenu('Search');
   }, [])
 
 
@@ -73,14 +76,34 @@ export default function Main({ navigation }) {
         </Text>
 
         <ScrollView showsVerticalScrollIndicator={ false } style={{ maxWidth: '100%' }}>  
-          <View style={{ width: '100%', marginTop: '5%', marginBottom: Object.entries(sound).length ? '33 %' : 50 }}>
-            {arr.map(index => <Item key={ index }/> )}
+          <View style={{ width: '100%', marginTop: '3%', marginBottom: Object.entries(sound).length ? '33 %' : 50 }}>
+            {lasts.length > 0 
+            ? lasts.map(song => (
+              <Item 
+                key={ song.videoId } 
+                song={ song } 
+                setSong={ setSong } 
+                removeLastItem={ removeLastItem }      
+              />
+            ) )
+            : <Text style={ styles.alternativeText }>You don't have search!</Text>}
           </View>    
         </ScrollView>
       </View>
     </View>
   )
 }
+
+function mapStateToProps(state) {
+  return {
+    sound: state.audio.sound,
+    lasts: state.user.lasts,
+  };
+}
+
+export default connect(mapStateToProps, { setMenu, setSong, removeLastItem })(Main);
+
+
 
 
 // ----- STYLERS ----- //
@@ -136,5 +159,11 @@ const styles = StyleSheet.create({
     color: _light,
     fontSize: height > 720 ? 24 : 20,
     fontWeight: 'bold',
+  },
+  alternativeText: {
+    color: _grey,
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginTop: '5%',
   },
 })

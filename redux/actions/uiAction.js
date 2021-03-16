@@ -15,15 +15,17 @@ export const setMenu = (name) => {
   return {
     type: SET_MENU,
     menu: name
-  }  
+  }
 }
 
 export const setSong = (object) => {
-  return {
-    type: SET_SONG,
-    song: object,
-    exist: true,
-  }  
+  return function (dispatch) {
+    return dispatch({
+      type: SET_SONG,
+      song: object,
+      exist: true,
+    })
+  } 
 }
 
 export const isPlaying = (boolean) => {
