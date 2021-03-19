@@ -10,8 +10,7 @@ import {
   StatusBar
 } from 'react-native'
 import { connect } from 'react-redux'
-import { setMenu, setSong } from '../../redux/actions/uiAction.js'
-import { removeLastItem } from '../../redux/actions/userActions.js'
+import { setMenu } from '../../redux/actions/uiAction.js'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useIsFocused } from '@react-navigation/native'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
@@ -40,7 +39,7 @@ function FocusAwareStatusBar(props) {
 }
       
 // ----- COMPONENT ----- //
-function Main({ navigation, sound, lasts, setMenu, setSong, removeLastItem }) {
+function Main({ navigation, sound, lasts, setMenu, removeLastItem }) {
 
 
   useEffect(() => {
@@ -89,13 +88,11 @@ function Main({ navigation, sound, lasts, setMenu, setSong, removeLastItem }) {
           <View style={{ width: '100%', marginTop: '3%', marginBottom: Object.entries(sound).length ? '33 %' : 50 }}>
             {lasts.length > 0 
             ? lasts.map(song => (
-              <Item 
-                key={ song.videoId } 
-                song={ song } 
-                setSong={ setSong } 
-                removeLastItem={ removeLastItem }      
-              />
-            ) )
+                <Item 
+                  key={ song.videoId } 
+                  item={ song }      
+                />
+              ))
             : <Text style={ styles.alternativeText }>You don't have search!</Text>}
           </View>    
         </ScrollView>
@@ -111,7 +108,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { setMenu, setSong, removeLastItem })(Main);
+export default connect(mapStateToProps, { setMenu })(Main);
 
 
 

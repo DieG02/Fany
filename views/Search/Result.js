@@ -47,6 +47,7 @@ function Result({ videoId, data, song, setSong, addLastItem, addRecentItem }) {
         style={ styles.dataContainer }
         delayPressIn={ 20 }
         activeOpacity={ 0.5 }
+        disabled={song.videoId === videoId}
         onPress={() => {
           setSong(newSong)
           addLastItem(newSong)

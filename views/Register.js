@@ -75,6 +75,7 @@ export default function Register({ navigation }) {
         <TextInput 
           style={styles.input}
           autoCompleteType='password'
+          secureTextEntry={true}
           placeholder='8 characters min'
           onChangeText={value => onChangeHandler('password', value)}
         />

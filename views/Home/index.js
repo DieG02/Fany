@@ -7,7 +7,7 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import { setMenu } from '../../redux/actions/uiAction.js'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useIsFocused } from '@react-navigation/native'
@@ -18,7 +18,9 @@ import SvgHome from '../svg/homeFrame.js'
 
 
 // ----- CONSTANTS ----- // 
-const artist = require('../../assets/sum_41.jpg') 
+// const artist = require('../../assets/sum_41.jpg') 
+const artist = require('../../assets/grey2.jpg') 
+
 const { height } = Dimensions.get('window')
 const _light = '#eeeeee',
       _dark = '#151515';
@@ -27,23 +29,18 @@ const colorsGradient = ['#090909','#242424', '#3A3A3A', '#626262'],
 
 
 // ----- COMPONENT ----- // 
-export default function Home() {
+function Home({ sound, lasts, setMenu }) {
 
   const arr = [1,2,3,4,5,6,7]
-  const song = true;
-  const sound = useSelector(state => state.audio.sound);
-  const dispatch = useDispatch()
-  const setMenuDispatch = (name) => dispatch(setMenu(name));
-
 
   function FocusAwareStatusBar(props) {
     const isFocused = useIsFocused();
-    return isFocused ? <StatusBar {...props} /> : null;
+    return isFocused && <StatusBar {...props} />;
   }
 
 
   useEffect(() => {
-    setMenuDispatch('Home')
+    setMenu('Home')
   }, [])
 
   return( 
@@ -76,7 +73,9 @@ export default function Home() {
             horizontal 
             showsHorizontalScrollIndicator={ false }
           >  
+          <View style={{ height: 100, width: '100%', flexDirection: 'row', marginLeft: 5, marginRight: 5 }}>
             {arr.map(item => <Circle src={ artist } key={ item }/> )}
+          </View>
           </ScrollView>
         </View>
 
@@ -87,7 +86,9 @@ export default function Home() {
             horizontal 
             showsHorizontalScrollIndicator={ false }
           >
-            {arr.map(item =>  <Square src={ artist } key={ item } song={ song }/> )}
+            <View style={{ height: 200, width: '100%', flexDirection: 'row', marginLeft: 5, marginRight: 5 }}>
+              {lasts.map((song, index) =>  <Square key={ index } song={ song }/> )}
+            </View>
           </ScrollView>
         </View>
 
@@ -97,13 +98,26 @@ export default function Home() {
             style={ [styles.squareScroll, { marginBottom: Object.entries(sound).length ? '45 %' : 100 }] } 
             horizontal showsHorizontalScrollIndicator={ false }
           >
-            {arr.map(item => <Square src={ artist } key={ item }/> )}
+            <View style={{ height: 150, width: '100%', flexDirection: 'row', marginLeft: 5, marginRight: 5 }}>
+              {arr.map(item => <Square src={ artist } key={ item }/> )}
+            </View>
           </ScrollView>
         </View>
       </ScrollView>
     </View>
   )
 }
+
+function mapStateToProps(state) {
+  return {
+    sound: state.audio.sound,
+    lasts: state.user.lasts,
+  };
+}
+
+export default connect(mapStateToProps, { setMenu })(Home);
+
+
 
 
 // ----- STYLERS ----- //
@@ -148,7 +162,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   circleScroll: {
-    maxHeight: 100,
     marginBottom: '10%',
   },
   squareScroll: {

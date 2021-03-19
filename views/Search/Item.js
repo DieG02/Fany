@@ -7,25 +7,28 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native'
+import { connect } from 'react-redux'
+import { setSong } from '../../redux/actions/uiAction.js'
+import { removeLastItem } from '../../redux/actions/userActions.js'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 
+
 // ----- CONSTANTS ----- //
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 const _light = '#eeeeee',
-      _grey = '#cccccc',
-      _blue = '#1dcce3',
-      _dark = '#151515';
+      _blue = '#1dcce3';
     
 
 
-
 // ----- COMPONENT ----- //
-export default function Item({ song, setSong, removeLastItem }) {
+function Item({ item, song, setSong, removeLastItem }) {
 
-  const { image, title, artist, videoId } = song
-  
+  const { image, title, artist, videoId } = item
+  let color = song.videoId === videoId ? _blue : _light;
+   
+
   return(
     <View 
       style={ styles.container }
@@ -34,11 +37,11 @@ export default function Item({ song, setSong, removeLastItem }) {
         style={ styles.dataContainer }
         delayPressIn={ 30 }
         activeOpacity={ 0.6 }
-        onPress={() => setSong(song)} 
+        onPress={() => setSong(item)} 
       >
         <Image source={{ uri: image }} style={ styles.image }/>
         <View style={{ width: '80%', height: '80%' }}>
-          <Text style={ styles.title }>
+          <Text style={[ styles.title, { color: color } ]}>
             { title }
           </Text>
           <Text style={ styles.content }>
@@ -49,9 +52,7 @@ export default function Item({ song, setSong, removeLastItem }) {
 
      <TouchableOpacity 
       style={ styles.icon }
-      onPress={() => {
-        removeLastItem(videoId)
-      }}
+      onPress={() => removeLastItem(videoId)}
      >
       <FontAwesomeIcon 
         icon={ faTimes }
@@ -62,6 +63,16 @@ export default function Item({ song, setSong, removeLastItem }) {
     </View>
   )
 }
+
+
+function mapStateToProps(state) {
+  return {
+    song: state.app.song,
+  };
+}
+
+export default connect(mapStateToProps, { setSong, removeLastItem })(Item);
+
 
 
 // ----- STYLERS ----- //
@@ -90,9 +101,8 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     fontSize: 13,
     width: '100%',
-    color: _light,
     fontWeight: 'bold',
-    height: 20,
+    height: 18,
   },
   content: {
     color: '#aaa',

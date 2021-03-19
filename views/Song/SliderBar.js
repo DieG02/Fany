@@ -25,20 +25,20 @@ export default function Audio({ props }) {
         setSlider(state.positionMillis / state.durationMillis)
       } 
       onSlider()
-    }, 200)
+    }, 100)
   }
 
   return (
     <Slider
       style={ styles.slider }
-      value={ slider || 0}
-      step={ 0 }
+      value={ slider || 0 }
+      step={ 0.0001 }
       minimumValue={ 0 }
       maximumValue={ 1 }
       thumbTintColor={ _grey }  // _blue
       minimumTrackTintColor={ _light }
       maximumTrackTintColor={ _grey }
-      onValueChange={(e) => setValue(e)}
+      onValueChange={ setValue }
       onSlidingComplete={() => setTiming(value, sound)}
     />
   )

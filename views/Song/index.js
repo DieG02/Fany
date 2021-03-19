@@ -3,6 +3,7 @@ import {
   View,
   Text,
   Image, 
+  ImageBackground,
   StyleSheet,
   TouchableOpacity,
   StatusBar,
@@ -29,8 +30,10 @@ const _light = '#eeeeee',
       _grey = '#dddddd',
       _dark = '#151515',
       _blue = '#1dcce3';
-const colorsGradient = ['#71BAC3', '#5D93A5', '#44637E', '#243442', '#111111'],
-locationsGradient = [0.05, 0.2, 0.35, 0.55, 0.75];
+// const colorsGradient = ['#71BAC3', '#5D93A5', '#44637E', '#243442', '#111111'],
+// locationsGradient = [0.05, 0.2, 0.35, 0.55, 0.75];
+const colorsGradient = ['transparent', '#151515', '#111111', '#000000'],
+locationsGradient = [0.5, 0.8, 0.83, 0.97];
 
 
 
@@ -45,19 +48,35 @@ export default function Song({ navigation }) {
         isFavouriteDispatch = (value) => dispatch(isFavourite(value));
 
 
+  const time = (ms) => {
+    const a = ms / 1000   // 251,821
+    const b = Math.floor(a / 60)
+    const c = Math.floor(a - (60 * b))
+    return `${b}:${c > 10 ? c : '0' + c}`
+  }
 
   return(
     <View style={ styles.main }>
 
+      <ImageBackground source={{ uri: image }} blurRadius={ 3 } style={{   
+        position: 'absolute',
+        top: '-10%',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        resizeMode: 'stretch'
+      }} />
+      
       <LinearGradient
         // Background Linear Gradient
         colors={ colorsGradient }
         locations={ locationsGradient }
-        style={styles.background}
+        style={ styles.background }
       />
+
       <StatusBar
-        translucent={false}
-        backgroundColor={_dark}
+        translucent={ false }
+        backgroundColor={ _dark }
         barStyle='light-content'
       />
 
@@ -108,44 +127,40 @@ export default function Song({ navigation }) {
             height: '30%', 
             width: '100%', 
             justifyContent: 'flex-start', 
-            // backgroundColor: '#ff0000' 
           }}
         >
           <View style={ styles.content }>
-              <View style={ styles.text }>         
-                <MarqueeText
-                  style={{ fontSize: 20, color: _grey, fontWeight: 'bold' }}
-                  duration={title.length * 200}
-                  marqueeOnStart={ true }
-                  loop
-                  marqueeDelay={1750}
-                  marqueeResetDelay={1250}
-                >
-                  { title } 
-                </MarqueeText>
-                  
-                <Text style={{ fontSize: 13, color: '#999' }}>
-                  { artist }
-                </Text>
-              </View>
-
-              <TouchableOpacity
-                style={{ height: '100%', justifyContent: 'center' }}
-                onPress={() => {
-                  isFavouriteDispatch(!favourite)
-                  favourite !== true ?
-                    alert('Add to Favourites')
-                  :
-                    alert('Remove from Favourites')
-                }}
+            <View style={ styles.text }>         
+              <MarqueeText
+                style={{ fontSize: 20, color: _grey, fontWeight: 'bold' }}
+                duration={title.length * 200}
+                marqueeOnStart={ true }
+                loop
+                marqueeDelay={1750}
+                marqueeResetDelay={1250}
               >
-                <FontAwesomeIcon 
-                  icon={ favourite ? faHeartFill : faHeart }  
-                  color={ favourite ? _blue : _grey} 
-                  size={ 20 }
-                />
-              </TouchableOpacity>
+                { title } 
+              </MarqueeText>
+                
+              <Text style={{ fontSize: 13, color: '#999' }}>
+                { artist }  •  { duration ? time(duration) : '00:00' }
+              </Text>
             </View>
+
+            <TouchableOpacity
+              style={{ height: '100%', justifyContent: 'center' }}
+              onPress={() => {
+                isFavouriteDispatch(!favourite)
+                favourite !== true && alert('Add to Favourites')
+              }}
+            >
+              <FontAwesomeIcon 
+                icon={ favourite ? faHeartFill : faHeart }  
+                color={ favourite ? _blue : _grey} 
+                size={ 20 }
+              />
+            </TouchableOpacity>
+          </View>
             
             <Controls/>
   
@@ -159,7 +174,7 @@ export default function Song({ navigation }) {
 // ----- STYLERS ----- //
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: '#67a4b3',
+    backgroundColor: 'transparent',
     width: '100%',
     height: '100%', 
   },
@@ -173,7 +188,7 @@ const styles = StyleSheet.create({
   top: {
     width: '100%',
     maxHeight: 45, // 50 and icons 25 original
-    backgroundColor: 'rgba(50, 50, 50, 0.0)',
+    backgroundColor: 'rgba(50, 50, 50, 0.3)',
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
@@ -195,7 +210,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: width * 0.85,
-    resizeMode: 'cover'
+    resizeMode: 'cover' // 'contain'
   },
   content: {
     width: '100%', 

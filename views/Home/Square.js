@@ -12,34 +12,33 @@ import {
 export default function Square({ src, song }) {
 
   const [stylers, setStylers] = useState({ 
-    height: song === true ? '75%' : '100%',
+    height: song ? '75%' : '100%',
     width: '100%', 
   })
 
+  // let shortName = song.title.length < 20 ? song.title : song.title.slice(0, 20)
 
   return(
-    <View style={ [styles.main, { height: song === true ? 200 : 150 }] }>
+    <View style={ [styles.main, { height: song ? 200 : 150 }] }>
       <TouchableOpacity  
         style={ styles.container } 
         delayPressIn={ 50 }
         activeOpacity={ 0.5 }
         onPress={() => console.log("It doesn't work like that")}
-        onPressIn={() => setStylers({ height: song === true ? '72%' : '97%', width: '96%' })}
-        onPressOut={() => setStylers({ height: song === true ? '75%' : '100%', width: '100%' })}
+        onPressIn={() => setStylers({ height: song ? '72%' : '97%', width: '96%' })}
+        onPressOut={() => setStylers({ height: song ? '75%' : '100%', width: '100%' })}
       >
         <View>
           <Image
-            source={ src } 
+            source={ song ? { uri: song.image } : src} 
             style={ [styles.image, stylers] }
           />
-          {song === true ?  
+          {song &&  
             <View style={ styles.content }>
               <Text style={ styles.text }>
-                Hola tan bionica como estas
+                { song.title || 'Saved / Searched / Playlist'}
               </Text>    
             </View>
-          : 
-            null
           }
         </View>
       </TouchableOpacity>
@@ -51,10 +50,9 @@ export default function Square({ src, song }) {
 // ----- STYLERS ----- // 
 const styles = StyleSheet.create({
   main: {
-    height: 200,
     width: 150, 
-    marginRight: 15,
-    marginLeft: 15,
+    marginRight: 10,
+    marginLeft: 10,
     // backgroundColor: '#1dcce3',
   },
   container: {
@@ -67,6 +65,7 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginTop: 'auto',
     marginBottom: 'auto',
+    borderRadius: 15,
   },
   touch: {
     height: '100%',
@@ -84,6 +83,6 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontWeight: 'bold',
     fontSize: 13,
-
+    height: '69%',
   }
 })
