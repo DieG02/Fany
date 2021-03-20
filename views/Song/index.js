@@ -26,14 +26,14 @@ import Controls from './Controls.js'
 
 // ----- CONSTANTS ----- // 
 const { width } = Dimensions.get('window');
-const _light = '#eeeeee',
+const _light = '#ffffff',
       _grey = '#dddddd',
       _dark = '#151515',
       _blue = '#1dcce3';
 // const colorsGradient = ['#71BAC3', '#5D93A5', '#44637E', '#243442', '#111111'],
 // locationsGradient = [0.05, 0.2, 0.35, 0.55, 0.75];
-const colorsGradient = ['transparent', '#151515', '#111111', '#000000'],
-locationsGradient = [0.5, 0.8, 0.83, 0.97];
+const colorsGradient = ['transparent', '#151515', '#101010'],
+locationsGradient = [0.7, 0.9, 0.95];
 
 
 
@@ -58,7 +58,7 @@ export default function Song({ navigation }) {
   return(
     <View style={ styles.main }>
 
-      <ImageBackground source={{ uri: image }} blurRadius={ 3 } style={{   
+      <ImageBackground source={{ uri: image }} blurRadius={ 20 } style={{   
         position: 'absolute',
         top: '-10%',
         bottom: 0,
@@ -132,7 +132,7 @@ export default function Song({ navigation }) {
           <View style={ styles.content }>
             <View style={ styles.text }>         
               <MarqueeText
-                style={{ fontSize: 20, color: _grey, fontWeight: 'bold' }}
+                style={{ fontSize: 20, color: _light, fontWeight: 'bold' }}
                 duration={title.length * 200}
                 marqueeOnStart={ true }
                 loop
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   top: {
     width: '100%',
     maxHeight: 45, // 50 and icons 25 original
-    backgroundColor: 'rgba(50, 50, 50, 0.3)',
+    backgroundColor: 'rgba(50, 50, 50, 0.0)',
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',

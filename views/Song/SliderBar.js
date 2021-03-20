@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import Slider from '@react-native-community/slider'
 import { setTiming } from '../../redux/actions/soundAction.js'
+// import { SliderPicker } from 'react-native-slider-picker';
 
 
 // ----- CONSTANTS ----- // 
@@ -41,6 +42,30 @@ export default function Audio({ props }) {
       onValueChange={ setValue }
       onSlidingComplete={() => setTiming(value, sound)}
     />
+    // <View  style={ styles.slider }>
+    //   <SliderPicker 
+      
+    //     maxValue={100}
+    //     callback={position => setTiming(position / 100, sound)}
+    //     defaultValue={ slider || 1 }
+    //     labelFontColor={"#6c7682"}
+    //     labelFontWeight={'100'}
+    //     showFill={true}
+    //     fillColor={'#1dcce3'}
+    //     labelFontWeight={'bold'}
+    //     showNumberScale={true}
+    //     showSeparatorScale={true}
+    //     sliderInnerBackgroundColor={'#44444466'}
+    //     sliderInnerBorderStyles={{ borderWidth: 0 }}
+    //     buttonBackgroundColor={'#1dcce3'}
+    //     buttonBorderWidth={0.01}
+    //     buttonDimensionsPercentage={4}
+    //     scaleNumberFontWeight={'300'}
+    //     heightPercentage={0.4}
+    //     sliderInnerStylesOverride={{ height: 3, justifyContent: 'center', borderRadious: 5}}
+    //     widthPercentage={84}
+    //   />
+    // </View>
   )
 }
 
@@ -51,6 +76,6 @@ const styles = StyleSheet.create({
     height: 30,
     width: '108%', 
     backgroundColor: 'transparent',
-    marginLeft: '-4%' 
+    marginLeft: '-4%',
   }
 })
