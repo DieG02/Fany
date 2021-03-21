@@ -46,9 +46,7 @@ export async function isLooping(value, sound) {
 
 export async function setTiming(value, sound) {
   const { durationMillis } = await sound.getStatusAsync();
-  await sound.setPositionAsync(durationMillis * value); 
-  await sound.pauseAsync();
-  await sound.playAsync();
+  await sound.setPositionAsync(durationMillis * value)
 }
 
 

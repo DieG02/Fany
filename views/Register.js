@@ -12,7 +12,7 @@ import {
 import { StatusBar } from 'expo-status-bar'
 import SvgRegister from './svg/registerFrame.js'
 import SvgGoogle from './svg/google.js'
-import firebase from '../database/firebase.js'
+import { localSignUp, googleSignIn, signInWithGoogleAsync } from '../database/firebase.js'
 
 
 // ----- CONSTANTS ----- // 
@@ -20,38 +20,22 @@ const logo = require('../assets/fany.png')
 const { height } = Dimensions.get('window')
 const _blue = '#1dcce3';
 
-
-
 // ----- COMPONENT ----- // 
 export default function Register({ navigation }) {
 
 
-  const [ values, setValues ] = useState({
+  const [ input, setInput ] = useState({
     email: '',
-    password: '',
+    password: ''
   })
 
   const onChangeHandler = (name, value) => {
-    setValues({
-      ...values,
+    setInput({
+      ...input,
       [name]: value,
     })
   } 
   
-  const localSignIn = async () => {
-    if(values.email === '') alert('Please provide a email');
-    else {
-      console.log(values)
-      LogBox.ignoreAllLogs()
-      await firebase.db.collection('users').add({
-        email: values.email,
-        password: values.password
-      })
-      navigation.navigate('MyTabBar')
-    }
-  }
-  
-
 
 
   return(
@@ -83,7 +67,7 @@ export default function Register({ navigation }) {
       
         <TouchableHighlight 
           style={styles.local} 
-          onPress={() => localSignIn()}
+          onPress={() => localSignUp(input, navigation)}
           activeOpacity={0.8}
           underlayColor='#289ead'
         >
@@ -94,7 +78,7 @@ export default function Register({ navigation }) {
         
         <TouchableHighlight 
           style={styles.google}
-          onPress={() => console.log(values)}
+          onPress={() => signInWithGoogleAsync(navigation)}
           activeOpacity={1}
           underlayColor='#eee'
         >

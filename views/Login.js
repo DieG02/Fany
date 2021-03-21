@@ -11,7 +11,7 @@ import {
 import { StatusBar } from 'expo-status-bar'
 import SvgLogin from './svg/loginFrame.js'
 import SvgGoogle from './svg/google.js'
-import firebase from '../database/firebase.js'
+import { localLogIn } from '../database/firebase.js'
 
 
 // ----- CONSTANTS ----- // 
@@ -24,30 +24,18 @@ const _blue = '#1dcce3';
 // ----- COMPONENT ----- // 
 export default function Login({ navigation }) {
 
-  const [ values, setValues ] = useState({
+  const [ input, setInput ] = useState({
     email: '',
     password: '',
   })
 
   const onChangeHandler = (name, value) => {
-    setValues({
-      ...values,
+    setInput({
+      ...input,
       [name]: value,
     })
   } 
   
-  const localLogIn = async () => {
-    if(values.email === '') alert('Please provide a email');
-    else {
-      console.log(values)
-      await firebase.db.collection('users').add({
-        email: values.email,
-        password: values.password
-      })
-      navigation.navigate('MyTabBar')
-    }
-  }
-
 
 
   return(
@@ -82,7 +70,7 @@ export default function Login({ navigation }) {
       
         <TouchableHighlight 
           style={styles.local} 
-          onPress={() => localLogIn()}
+          onPress={() => localLogIn(input, navigation)}
           activeOpacity={0.4}
           underlayColor='#000'
         >
@@ -93,7 +81,7 @@ export default function Login({ navigation }) {
         
         <TouchableHighlight 
           style={styles.google}
-          onPress={() => console.log(values)}
+          onPress={() => console.log(input)}
           activeOpacity={1}
           underlayColor='#eee'
         >
@@ -121,7 +109,6 @@ export default function Login({ navigation }) {
 }
 
 const totalH = Math.floor(height);
-const totalW = width;
 
 // ----- STYLERS ----- //
 const styles = StyleSheet.create({
@@ -182,7 +169,7 @@ const styles = StyleSheet.create({
     height:  45,
     backgroundColor: 'transparent',
     borderRadius: 25,
-    borderWidth: 2,
+    borderWidth: 1.3,
     borderColor: _blue,
     marginTop: '-5%',
   },
