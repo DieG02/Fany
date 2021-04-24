@@ -18,9 +18,9 @@ import {
   faArrowLeft,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons'
-import { GOOGLE_API_KEY } from '@env'
 import Result from './Result.js'
 
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY
 
 // ----- CONSTANTS ----- //
 const { height, width } = Dimensions.get('window')

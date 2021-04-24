@@ -1,10 +1,13 @@
-import * as firebase from 'firebase'
-import * as Google from 'expo-google-app-auth'
+import firebase from 'firebase'
+import Google from 'expo-google-app-auth'
 import 'firebase/firestore'
-import { FIREBASE_KEY, PROJECT_FIRESBASE_ID, ANDROID_CLIENT_ID } from '@env'
+
+const FIREBASE_KEY = process.env.FIREBASE_KEY,
+  PROJECT_FIRESBASE_ID = process.env.PROJECT_FIRESBASE_ID,
+  ANDROID_CLIENT_ID = process.env.ANDROID_CLIENT_ID
 
  // Your web app's Firebase configuration
- var firebaseConfig = {
+ const firebaseConfig = {
   apiKey: FIREBASE_KEY,
   authDomain: "fany-27092020.firebaseapp.com",
   projectId: PROJECT_FIRESBASE_ID,
@@ -27,7 +30,6 @@ export const db = firebase.firestore();
 export const localSignUp = async (input, navigation) => {
   if(input.email === '') return alert('Please provide a email');
   console.log(input)
-
   try {
     await firebase.auth().createUserWithEmailAndPassword(input.email, input.password)
     setTimeout(() => {
