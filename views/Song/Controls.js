@@ -3,7 +3,8 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import Slider from './SliderBar.js'
+import SliderBar from './SliderBar.js'
+import Slider from './Slider.js'
 import Buttons from './Buttons.js'
 
 

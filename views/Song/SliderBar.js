@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import Slider from '@react-native-community/slider'
+import TrackPlayer, { useTrackPlayerProgress } from 'react-native-track-player'
 import { setTiming } from '../../redux/actions/soundAction.js'
 // import { SliderPicker } from 'react-native-slider-picker';
 
@@ -13,7 +14,7 @@ const _light = '#eeeeee',
 
 
 // ----- COMPONENT ----- // 
-export default function Audio({ props }) {
+export default function SliderBar({ props }) {
   
   const { value, setValue, slider, setSlider } = props;
   const sound = useSelector(state => state.audio.sound);
@@ -42,30 +43,6 @@ export default function Audio({ props }) {
       onValueChange={ setValue }
       onSlidingComplete={() => setTiming(value, sound)}
     />
-    // <View  style={ styles.slider }>
-    //   <SliderPicker 
-      
-    //     maxValue={100}
-    //     callback={position => setTiming(position / 100, sound)}
-    //     defaultValue={ slider || 1 }
-    //     labelFontColor={"#6c7682"}
-    //     labelFontWeight={'100'}
-    //     showFill={true}
-    //     fillColor={'#1dcce3'}
-    //     labelFontWeight={'bold'}
-    //     showNumberScale={true}
-    //     showSeparatorScale={true}
-    //     sliderInnerBackgroundColor={'#44444466'}
-    //     sliderInnerBorderStyles={{ borderWidth: 0 }}
-    //     buttonBackgroundColor={'#1dcce3'}
-    //     buttonBorderWidth={0.01}
-    //     buttonDimensionsPercentage={4}
-    //     scaleNumberFontWeight={'300'}
-    //     heightPercentage={0.4}
-    //     sliderInnerStylesOverride={{ height: 3, justifyContent: 'center', borderRadious: 5}}
-    //     widthPercentage={84}
-    //   />
-    // </View>
   )
 }
 

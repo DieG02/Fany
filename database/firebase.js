@@ -1,10 +1,10 @@
 import firebase from 'firebase'
-import Google from 'expo-google-app-auth'
+import * as Google from 'expo-google-app-auth'
 import 'firebase/firestore'
 
 const FIREBASE_KEY = process.env.FIREBASE_KEY,
   PROJECT_FIRESBASE_ID = process.env.PROJECT_FIRESBASE_ID,
-  ANDROID_CLIENT_ID = process.env.ANDROID_CLIENT_ID
+  ANDROID_CLIENT_ID = process.env.ANDROID_CLIENT_ID;
 
  // Your web app's Firebase configuration
  const firebaseConfig = {
