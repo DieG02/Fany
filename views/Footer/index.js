@@ -7,19 +7,24 @@ import { useSelector } from 'react-redux'
 import Playing from './Playing.js'
 import Menu from './Menu.js'
 
-export default function Footer() {
-
+export default function TabBar({ state, descriptors, navigation, title }) {
+ 
   const ui = useSelector(state => state.app.ui);
+  const menu = { state, descriptors, navigation, title }
   
+  const focusedOptions = descriptors[state.routes[state.index].key].options;
+
+
   return(
     <View style={ styles.container }>
       {ui.showSong 
         ? <Playing />
         : null 
       }
-      <Menu 
-        menu={ ui.menuSelected }
-      />
+      { focusedOptions.tabBarVisible === false 
+        ? null 
+        : <Menu menu={menu} />
+      }
     </View>
   )
 }

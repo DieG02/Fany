@@ -9,7 +9,9 @@ import {
 import { useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { setMenu } from '../../redux/actions/uiAction.js'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+// import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { FontAwesome } from '@expo/vector-icons';
+
 import {
   faHome,
   faSearch,
@@ -18,80 +20,98 @@ import {
 const { height } = Dimensions.get('window')
 
 
+
+
+
 export default function Menu({ menu }) {
-  
-  const dispatch = useDispatch()
-  const navigation = useNavigation()
+  const { state, descriptors, navigation, title } = menu
 
   const arr = [
     { name: 'Home', icon: faHome },
     { name: 'Search', icon: faSearch },
     { name: 'Library', icon: faLibrary },
   ]
+  const sub = {
+    "Home": { icon: "home", title: "Inicio" },
+    "Search": { icon: "search", title: "Buscar" },
+    "Library": { icon: "library", title: "Favoritos" },
+    "Profile": { icon: "user", title: "Perfil" },
+  }
 
-  return(
-    <View style={ styles.menu }>
-       {arr.map(({ name, icon }) => {
+  return (
+    <View style={styles.container}>
+      {state.routes.map((route, index) => {
+        const { options } = descriptors[route.key];
+        const label =
+          options.tabBarLabel !== undefined
+            ? options.tabBarLabel
+            : options.title !== undefined
+            ? options.title
+            : route.name;
+
+        const isFocused = state.index === index;
+
+        const onPress = () => {
+          const event = navigation.emit({
+            type: 'tabPress',
+            target: route.key,
+            canPreventDefault: true,
+          });
+
+          if (!isFocused && !event.defaultPrevented) navigation.navigate(route.name);
+        };
+
+        const onLongPress = () => {
+          navigation.emit({
+            type: 'tabLongPress',
+            target: route.key,
+          });
+        };
+
         return (
-          <View style={ styles['item' + name] }  key={ name }>
-            <TouchableOpacity
-              onPress={() => {
-                dispatch(setMenu(name))
-                navigation.navigate(name)
-              }}
-              accessibilityRole='imagebutton'
-              disabled={ menu === name }
-            >
-            <FontAwesomeIcon 
-              icon={ icon } 
-              style={ styles.itemBox }
-              color={ menu === name ? '#fff' : '#999' } 
-              size={ height > 600 ? 25 : 21 }
-            />
-            <Text style={ [styles.itemContent, { color: menu === name ? '#fff' : '#999' }] }>
-              { name }
-            </Text>  
-            </TouchableOpacity>
-          </View>
-        )
-      })}   
+          <TouchableOpacity
+            key={index}
+            accessibilityRole="button"
+            accessibilityState={isFocused ? { selected: true } : {}}
+            accessibilityLabel={options.tabBarAccessibilityLabel}
+            testID={options.tabBarTestID}
+            onPress={onPress}
+            onLongPress={onLongPress}
+            style={styles.item}
+          >
+            <FontAwesome name={sub[label].icon} size={title || isFocused ? 24 : 28} color={ isFocused ? '#EEE' : '#444D52' } />
+            {title || isFocused &&
+              <Text style={{ color: isFocused ? '#EEE' : '#444D52', fontSize: 11 }} >
+                {sub[label].title}
+              </Text> 
+            }
+          </TouchableOpacity>
+        );
+      })}
     </View>
-  )
+  );
 }
 
 
+
+
+
+
+
+
 const styles = StyleSheet.create({
-  menu: {
+  container: {
     height: 45,
     width: '100%',
     backgroundColor: '#222',
-    flexDirection: 'row', // <--- Nice!!!
+    flexDirection: 'row',
+    justifyContent: "space-between",
+    paddingHorizontal: 60,
   },
-  itemBox: {
-    marginTop: '8%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
+  item: {
+    // backgroundColor: "#f00",  
+    paddingHorizontal: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  itemContent: {
-    fontSize:  9,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    marginBottom: 'auto',
-  },
-  itemHome: {
-    height: '100%',
-    width: '13%',
-    marginLeft: 'auto',
-  },
-  itemSearch: { 
-    height: '100%',
-    width: '13%',
-    marginLeft: '10%',
-    marginRight: '10%',
-  },
-  itemLibrary: {
-    height: '100%',
-    width: '13%',  
-    marginRight: 'auto', 
-  }
 })
