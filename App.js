@@ -13,6 +13,8 @@ import Home from './views/Home'
 import Search from './views/Search'
 import SearchBar from './views/Search/Search.js'
 import Song from './views/Song'
+import Profile from './views/Profile'
+import Favourites from './views/Favourites'
 
 
 import Footer from './views/Footer'
@@ -32,6 +34,8 @@ function MyTabBar () {
     >
       <Tab.Screen name='Home' component={ Home } />
       <Tab.Screen name='Search' component={ Search } />
+      <Tab.Screen name='Favourites' component={ Favourites } />
+      <Tab.Screen name='Profile' component={ Profile } />
 
       
     </Tab.Navigator>
