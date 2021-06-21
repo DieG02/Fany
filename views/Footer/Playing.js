@@ -1,23 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import {
   View,
-  Text,
   Image,
   StyleSheet,
-  Dimensions,
-  TouchableOpacity // TouchableHighlight --> Show us a border / dark background
+  TouchableOpacity,
 } from 'react-native'
 import MarqueeText from 'react-native-marquee'
 import { useDispatch, useSelector } from 'react-redux'
 import { isPlaying, isFavourite } from '../../redux/actions/uiAction.js'
 import { loadSound, pauseSound, playSound, isLooping } from '../../redux/actions/soundAction.js'
 import { useNavigation } from '@react-navigation/native'
+import { Ionicons, AntDesign } from '@expo/vector-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import {
   faHeart as faHeartFill,
-  faPause,
-  faPlay
 } from '@fortawesome/free-solid-svg-icons'
 
 
@@ -69,10 +66,10 @@ export default function Playing() {
       >
         <Image 
           source={{ uri: image }}
-          style={ styles.image }
+          style={{ width:  75, height: 74 }}
         />
 
-        <View style={ styles.dataContainer }>
+        <View style={ styles.textContent }>
           <MarqueeText
             style={ styles.title }
             duration={title.length * 200}
@@ -97,40 +94,33 @@ export default function Playing() {
         </View>
       </TouchableOpacity>
 
-      <View style={ styles.itemBox }> 
+      <View style={{ flex: 1 }}> 
         <TouchableOpacity
+          style={styles.icons}
           onPress={() => {
             isFavouriteDispatch(!favourite)
-            favourite !== true ?
-              isLooping(true, sound)
-            :
-              isLooping(false, sound)
+            !!favourite ? isLooping(true, sound) : isLooping(false, sound)
           }}
-          style={{ height: '100%' }}
         >
-          <FontAwesomeIcon 
-            icon={ favourite ? faHeartFill : faHeart }  
-            color={ favourite ? '#1dcce3' : '#999'} 
-            size={ 23 }
-            style={ [styles.itemBox, styles.icons] }
-          />
+          {favourite 
+            ? <AntDesign name="heart" size={20} color="#1dcce3" />
+            : <AntDesign name="hearto" size={20} color="#999" />
+          }
         </TouchableOpacity>
       </View>    
 
-      <View style={ styles.itemBox }>
+      <View style={{ flex: 1 }}>
         <TouchableOpacity
+          style={styles.icons}
           onPress={() => {
             isPlayingDispatch(!playing)
             playing ? pauseSound(sound) : playSound(sound);
           }}
-          style={{ height: '100%' }}
         >
-          <FontAwesomeIcon 
-            icon={ playing ? faPause : faPlay }
-            color='#fff'
-            size={ 23 }
-            style={ styles.icons }
-          />
+          {playing 
+            ? <Ionicons name='pause' size={28} color='#FFF' />
+            : <Ionicons name='play' size={28} color='#FFF' />
+          }
         </TouchableOpacity>
       </View>
     </View>
@@ -143,34 +133,28 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 74,
     width: '100%',
-    backgroundColor: '#222',
+    backgroundColor: '#151515',
     marginBottom: 1,
   },
-
   song: {
     flexDirection: 'row',
     height: '100%',
     width: '75%',
-    backgroundColor: '#222',
+    marginRight: 5,
   },
-  image: {
-    width:  75,
-    height:  74,
-  },
-  dataContainer: {
+
+  textContent: {
     width: '75%',
     height: '100%',
     justifyContent: 'center',
-    flexDirection: 'column',
-    paddingLeft: 10,
+    paddingHorizontal: 5,
   },
   title: {
     width: '100%',
-    color: '#eee',
+    color: '#EEE',
     fontSize:  13,
     fontWeight: 'bold',
     marginRight: 15,
-
   },
   content: {
     width: '100%',
@@ -178,13 +162,10 @@ const styles = StyleSheet.create({
     fontSize:  11,
     marginRight: 15,
   },
-  itemBox: {
-    flex: 1, 
-  },
+
   icons: {
-    marginTop: 'auto',
-    marginBottom: 'auto',
-    marginRight: 'auto',
-    marginLeft: 'auto',
-  },
+    height: '100%',
+    justifyContent: 'center', 
+    alignItems: 'center',
+  }
 })

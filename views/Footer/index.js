@@ -1,30 +1,18 @@
 import React from 'react'
-import {
-  View,
-  StyleSheet,
-} from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
 import Playing from './Playing.js'
-import Menu from './Menu.js'
+import TabBar from './TabBar.js'
 
-export default function TabBar({ state, descriptors, navigation, title }) {
- 
+export default function Footer({ state, descriptors, navigation, title }) {
   const ui = useSelector(state => state.app.ui);
-  const menu = { state, descriptors, navigation, title }
-  
+  const props = { state, descriptors, navigation, title }
   const focusedOptions = descriptors[state.routes[state.index].key].options;
-
 
   return(
     <View style={ styles.container }>
-      {ui.showSong 
-        ? <Playing />
-        : null 
-      }
-      { focusedOptions.tabBarVisible === false 
-        ? null 
-        : <Menu menu={menu} />
-      }
+      {ui.showSong && <Playing />}
+      {!focusedOptions.tabBarVisible && <TabBar props={props} />}
     </View>
   )
 }
