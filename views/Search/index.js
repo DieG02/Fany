@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   View,
   Text,
@@ -10,20 +10,20 @@ import {
   StatusBar
 } from 'react-native'
 import { connect } from 'react-redux'
-import { setMenu } from '../../redux/actions/uiAction.js'
+
 import { LinearGradient } from 'expo-linear-gradient'
 import { useIsFocused } from '@react-navigation/native'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+
 import Item from './Item.js'
+import {  GREY_L, LIGHT } from './searchStyles'
 
 
 
 // ----- CONSTANTS ----- // 
 const { height } = Dimensions.get('window')
-const _light = '#eeeeee',
-      _grey = '#cccccc',
-      _dark = '#151515';
+
 const colorsGradient = ['#404040', '#343434','#111111', '#000000'],
       locationsGradient = [0.05, 0.15, 0.3, 0.5];
 
@@ -39,13 +39,7 @@ function FocusAwareStatusBar(props) {
 }
       
 // ----- COMPONENT ----- //
-function Main({ navigation, sound, lasts, setMenu, removeLastItem }) {
-
-
-  useEffect(() => {
-    setMenu('Search');
-  }, [])
-
+function Main({ navigation, sound, lasts, removeLastItem }) {
 
   return(
     <View style={ styles.main }>
@@ -108,7 +102,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { setMenu })(Main);
+export default connect(mapStateToProps, null)(Main);
 
 
 
@@ -134,7 +128,7 @@ const styles = StyleSheet.create({
     paddingRight: 15,
   },
   title: {
-    color: _light,
+    color: LIGHT,
     fontSize: 40,
     fontWeight: 'bold',
     marginRight: 'auto',
@@ -143,7 +137,7 @@ const styles = StyleSheet.create({
     marginBottom: height > 720 ? '8%' : '5%',
   },
   button: {
-    backgroundColor: _light,
+    backgroundColor: LIGHT,
     height: 44,
     width: '100%',
     borderRadius: 20,
@@ -163,12 +157,12 @@ const styles = StyleSheet.create({
     marginRight: 'auto', 
   },
   subtitle: {
-    color: _light,
+    color: LIGHT,
     fontSize: height > 720 ? 24 : 20,
     fontWeight: 'bold',
   },
   alternativeText: {
-    color: _grey,
+    color: GREY_L,
     fontSize: 15,
     fontWeight: 'bold',
     marginTop: '5%',

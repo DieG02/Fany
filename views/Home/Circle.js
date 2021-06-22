@@ -7,9 +7,7 @@ import {
 } from 'react-native'
 
 
-
 export default function Circle({ src }) {
-  
   return(
     <View style={ styles.main }>
       <ImageBackground 
