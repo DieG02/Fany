@@ -20,7 +20,6 @@ import { WHITE, LIGHT } from './homeStyles'
 // ----- CONSTANTS ----- // 
 const artist = require('../../assets/grey2.jpg') 
 const { height } = Dimensions.get('window')
-
 const colorsGradient = ["#444", '#202020','#171717', '#151515', '#000'];
 const locationsGradient = [0.00, 0.15, 0.5, 0.8, 0.9];
 
@@ -35,7 +34,7 @@ function Home({ sound, lasts, navigation }) {
   }
 
   return( 
-    <View style={ styles.main }>
+    <View style={{ flex: 1 }}>
       <LinearGradient
         colors={ colorsGradient }
         locations={ locationsGradient }
@@ -58,32 +57,27 @@ function Home({ sound, lasts, navigation }) {
         </View>
 
 
-        <View style={ styles.artist }>
+        <View style={styles.artist}>
           <Text style={ styles.subtittles }>My favourite artists</Text>
-          <ScrollView 
-            style={ styles.circleScroll } 
-            horizontal 
-            showsHorizontalScrollIndicator={ false }
-          >  
-          <View style={{ height: 90, width: '100%', flexDirection: 'row', marginHorizontal: 0, marginTop: 10 }}>
-            {arr.map((_, i) => <Circle src={ artist } key={i}/> )}
+          <View>
+            <ScrollView horizontal showsHorizontalScrollIndicator={ false } >  
+              {arr.map((_, i) => <Circle src={ artist } key={i}/> )}
+            </ScrollView>
           </View>
-          </ScrollView>
         </View>
 
 
         <View style={ styles.recent }>
           <Text style={ styles.subtittles }>Recents</Text>
-          <ScrollView 
-            style={ styles.squareScroll } 
-            horizontal 
-            showsHorizontalScrollIndicator={ false }
-          >
-            <View style={{ height: 200, width: '100%', flexDirection: 'row', marginLeft: 5, marginRight: 5 }}>
-              {lasts.map((song, index) =>  <Square key={ index } song={ song }/> )}
-            </View>
-          </ScrollView>
+          <View>
+            <ScrollView horizontal showsHorizontalScrollIndicator={ false } >
+              <View style={{ marginHorizontal: 5, flexDirection: "row" }}>
+                {lasts.map((song, i) => <Square key={i} song={ song }/> )}
+              </View>
+            </ScrollView>
+          </View>
         </View>
+
 
         <View style={ styles.playlist }>
           <Text style={ styles.subtittles }>My playlists</Text>
@@ -92,7 +86,7 @@ function Home({ sound, lasts, navigation }) {
             horizontal showsHorizontalScrollIndicator={ false }
           >
             <View style={{ height: 150, width: '100%', flexDirection: 'row', marginLeft: 5, marginRight: 5 }}>
-              {arr.map(item => <Square src={ artist } key={ item }/> )}
+              {arr.map((_, i) => <Square src={ artist } key={i}/> )}
             </View>
           </ScrollView>
         </View>
@@ -115,20 +109,13 @@ export default connect(mapStateToProps, { setMenu })(Home);
 
 // ----- STYLERS ----- //
 const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-    alignItems: 'flex-start',
-    height: '100%',
-    width: '100%',
-  },
-   background: {
+  background: {
     position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
     height: '100%',
   },
-  
   container: {
     width: '100%',
     height: '73%',
@@ -140,11 +127,11 @@ const styles = StyleSheet.create({
   },
   title: {
     color: WHITE,
-    fontSize: height > 720 ? 30 : 30,
+    fontSize: height > 720 ? 30 : 27,
     fontWeight: 'bold',
     marginLeft: 15,
     position: 'absolute',
-    top: '21%', 
+    top: '25%', 
   },
 
   subtittles: {
@@ -152,13 +139,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     paddingLeft: 15,
-    marginBottom: 10,
   },
-  circleScroll: {
-    marginBottom: '5%',
+
+  artist: {
+    // backgroundColor: "#f00", 
+    height: 120, 
+    justifyContent: "space-between",
+    marginBottom: '10%',
+  },
+  recent: {
+    // backgroundColor: "#090", 
+    height: 250, 
+    justifyContent: "space-between",
+    marginBottom: '10%',
   },
   squareScroll: {
     maxHeight: 200,
-    marginBottom: '5%',
   },
 })
