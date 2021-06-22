@@ -12,13 +12,11 @@ import {
 import { connect } from 'react-redux'
 
 import { LinearGradient } from 'expo-linear-gradient'
-import { useIsFocused } from '@react-navigation/native'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 import Item from './Item.js'
-import {  GREY_L, LIGHT } from './searchStyles'
-
+import { WHITE, LIGHT } from './searchStyles'
 
 
 // ----- CONSTANTS ----- // 
@@ -28,18 +26,14 @@ const colorsGradient = ['#404040', '#343434','#111111', '#000000'],
       locationsGradient = [0.05, 0.15, 0.3, 0.5];
 
 
-
-
-
-
-function FocusAwareStatusBar(props) {
-  const isFocused = useIsFocused();
-  isFocused ? Keyboard.dismiss() : null;
-  return isFocused ? <StatusBar {...props} /> : null;
-}
-      
 // ----- COMPONENT ----- //
-function Main({ navigation, sound, lasts, removeLastItem }) {
+function Main({ navigation, sound, lasts }) {
+  const isFocused = navigation.isFocused();
+
+  const FocusAwareStatusBar =  (props) => {
+    isFocused && Keyboard.dismiss();
+    return isFocused && <StatusBar {...props} />
+  }
 
   return(
     <View style={ styles.main }>
@@ -55,7 +49,7 @@ function Main({ navigation, sound, lasts, removeLastItem }) {
         barStyle='light-content'
       />
 
-      <View style={ styles.container }>
+      <View style={{ paddingHorizontal: 20 }}>
         <Text style={ styles.title }>Search</Text>   
 
         <TouchableOpacity
@@ -67,8 +61,8 @@ function Main({ navigation, sound, lasts, removeLastItem }) {
         >
           <FontAwesomeIcon 
             icon={ faSearch } 
-            color='#666'
-            size={ 17 }
+            color='#444'
+            size={ 18 }
             style={ styles.icon }
           />
           <Text style={ styles.content }>Enter name or URL</Text>
@@ -87,7 +81,7 @@ function Main({ navigation, sound, lasts, removeLastItem }) {
                   item={ song }      
                 />
               ))
-            : <Text style={ styles.alternativeText }>You don't have search!</Text>}
+            : <Text style={ styles.alternativeText }>You don't have recently searchs!</Text>}
           </View>    
         </ScrollView>
       </View>
@@ -103,7 +97,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, null)(Main);
-
 
 
 
@@ -123,13 +116,9 @@ const styles = StyleSheet.create({
     height: '100%',
   },
 
-  container: {
-    paddingLeft: 15,
-    paddingRight: 15,
-  },
   title: {
-    color: LIGHT,
-    fontSize: 40,
+    color: WHITE,
+    fontSize: 35,
     fontWeight: 'bold',
     marginRight: 'auto',
     marginLeft: 'auto',
@@ -138,7 +127,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: LIGHT,
-    height: 44,
+    height: 38,
     width: '100%',
     borderRadius: 20,
     flexDirection: 'row',
@@ -150,19 +139,19 @@ const styles = StyleSheet.create({
     marginRight: -5,
   },
   content: {
-    fontSize: 17,
+    fontSize: 15,
     fontWeight: 'bold',
-    color: '#666',
+    color: '#444',
     marginLeft: 15,
     marginRight: 'auto', 
   },
   subtitle: {
     color: LIGHT,
-    fontSize: height > 720 ? 24 : 20,
+    fontSize: height > 720 ? 20 : 18,
     fontWeight: 'bold',
   },
   alternativeText: {
-    color: GREY_L,
+    color: LIGHT,
     fontSize: 15,
     fontWeight: 'bold',
     marginTop: '5%',
