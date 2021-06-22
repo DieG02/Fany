@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     color: LIGHT, 
     fontSize: 35,
     marginTop: 'auto',
-    fontFamily:  'Poppins-SemiBold',
+    fontFamily: 'Poppins-SemiBold',
   },
   description: {
     color: '#CCC',

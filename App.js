@@ -51,7 +51,7 @@ export default function App() {
         }}
       >   
      
-        <Stack.Screen name='Landing' component={ Landing } />
+        {/* <Stack.Screen name='Landing' component={ Landing } /> */}
         <Stack.Screen name='Login' component={ Login } />
         <Stack.Screen name='Register' component={ Register } />
         
