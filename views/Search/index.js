@@ -12,8 +12,7 @@ import {
 import { connect } from 'react-redux'
 
 import { LinearGradient } from 'expo-linear-gradient'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { AntDesign } from '@expo/vector-icons';
 
 import Item from './Item.js'
 import { WHITE, LIGHT } from './searchStyles'
@@ -59,17 +58,12 @@ function Main({ navigation, sound, lasts }) {
             navigation.navigate('SearchBar')
           }}
         >
-          <FontAwesomeIcon 
-            icon={ faSearch } 
-            color='#444'
-            size={ 18 }
-            style={ styles.icon }
-          />
+          <AntDesign name="search1" size={19} color='#444' style={ styles.icon } />
           <Text style={ styles.content }>Enter name or URL</Text>
         </TouchableOpacity>
 
         <Text style={ styles.subtitle }>
-          Lasts
+          History
         </Text>
 
         <ScrollView showsVerticalScrollIndicator={ false } style={{ maxWidth: '100%' }}>  
@@ -122,7 +116,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginRight: 'auto',
     marginLeft: 'auto',
-    marginTop: height > 720 ? '20%' : '10%',
+    marginTop: height > 720 ? '17%' : '10%',
     marginBottom: height > 720 ? '8%' : '5%',
   },
   button: {
@@ -149,6 +143,7 @@ const styles = StyleSheet.create({
     color: LIGHT,
     fontSize: height > 720 ? 20 : 18,
     fontWeight: 'bold',
+    marginBottom: '5%',
   },
   alternativeText: {
     color: LIGHT,

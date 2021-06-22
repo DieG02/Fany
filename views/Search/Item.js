@@ -10,23 +10,20 @@ import {
 import { connect } from 'react-redux'
 import { setSong } from '../../redux/actions/uiAction.js'
 import { removeLastItem } from '../../redux/actions/userActions.js'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
+import { Entypo } from '@expo/vector-icons'
 
+import { MAIN, LIGHT } from './searchStyles'
 
 // ----- CONSTANTS ----- //
 const { width } = Dimensions.get('window')
-const _light = '#eeeeee',
-      _blue = '#1dcce3';
     
-
 
 // ----- COMPONENT ----- //
 function Item({ item, song, setSong, removeLastItem }) {
 
   const { image, title, artist, videoId } = item
-  let color = song.videoId === videoId ? _blue : _light;
+  let color = song.videoId === videoId ? MAIN : LIGHT;
    
 
   return(
@@ -54,11 +51,7 @@ function Item({ item, song, setSong, removeLastItem }) {
       style={ styles.icon }
       onPress={() => removeLastItem(videoId)}
      >
-      <FontAwesomeIcon 
-        icon={ faTimes }
-        color='#aaa'
-        size={ 22 }
-      />
+      <Entypo name="cross" size={25} color={LIGHT} />
      </TouchableOpacity>
     </View>
   )
@@ -99,13 +92,13 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: 'auto',
-    fontSize: 13,
+    fontSize: 12,
     width: '100%',
     fontWeight: 'bold',
     height: 18,
   },
   content: {
-    color: '#aaa',
+    color: '#BBB',
     fontSize: 11,
     marginBottom: 'auto',
   },
