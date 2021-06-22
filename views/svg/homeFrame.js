@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { MAIN } from '../Home/homeStyles'
 import Svg, { Ellipse } from 'react-native-svg'
 
 function SvgHome(props) {
@@ -11,7 +12,7 @@ function SvgHome(props) {
       viewBox='0 0 214 120'
       {...props}
     >
-      <Ellipse cx={55} cy={15} fill='#1DCCE3' rx={159} ry={105} />
+      <Ellipse cx={55} cy={15} fill={MAIN} rx={159} ry={105} />
     </Svg>
   )
 }

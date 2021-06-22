@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     width: '100%',
     position: 'absolute',
     bottom: 0,
-    backgroundColor: '#1dcce3',
+    backgroundColor: '#3a86fc',
   }
 })
 

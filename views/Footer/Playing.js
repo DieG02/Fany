@@ -103,7 +103,7 @@ export default function Playing() {
           }}
         >
           {favourite 
-            ? <AntDesign name="heart" size={20} color="#1dcce3" />
+            ? <AntDesign name="heart" size={20} color="#3a86fc" />
             : <AntDesign name="hearto" size={20} color="#999" />
           }
         </TouchableOpacity>
