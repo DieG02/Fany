@@ -7,18 +7,25 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
+import { useFonts } from 'expo-font';
 
 
 // ----- CONSTANTS ----- // 
 const logo = require('../assets/fany.png')
 const landing = require('../assets/landing_frame.png')
 const _light = '#eeeeee',
-      _blue = '#1dcce3';
+      _blue = '#3a86fc';
 
 
 // ----- COMPONENT ----- //    
 export default function Landing({ navigation }) {
 
+  const [loaded] = useFonts({
+    'Poppins': require('../assets/fonts/Poppins/Poppins-Regular.ttf'),
+    'Poppins-Bold': require('../assets/fonts/Poppins/Poppins-Medium.ttf'),
+  });
+  if (!loaded)  return null;
+  
   return (
     <View style={ styles.main }>
 
@@ -109,15 +116,17 @@ const styles = StyleSheet.create({
   },
   text: {
     color: _light, 
-    fontWeight: 'bold',
-    fontSize: 40,
+    // fontWeight: 'bold',
+    fontSize: 35,
     marginTop: 'auto',
+    fontFamily:  'Poppins-Bold',
   },
   description: {
     color: '#bbb',
     fontSize: 16,
     marginTop: 5,
     marginBottom: 'auto',
+    fontFamily: 'Poppins',
   },
 
   buttons: {
@@ -136,7 +145,8 @@ const styles = StyleSheet.create({
   fillButtonText: {
     color: '#000',
     fontSize: 18,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
+    fontFamily: 'Poppins-Bold',
     textAlign: 'center',
     marginTop: 'auto',
     marginBottom: 'auto',
