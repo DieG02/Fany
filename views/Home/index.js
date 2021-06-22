@@ -20,7 +20,7 @@ import { WHITE, LIGHT } from './homeStyles'
 // ----- CONSTANTS ----- // 
 const artist = require('../../assets/grey2.jpg') 
 const { height } = Dimensions.get('window')
-const colorsGradient = ["#444", '#202020','#171717', '#151515', '#000'];
+const colorsGradient = ['#444', '#202020','#171717', '#151515', '#000'];
 const locationsGradient = [0.00, 0.15, 0.5, 0.8, 0.9];
 
 
@@ -71,7 +71,7 @@ function Home({ sound, lasts, navigation }) {
           <Text style={ styles.subtittles }>Recents</Text>
           <View>
             <ScrollView horizontal showsHorizontalScrollIndicator={ false } >
-              <View style={{ marginHorizontal: 5, flexDirection: "row" }}>
+              <View style={{ marginHorizontal: 5, flexDirection: 'row' }}>
                 {lasts.map((song, i) => <Square key={i} song={ song }/> )}
               </View>
             </ScrollView>
@@ -79,17 +79,15 @@ function Home({ sound, lasts, navigation }) {
         </View>
 
 
-        <View style={ styles.playlist }>
-          <Text style={ styles.subtittles }>My playlists</Text>
-          <ScrollView 
-            style={ [styles.squareScroll, { marginBottom: Object.entries(sound).length ? '45 %' : 100 }] } 
-            horizontal showsHorizontalScrollIndicator={ false }
-          >
-            <View style={{ height: 150, width: '100%', flexDirection: 'row', marginLeft: 5, marginRight: 5 }}>
+        <View style={[ styles.playlist, { marginBottom: Object.entries(sound).length ? '45%' : 100 } ]} >
+          <Text style={ [styles.subtittles, { marginBottom: 20 }] }>My playlists</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={ false } >
+            <View style={{ marginHorizontal: 5, flexDirection: 'row' }}>
               {arr.map((_, i) => <Square src={ artist } key={i}/> )}
             </View>
           </ScrollView>
         </View>
+
       </ScrollView>
     </View>
   )
@@ -142,18 +140,17 @@ const styles = StyleSheet.create({
   },
 
   artist: {
-    // backgroundColor: "#f00", 
     height: 120, 
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     marginBottom: '10%',
   },
   recent: {
-    // backgroundColor: "#090", 
     height: 250, 
-    justifyContent: "space-between",
-    marginBottom: '10%',
+    justifyContent: 'space-between',
+    marginBottom: '6%',
   },
-  squareScroll: {
-    maxHeight: 200,
+  playlist: {
+    height: 200,
+    justifyContent: 'space-between',
   },
 })

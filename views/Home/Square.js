@@ -12,12 +12,12 @@ import {
 export default function Square({ src, song }) {
 
   const [stylers, setStylers] = useState({ 
-    height: song ? 150 : 200,
+    height: 150,
     width: 150, 
   })
 
   return(
-    <View style={ [styles.main, { height: song ? 200 : 150 }] }>
+    <View style={ [styles.main, { height: !!song ? 200 : 150 }] }>
       <TouchableOpacity  
         delayPressIn={ 50 }
         activeOpacity={ 0.5 }
@@ -28,8 +28,8 @@ export default function Square({ src, song }) {
       >
           
         <Image
-          source={ song ? { uri: song.image } : src} 
-          style={ [styles.image, stylers] }
+          source={ !!song ? { uri: song.image } : src} 
+          style={ [{ borderRadius: 10 }, stylers] }
         />
 
         {song &&  
@@ -51,19 +51,14 @@ const styles = StyleSheet.create({
     width: 150, 
     marginHorizontal: 10,
   },
-  image: {
-    borderRadius: 10,
-    width: 150,
-    height: 150,
-  },
   content: {
     height: 50,
     paddingTop: 3,
   },
   text: {
-    color: '#EEE',
+    color: '#AAA',
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 11,
+    fontSize: 10,
   }
 })
