@@ -34,19 +34,19 @@ export default function Circle({ src }) {
 // ----- STYLERS ----- // 
 const styles = StyleSheet.create({
   main: {
-    height: 90,
-    width: 90, 
-    marginRight: 10,
-    marginLeft: 10,
+    height: 70,
+    width: 70, 
+    marginRight: 15,
+    marginLeft: 15,
   },
   container: {
-    height: 90,
-    width: 90,  
+    height: 70,
+    width: 70,  
   },
   image: {
     width: '100%',
     height: '100%',
     resizeMode: 'contain',
-    borderRadius: 45,
+    borderRadius: 35,
   }
 })

@@ -57,6 +57,7 @@ function Home({ sound, lasts, navigation }) {
           <Text style={ styles.title }>Home</Text>
         </View>
 
+
         <View style={ styles.artist }>
           <Text style={ styles.subtittles }>My favourite artists</Text>
           <ScrollView 
@@ -64,11 +65,12 @@ function Home({ sound, lasts, navigation }) {
             horizontal 
             showsHorizontalScrollIndicator={ false }
           >  
-          <View style={{ height: 100, width: '100%', flexDirection: 'row', marginLeft: 5, marginRight: 5 }}>
-            {arr.map(item => <Circle src={ artist } key={ item }/> )}
+          <View style={{ height: 90, width: '100%', flexDirection: 'row', marginHorizontal: 0, marginTop: 10 }}>
+            {arr.map((_, i) => <Circle src={ artist } key={i}/> )}
           </View>
           </ScrollView>
         </View>
+
 
         <View style={ styles.recent }>
           <Text style={ styles.subtittles }>Recents</Text>
@@ -147,16 +149,16 @@ const styles = StyleSheet.create({
 
   subtittles: {
     color: LIGHT,
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: 'bold',
     paddingLeft: 15,
     marginBottom: 10,
   },
   circleScroll: {
-    marginBottom: '10%',
+    marginBottom: '5%',
   },
   squareScroll: {
     maxHeight: 200,
-    marginBottom: '10%',
+    marginBottom: '5%',
   },
 })
