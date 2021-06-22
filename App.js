@@ -6,21 +6,21 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 
-import Landing from './views/Landing.js'
-import Register from './views/Register.js'
-import Login from './views/Login.js'
+import Landing from './views/Landing'
+import Register from './views/Register'
+import Login from './views/Login'
 import Home from './views/Home'
 import Search from './views/Search'
-import SearchBar from './views/Search/Search.js'
+import SearchBar from './views/Search/Search'
 import Song from './views/Song'
 import Profile from './views/Profile'
 import Favourites from './views/Favourites'
 
 
 import Footer from './views/Footer'
-// import Youtube from './views/Youtube.js'
-// import YoutubeExample from './views/YoutubeReact.js'
-// import Example from './views/example.js'
+// import Youtube from './views/Youtube'
+// import YoutubeExample from './views/YoutubeReact'
+// import Example from './views/example'
 
 
 const { height, width } = Dimensions.get('window');
@@ -37,7 +37,6 @@ function MyTabBar () {
       <Tab.Screen name='Favourites' component={ Favourites } />
       <Tab.Screen name='Profile' component={ Profile } />
 
-      
     </Tab.Navigator>
   )
 }
