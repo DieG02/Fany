@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Dimensions,
   StyleSheet,
@@ -7,9 +7,9 @@ import {
   Image,
   TextInput,
   TouchableHighlight,
+  TouchableOpacity,
   StatusBar
 } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { localLogIn } from '../database/firebase.js'
 import {
@@ -49,6 +49,11 @@ export default function Login({ navigation }) {
       navigation.navigate('Home')
     }
   }
+
+  useEffect(() => {
+    const bluringInputs = Keyboard.addListener('keyboardDidHide', () => Keyboard.dismiss());
+    return () => bluringInputs.remove();
+  }, []);
 
   loadFontsAsync(setLoaded)
   if(!loaded) return null;
