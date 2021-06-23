@@ -6,8 +6,8 @@ import {
   Image,
   TextInput,
   TouchableHighlight,
+  TouchableOpacity,
   Keyboard,
-  CheckBox,
   StatusBar
 } from 'react-native'
 
@@ -25,7 +25,7 @@ import {
   DARK,
   GREY
 } from './MainStyles'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 // ----- CONSTANTS ----- // 
 const logo = require('../assets/fany.png')
@@ -39,21 +39,31 @@ export default function Register({ navigation }) {
     return () => bluringInputs.remove();
   }, []);
 
-  const [input, setInput] = useState({ username: '', email: '', password: '' });
+  const [input, setInput] = useState({ 
+    // username: '', 
+    email: '', 
+    password: ''
+  });
   const [loaded, setLoaded] = useState(false);
-  const [allows, setAllows] = useState(false);
   const [isSelected, setSelection] = useState(false);
 
   const onChangeHandler = (name, value) => {
     setInput({ ...input, [name]: value })
   } 
   
+  const validation = () => {
+    for(let property in input) {
+      if(!input[property].replace(/ /g, '').length > 0) return false
+    }
+    return true;
+  }
+
   loadFontsAsync(setLoaded)
   if (!loaded) return null;
 
   return(
     <View style={styles.container}>  
-      <StatusBar backgroundColor='transparent' barStyle='dark-content'/>
+      <StatusBar backgroundColor='transparent' barStyle='dark-content' translucent={false}/>
       <Image source={logo} style={styles.logo} />
 
       <View style={styles.inputGroup}>
@@ -65,7 +75,10 @@ export default function Register({ navigation }) {
           <TextInput 
             style={styles.input}
             placeholder='username2021'
-            onChangeText={value => onChangeHandler('username', value)}
+            onChangeText={(value) => {
+              console.log('Username here'); 
+              //  onChangeHandler('username', value)
+            }}
           />
         </View>
         <View>
@@ -74,7 +87,7 @@ export default function Register({ navigation }) {
             style={[styles.input]}
             autoCompleteType='email'
             placeholder='example@email.com'
-            onChangeText={value => onChangeHandler('email', value)}
+            onChangeText={(value) => onChangeHandler('email', value)}
           />
         </View>
         <View>
@@ -84,27 +97,31 @@ export default function Register({ navigation }) {
             autoCompleteType='password'
             secureTextEntry={true}
             placeholder='8 characters min'
-            onChangeText={value => onChangeHandler('password', value)}
+            onChangeText={(value) => onChangeHandler('password', value)}
           /> 
         </View>
+        <BouncyCheckbox
+          size={25}
+          fillColor={MAIN}
+          unfillColor={WHITE}
+          text='I agree to the terms and conditions'
+          style={{ marginBottom: 10 }}
+          iconStyle={{ borderColor: MAIN }}
+          textStyle={{ fontFamily: 'Poppins', color: DARK, fontSize: 13, marginLeft: -7 }}
+          onPress={() => setSelection(!isSelected)}
+        />
       </View>
         
       <View style={{  width: '85%', alignItems: 'center', marginTop: 25 }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 'auto' }}>
-          <CheckBox
-            value={isSelected}
-            onValueChange={setSelection}
-            style={styles.checkbox}
-          />
-          <Text>I agree to the terms and conditions</Text>
-        </View>
 
         <TouchableHighlight
-          style={[styles.local, { backgroundColor: allows ? MAIN : GREY }]}
-          onPress={() => localSignUp(input, navigation)}
+          style={[styles.local, { backgroundColor: isSelected ? MAIN : GREY }]}
+          onPress={() => {
+            validation() ? localSignUp(input, navigation) : alert('Complete all inputs')
+          }}
           activeOpacity={0.9}
           underlayColor={DARK}
-          disabled={!allows}
+          disabled={!isSelected}
         >
           <Text style={styles.localText}>
             Sign up
@@ -144,7 +161,7 @@ const styles = StyleSheet.create({
   },
   inputGroup: {
     width: '85%',
-    height:'45%',
+    height:'50%',
     justifyContent: 'space-around',
   },
   inputTitle: {
