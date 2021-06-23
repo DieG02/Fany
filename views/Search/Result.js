@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   View,
   Text,
@@ -7,23 +7,24 @@ import {
   StyleSheet,
 } from 'react-native'
 import { connect } from 'react-redux'
-import { setSong } from '../../redux/actions/uiAction.js'
-import { addRecentItem, addLastItem } from '../../redux/actions/userActions.js'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { setSong } from '../../redux/actions/uiAction'
+import { addRecentItem, addLastItem } from '../../redux/actions/userActions'
+import { AntDesign } from '@expo/vector-icons'
 
-
-// ----- CONSTANTS ----- //
-const _light = '#dedede',
-      _grey = '#aaaaaa',
-      _blue = '#1dcce3',
-      _dark = '#151515';
-    
+import {
+  loadFontsAsync,
+  WHITE,
+  LIGHT,
+  MAIN,
+  GREY,
+  DARK,
+} from '../MainStyles'
 
 
 // ----- COMPONENT ----- //
 function Result({ videoId, data, song, setSong, addLastItem, addRecentItem }) {
 
+  const [loaded, setLoaded] = useState(false)
   //         Artist       Image      Name
   const { channelTitle, thumbnails, title,  } = data;
 
@@ -36,15 +37,17 @@ function Result({ videoId, data, song, setSong, addLastItem, addRecentItem }) {
     url: `https://www.youtube.com/watch?v=${videoId}`,
     videoId: videoId,
   }
-  let color = song.videoId === videoId ? _blue : _light;
+  let color = song.videoId === videoId ? MAIN : LIGHT;
    
   //   fetch(`https://www.googleapis.com/youtube/v3/videos?part=id%2C+snippet&id=${videoId}&key=${GOOGLE_API_KEY}`)
 
-  
+  loadFontsAsync(setLoaded)
+  if (!loaded) return null;
+
   return(
     <View style={ styles.container }>
       <TouchableOpacity 
-        style={ styles.dataContainer }
+        style={ styles.data }
         delayPressIn={ 20 }
         activeOpacity={ 0.5 }
         disabled={song.videoId === videoId}
@@ -58,22 +61,18 @@ function Result({ videoId, data, song, setSong, addLastItem, addRecentItem }) {
           source={{ uri: thumbnails.high.url }}    
           style={ styles.image }
         />
-        <View style={{ width: '60%', justifyContent: 'space-around' }}>
-          <Text style={[ styles.title, { color: color }]}>{ shortName }</Text>
+        <View style={{ width: '80%', height: '100%', justifyContent: 'space-around' }}>
+          <Text style={[styles.title, { color: color }]}>{ shortName }</Text>
           <Text style={ styles.content }>{ channelTitle }</Text>
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={ styles.icon }
-        activeOpacity={ 0.5 }
+        activeOpacity={0.2}
         onPress={() => console.log('Add to playlist')}
       >
-        <FontAwesomeIcon
-          icon={ faPlus }
-          size={ 20 }
-          color={ _grey }
-        />
+        <AntDesign name="plus" size={20} color={GREY} />
       </TouchableOpacity>
     </View>
   )
@@ -92,33 +91,32 @@ export default connect(mapStateToProps, { setSong, addLastItem, addRecentItem })
 // ----- STYLERS ----- //
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: _dark,
+    backgroundColor: DARK,
     width: '100%',
     height: 60,
     flexDirection: 'row',
     marginBottom: 15,
   },
-  dataContainer: {
-    flexDirection: 'row',
+  data: {
     height: '100%',
     width: '90%',
-    marginTop: 'auto',
-    marginBottom: 'auto',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   image: {
     width: 60,
     height: 60,
-    marginRight: 15,
+    marginRight: 10,
     resizeMode: 'cover'
   },
   title: {
-    fontSize: 13,
-    fontWeight: 'bold',
+    fontSize: 12,
+    fontFamily: 'Poppins-SemiBold',
     marginTop: 'auto',
-    width: '120%',
+    width: '100%',
   },
   content: {
-    color: '#aaa',
+    color: GREY,
     fontSize: 11,
     marginBottom: 'auto',
   },

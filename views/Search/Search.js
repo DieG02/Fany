@@ -108,12 +108,8 @@ export default function Search({ navigation }) {
       </View>
 
      <View style={ styles.container }>
-        <View style={ styles.subtitleContainer }>
-          <Text style={ styles.subtitle }>
-            Results
-          </Text>
-        </View>
-        <View style={{ height: '90%' }}>
+        
+        <View style={{ height: '100%', marginTop: '5%' }}>
           <ScrollView
             style={ styles.scroll }
             showsVerticalScrollIndicator={ false }
