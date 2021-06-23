@@ -6,15 +6,17 @@ import {
   View, 
   Image,
   TextInput,
-  TouchableHighlight
+  TouchableHighlight,
+  StatusBar
 } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import { StatusBar } from 'expo-status-bar'
 import { localLogIn } from '../database/firebase.js'
 import {
   loadFontsAsync,
   WHITE,
   LIGHT,
+  GREY,
   BLACK,
   DARK,
   MAIN,
@@ -23,37 +25,46 @@ import {
 
 // ----- CONSTANTS ----- // 
 const logo = require('../assets/fany.png');
-const { height, width } = Dimensions.get('window')
+const { height } = Dimensions.get('window')
 
 
 // ----- COMPONENT ----- // 
 export default function Login({ navigation }) {
 
   const [ input, setInput ] = useState({ email: '', password: '' })
+  const [loaded, setLoaded] = useState(false)
+
   const onChangeHandler = (name, value) => {
     setInput({...input, [name]: value })
   } 
-  
-  const [loaded, setLoaded] = useState(false)
+
+  const localLogIn = async () => {
+    if(values.email === '') alert('Please provide a email');
+    else {
+      console.log(values)
+      await firebase.db.collection('users').add({
+        email: values.email,
+        password: values.password
+      })
+      navigation.navigate('Home')
+    }
+  }
+
   loadFontsAsync(setLoaded)
   if(!loaded) return null;
-
   
   return(
     <View style={styles.main}>  
-      <StatusBar style='dark'/>
-      
-      <View style={styles.container}>
-        <View style={[styles.header, { backgroundColor: MAIN }]}>
-          <Image
-            source={logo}
-            style={styles.logo}
-          />
+      <StatusBar backgroundColor='transparent' barStyle='dark-content' />
+
+      <View style={styles.subContainer1}>
+        <View style={{ marginRight: 'auto', borderWidth: 0.5, borderColor: BLACK, borderRadius: 30 }}>
+          <Image source={logo} style={styles.logo} />
         </View>
         <Text style={{ fontSize: 30, fontFamily: 'Poppins-Bold' }}>
           Sign in to Fany
         </Text>
-        <View style={styles.inputs}>
+        <View style={styles.inputGroup}>
           <TextInput 
             style={styles.input}
             autoCompleteType='email'
@@ -71,84 +82,76 @@ export default function Login({ navigation }) {
         </View>
       </View>
 
-     <View style={styles.div}>
-      
+     <View style={styles.subContainer2}>
         <TouchableHighlight 
-          style={styles.local} 
+          style={styles.login} 
           onPress={() => localLogIn(input, navigation)}
-          activeOpacity={0.4}
-          underlayColor='#000'
+          activeOpacity={1}
+          underlayColor={DARK}
         >
-          <Text style={styles.localText}>
-            Log in
-          </Text>
+          <Text style={styles.loginText}>Log in</Text>
         </TouchableHighlight>
-        
+        <TouchableOpacity style={styles.password} activeOpacity={0.5}>
+          <Text style={styles.passwordText}>
+            Did you forget your password?
+          </Text>
+        </TouchableOpacity>
       </View>
 
     </View>
   )
 }
 
-const totalH = Math.floor(height);
-
 // ----- STYLERS ----- //
 const styles = StyleSheet.create({
   main: {
-    flex: 1,
     backgroundColor: WHITE,
     alignItems: 'center',
-    width: width,
-    height: height,
-    justifyContent: 'space-around',
+    width: '100%',
+    height: '100%',
   },
-  container: {
-    height: totalH * 0.4,
+  subContainer1: {
+    height: '38%',
     width: '85%',
-    marginTop: totalH * 0.1,
+    marginTop: '8%',
+    marginBottom: 15,
     justifyContent: 'space-between',
   },
-  header: {
-    width: '50%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    alignItems: 'center',
-  },
   logo: {
-    width: 60,
-    height: 60,
-    resizeMode: 'contain'
+    width: 55,
+    height: 55,
+    resizeMode: 'contain',
   },
   label: {
     fontSize: 15,
-    color: '#ddd',
+    color: '#000',
     marginTop: height > 725 ? '10%' : '7%',  
   },
-  inputs: {
-    height: '50%',
-    justifyContent: 'space-around',
+  inputGroup: {
+    height: '40%',
+    justifyContent: 'space-between',
+    marginBottom: '3%',
   },
   input: {
     width: '100%',
-    height: 40,
+    height: 45,
     color: DARK,
     fontSize: 15,
     paddingLeft: 15,
-    borderRadius: 6,
-    borderColor: LIGHT,
-    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: GREY,
+    borderWidth: 0.5,
     backgroundColor: 'transparent',
   },
 
   
-  div: {
+  subContainer2: {
     width: '85%',
-    height: '25%',
-    zIndex: 10,
+    height: '20%',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  local: {
+  login: {
     width: '95%',
     height: 45,
     backgroundColor: MAIN,
@@ -156,11 +159,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  localText: {
-    fontSize: 19,
+  loginText: {
+    fontSize: 15,
     color: WHITE,
     fontFamily: 'Poppins-SemiBold',
   },
+  password: {
+    marginTop: 10,
+    height: 30,
+    justifyContent: 'center',
+  },
+  passwordText: {
+    fontFamily: 'Poppins-Light',
+    fontSize: 13,
+    color: MAIN,
+
+  }
 })
 
 // onContentSizeChange={ (width, height) => this.refs.scrollView.scrollTo({ y: this.state.onInputSelectScrollViewPaddingSize} ) }

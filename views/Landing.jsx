@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     width: 70, 
     height: 70, 
     top: 50,
-    left: 25,
+    left: 30,
     resizeMode: 'contain'
   },
   landing: { 
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     color: LIGHT, 
     fontSize: 35,
     marginTop: 'auto',
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily:  'Poppins-SemiBold',
   },
   description: {
     color: '#CCC',
