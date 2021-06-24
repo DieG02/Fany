@@ -46,7 +46,7 @@ export default function Search({ navigation }) {
     base: 'https://youtube.googleapis.com/youtube/v3/search?part=snippet',
     query: '',
     key: `&key=${GOOGLE_API_KEY}`,
-    max: '&maxResults=15',
+    max: '&maxResults=10',
     order: '&order=viewCount',
     next: '',
   })
@@ -55,17 +55,18 @@ export default function Search({ navigation }) {
   const sound = useSelector(state => state.audio.sound);
   const dispatch = useDispatch()
 
-  const search = function(){
+  const search = () => {
     const { base, query, key, max, order } = request;
     const req = `${base}&q=${query}${key}${max}${order}`;
-    console.log(req);
-    fetch(req)
-      .then(res => res.json())
-      .then((data) => {
-        setData(data);
-        setResults(data.items);
-        setRequest({ ...request, next: data.nextPageToken })
-      })
+    setTimeout(() => {
+      fetch(req)
+        .then(res => res.json())
+        .then((data) => {
+          setData(data);
+          setResults(data.items);
+          setRequest({ ...request, next: data.nextPageToken })
+        })
+    }, 2000)
   }
 
   const handleOnChange = (string) => {
@@ -118,7 +119,7 @@ export default function Search({ navigation }) {
           placeholder='Enter name or URL'
           placeholderTextColor={GREY}
           onChangeText={handleOnChange}
-          onSubmitEditing={() => search()}  // --> Add another search button 
+          onSubmitEditing={search}  // --> Add another search button 
         />
         <TouchableOpacity
           style={ styles.icon }
@@ -135,15 +136,14 @@ export default function Search({ navigation }) {
           data={results}
           renderItem={renderItem}
           keyExtractor={(_, index) => index.toString()}
-          onEndReached={() => handleOnInfinityScroll()}
-          onEndReachedThreshold={1}
+          onEndReached={handleOnInfinityScroll}
+          onEndReachedThreshold={0.5}
         />
       : <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }}>
           <Text style={styles.alternativeText}>No results found :(</Text>
         </View> 
       }
-      {/* <TouchableOpacity onPress={() => handleOnInfinityScroll()}><Text style={{ color: "#FFF"}}>Press me for more results</Text></TouchableOpacity> */}
-
+     
     </View>
   )
 }
