@@ -46,7 +46,7 @@ export default function Search({ navigation }) {
     base: 'https://youtube.googleapis.com/youtube/v3/search?part=snippet',
     query: '',
     key: `&key=${GOOGLE_API_KEY}`,
-    max: '&maxResults=2',
+    max: '&maxResults=15',
     order: '&order=viewCount',
     next: '',
   })
@@ -63,8 +63,7 @@ export default function Search({ navigation }) {
       .then(res => res.json())
       .then((data) => {
         setData(data);
-        console.log(data.items)
-        // setResults([data.items]);
+        setResults(data.items);
         setRequest({ ...request, next: data.nextPageToken })
       })
   }
@@ -136,14 +135,14 @@ export default function Search({ navigation }) {
           data={results}
           renderItem={renderItem}
           keyExtractor={(_, index) => index.toString()}
-          // onEndReached={() => handleOnInfinityScroll()}
-          onEndReachedThreshold={0.3}
+          onEndReached={() => handleOnInfinityScroll()}
+          onEndReachedThreshold={1}
         />
       : <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }}>
           <Text style={styles.alternativeText}>No results found :(</Text>
         </View> 
       }
-      <TouchableOpacity onPress={() => handleOnInfinityScroll()}><Text style={{ color: "#FFF"}}>Press me for more results</Text></TouchableOpacity>
+      {/* <TouchableOpacity onPress={() => handleOnInfinityScroll()}><Text style={{ color: "#FFF"}}>Press me for more results</Text></TouchableOpacity> */}
 
     </View>
   )
