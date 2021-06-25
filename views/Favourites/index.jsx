@@ -2,14 +2,24 @@ import React from 'react'
 import { 
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  TouchableHighlight
 } from 'react-native'
-
+import ytdl from 'react-native-ytdl'
 
 export default function Favourites() { 
+  const search = async () => {
+    const youtubeURL = 'https://www.youtube.com/watch?v=0Wa_CR0H8g4';
+    const urls = await ytdl(youtubeURL);
+    console.log(urls)
+  }
+
   return (
     <View style={styles.container}>
       <Text>FAVOURITES SCREEN</Text>
+      <TouchableHighlight onPress={search}>
+        <Text>Listen</Text>
+      </TouchableHighlight>
     </View>
   )
 }
