@@ -8,8 +8,10 @@ import {
   TextInput,
   TouchableHighlight,
   TouchableOpacity,
-  StatusBar
+  StatusBar,
+  Keyboard,
 } from 'react-native'
+import { CommonActions } from '@react-navigation/native';
 
 import { localLogIn } from '../database/firebase.js'
 import {
@@ -38,21 +40,21 @@ export default function Login({ navigation }) {
     setInput({...input, [name]: value })
   } 
 
-  const localLogIn = async () => {
-    if(values.email === '') alert('Please provide a email');
-    else {
-      console.log(values)
-      await firebase.db.collection('users').add({
-        email: values.email,
-        password: values.password
-      })
-      navigation.navigate('Home')
-    }
+  const asyncLogIn = async () => {
+    const { code, user, errorMessage } = await localLogIn(input)
+    code === 200 
+    ? navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [ { name: 'MyTabBar' } ]
+        })
+      )
+    : console.log(errorMessage)
   }
 
   useEffect(() => {
-    const bluringInputs = Keyboard.addListener('keyboardDidHide', () => Keyboard.dismiss());
-    return () => bluringInputs.remove();
+    const blurInputs = Keyboard.addListener('keyboardDidHide', () => Keyboard.dismiss());
+    return () => blurInputs.remove();
   }, []);
 
   loadFontsAsync(setLoaded)
@@ -90,7 +92,9 @@ export default function Login({ navigation }) {
      <View style={styles.subContainer2}>
         <TouchableHighlight 
           style={styles.login} 
-          onPress={() => localLogIn(input, navigation)}
+          onPress={() => {
+            asyncLogIn()
+          }}
           activeOpacity={1}
           underlayColor={DARK}
         >

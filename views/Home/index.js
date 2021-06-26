@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   StyleSheet,
   Dimensions,
@@ -26,13 +26,21 @@ const locationsGradient = [0.00, 0.15, 0.5, 0.8, 0.9];
 
 // ----- COMPONENT ----- // 
 function Home({ sound, lasts, navigation }) {
-
+  
   const arr = [1,2,3,4,5,6,7]
 
   function FocusAwareStatusBar(props) {
     return navigation.isFocused && <StatusBar {...props} />;
   }
 
+  // useEffect(() => {
+  //   navigation.dispatch(
+  //     CommonActions.reset({
+  //       index: 0,
+  //       routes: [{ name: 'Home' }, { name: 'Profile' }],
+  //     })
+  //   );
+  // }, [])
   return( 
     <View style={{ flex: 1 }}>
       <LinearGradient

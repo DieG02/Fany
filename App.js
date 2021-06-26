@@ -50,11 +50,12 @@ export default function App() {
           headerShown: false
         }}
       >   
-        <Stack.Screen name='MyTabBar' component={ MyTabBar }/>
      
         <Stack.Screen name='Landing' component={ Landing } />
         <Stack.Screen name='Login' component={ Login } />
         <Stack.Screen name='Register' component={ Register } />
+
+        <Stack.Screen name='MyTabBar' component={ MyTabBar }/>
         
         <Stack.Screen name='SearchBar' component={ SearchBar } />
 

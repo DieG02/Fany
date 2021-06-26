@@ -52,7 +52,6 @@ export default function Search({ navigation }) {
   })
 
   const [loaded, setLoaded] = useState(false);
-  const sound = useSelector(state => state.audio.sound);
   const dispatch = useDispatch()
 
   const search = () => {
@@ -86,7 +85,6 @@ export default function Search({ navigation }) {
   }
 
   useEffect(() => {
-    dispatch(showMenu(true))
     const bluringInputs = Keyboard.addListener('keyboardDidHide', () => Keyboard.dismiss());
     return () => bluringInputs.remove();
   }, [])

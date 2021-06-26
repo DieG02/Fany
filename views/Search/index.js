@@ -27,9 +27,9 @@ const colorsGradient = ['#404040', '#343434','#111111', '#000000'],
 
 // ----- COMPONENT ----- //
 function Main({ navigation, sound, lasts }) {
-  const isFocused = navigation.isFocused();
-
+  
   const FocusAwareStatusBar =  (props) => {
+    const isFocused = navigation.isFocused();
     isFocused && Keyboard.dismiss();
     return isFocused && <StatusBar {...props} />
   }
