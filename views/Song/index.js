@@ -76,7 +76,7 @@ export default function Song({ navigation }) {
 
       <StatusBar
         translucent={ false }
-        backgroundColor={ _dark }
+        backgroundColor={ '#FF0000' }
         barStyle='light-content'
       />
 
@@ -174,9 +174,10 @@ export default function Song({ navigation }) {
 // ----- STYLERS ----- //
 const styles = StyleSheet.create({
   main: {
+    flex: 1, 
     backgroundColor: 'transparent',
     width: '100%',
-    height: '100%', 
+    marginTop: StatusBar.currentHeight,
   },
    background: {
     position: 'absolute',
@@ -193,6 +194,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    position: 'absolute',
+    top: 100,
   },
   iconBox: {
     width: 50,

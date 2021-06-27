@@ -14,9 +14,9 @@ import {
   LIGHT,
   BLACK,
 }  from './MainStyles'
+import Logo from './svg/logo'
 
 // ----- CONSTANTS ----- // 
-const logo = require('../assets/fany.png')
 const landing = require('../assets/landing_frame.png');
 
 // ----- COMPONENT ----- //    
@@ -29,7 +29,7 @@ export default function Landing({ navigation }) {
   return (
     <View style={ styles.main }>
       <View style={ styles.imageContainer }>
-        <Image source={ logo } style={ styles.logo } />    
+        <Logo style={ styles.logo } width='60' height='60'/>    
         <Image source={ landing } style={ styles.landing } />
       </View>
       
@@ -95,11 +95,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   logo: { 
-    width: 70, 
-    height: 70, 
-    top: 50,
-    left: 30,
-    resizeMode: 'contain'
+    top: 45,
+    left: 25,
   },
   landing: { 
     width: 245,
