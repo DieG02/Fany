@@ -20,6 +20,8 @@ export const loadFontsAsync = async (setLoaded) => {
 export const MAIN = '#3a86fc',
              WHITE = '#FFF', 
              LIGHT = '#EEE', 
+             GREY_W = '#AAA',
+             GREY_B ='#999', 
              GREY = '#666', 
              DARK = '#151515',
              BLACK = '#000';
