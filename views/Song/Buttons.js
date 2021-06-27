@@ -5,35 +5,23 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import { isPlaying, isSaved, setLoop } from '../../redux/actions/uiAction.js'
+
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faBookmark } from '@fortawesome/free-regular-svg-icons'
-import {
-  faBookmark as faBookmarkFill,
-  faPlayCircle,
-  faPauseCircle,
-  faStepBackward,
-  faStepForward,
-  faReply,
-  faReplyAll,
-} from '@fortawesome/free-solid-svg-icons'
-import { playSound, pauseSound, isLooping } from '../../redux/actions/soundAction.js'
+import { Entypo, Ionicons, Foundation } from '@expo/vector-icons'
+import { faReply, faReplyAll } from '@fortawesome/free-solid-svg-icons'
 
-
-// ----- CONSTANTS ----- // 
-const _light = '#eeeeee',
-      _grey = '#dddddd',
-      _dark = '#151515',
-      _blue = '#1dcce3';
+import { isPlaying, isSaved, setLoop } from '../../redux/actions/uiAction'
+import { playSound, pauseSound, isLooping } from '../../redux/actions/soundAction'
+import { MAIN, WHITE, LIGHT } from '../MainStyles'
 
 
 // ----- COMPONENT ----- // 
 export default function Buttons() {
 
   const loop = {
-    noRepeat: [faReply, _grey],
-    repeat: [faReply, _blue],
-    repeatOne: [faReplyAll, _blue]
+    noRepeat: [faReply, LIGHT],
+    repeat: [faReply, MAIN],
+    repeatOne: [faReplyAll, MAIN]
   };
 
   const sound = useSelector(state => state.audio.sound);
@@ -47,64 +35,53 @@ export default function Buttons() {
   return(
     <View style= { styles.buttonContent }>
       <TouchableOpacity
-        style={{ height: '100%', justifyContent: 'center' }}
+        style={styles.center}
         onPress={() => {
           isSavedDispatch(!save)
           if(save !== true) alert('Saved sucessfull');
         }}
       >
-        <FontAwesomeIcon 
-          icon={ save ? faBookmarkFill : faBookmark }  
-          color={ _grey } 
-          size={ 20 }
-        />
+        {save
+          ? <Ionicons name="bookmark" size={20} color={LIGHT} />
+          : <Ionicons name="bookmark-outline" size={20} color={LIGHT} />
+        }
       </TouchableOpacity>
 
       <View style={ styles.buttons }>
         <TouchableOpacity
-          style={{ height: '100%', justifyContent: 'center' }}
+          style={styles.center}
           onPress={() => alert('Do something')}
         >
-          <FontAwesomeIcon 
-            icon={ faStepBackward }  
-            color={ _grey} 
-            size={ 25 }
-          />
+          <Ionicons name="play-skip-back" size={24} color={LIGHT} />
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ height: '100%', justifyContent: 'center' }}
+          style={styles.circleButton}
           onPress={() => {
             isPlayingDispatch(!playing)
             playing ? pauseSound(sound) : playSound(sound) 
           }}
         >
-          <FontAwesomeIcon 
-            icon={ playing ? faPauseCircle : faPlayCircle }
-            color={ _grey }
-            size={ 55 }
-            style={ styles.icons }
-          />
+          {playing
+            ? <Foundation name='pause' size={30} color='#151515' />
+            : <Entypo name='controller-play' size={30} color='#151515' style={{marginLeft: 3}}/>
+          }
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ height: '100%', justifyContent: 'center' }}
+          style={styles.center}
           onPress={() => alert('Do something')}
         >
-          <FontAwesomeIcon 
-            icon={ faStepForward }  
-            color={ _grey } 
-            size={ 25 }
-          />
+          <Ionicons name="play-skip-forward" size={24} color={LIGHT} />
         </TouchableOpacity>
       </View>
 
       <TouchableOpacity
-        style={{ height: '100%', justifyContent: 'center' }}
+        style={styles.center}
         onPress={() => {
           switch(icon){
             case 'noRepeat':
               setLoopDispatch('repeat')
               return console.log('Must repeat List!')
-  
+
             case 'repeat':
               setLoopDispatch('repeatOne')
               return isLooping(true, sound)
@@ -115,11 +92,7 @@ export default function Buttons() {
           }
         }}
       >
-        <FontAwesomeIcon 
-          icon={ loop[icon][0] }  
-          color={ loop[icon][1] } 
-          size={ 20 }
-        />
+        <FontAwesomeIcon icon={ loop[icon][0] } color={ loop[icon][1] } size={20} />
       </TouchableOpacity>
     </View>
   )
@@ -129,18 +102,33 @@ export default function Buttons() {
 // ----- STYLERS ----- //
 const styles = StyleSheet.create({
   buttonContent: {
-    height: '30%', 
+    marginTop: '3%',
+    height: 60, 
     width: '100%', 
     justifyContent: 'space-between', 
+    alignItems: 'center',
     flexDirection: 'row',
-    marginTop: '5%',
   },
   buttons: {
-    height: '100%', 
+    height: 50, 
     width: '60%', 
     justifyContent: 'space-around', 
     flexDirection: 'row',
     marginLeft: 'auto',
     marginRight: 'auto',
+  },
+  circleButton: {
+    height: 50,
+    width: 50,
+    justifyContent: 'center',
+     alignItems: 'center',
+    backgroundColor: WHITE,
+    borderRadius: 30,
+  },
+  center: {
+    height: '100%', 
+    justifyContent: 'center'
   }
 })
+
+

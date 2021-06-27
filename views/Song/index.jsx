@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   content: {
     width: '100%', 
     height: '30%', 
-    marginTop: '5%',
+    marginTop: '3%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
