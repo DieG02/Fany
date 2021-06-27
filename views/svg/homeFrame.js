@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { MAIN } from '../Home/homeStyles'
+import { MAIN } from '../MainStyles'
 import Svg, { Ellipse } from 'react-native-svg'
 
 function SvgHome(props) {

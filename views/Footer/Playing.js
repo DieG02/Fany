@@ -11,12 +11,6 @@ import { isPlaying, isFavourite } from '../../redux/actions/uiAction.js'
 import { loadSound, pauseSound, playSound, isLooping } from '../../redux/actions/soundAction.js'
 import { useNavigation } from '@react-navigation/native'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faHeart } from '@fortawesome/free-regular-svg-icons'
-import {
-  faHeart as faHeartFill,
-} from '@fortawesome/free-solid-svg-icons'
-
 
 
 export default function Playing() {

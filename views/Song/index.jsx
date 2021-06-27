@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   View,
   Text,
@@ -35,7 +35,9 @@ const colorsGradient = ['transparent', '#151515', '#101010'],
 
 // ----- COMPONENT ----- // 
 export default function Song({ navigation }) {
-  loadFontsAsync();
+
+  const [loaded, setLoaded] = useState(false)
+  loadFontsAsync(setLoaded);
 
   const { image, title, artist, duration, favourite } = useSelector(state => state.app.song)
   const dispatch = useDispatch()
@@ -49,6 +51,7 @@ export default function Song({ navigation }) {
     return `${b}:${c > 10 ? c : '0' + c}`
   }
 
+  if(!loaded) return null;
   return(
     <View style={ styles.main }>
       <StatusBar translucent={true} barStyle='light-content' />
