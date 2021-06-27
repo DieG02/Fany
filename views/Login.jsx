@@ -11,8 +11,9 @@ import {
   StatusBar,
   Keyboard,
 } from 'react-native'
-import { CommonActions } from '@react-navigation/native';
+import Logo from './svg/logoNegative'
 
+import { CommonActions } from '@react-navigation/native';
 import { localLogIn } from '../database/firebase.js'
 import {
   loadFontsAsync,
@@ -62,13 +63,11 @@ export default function Login({ navigation }) {
   
   return(
     <View style={styles.main}>  
-      <StatusBar backgroundColor='transparent' barStyle='dark-content' />
+      <StatusBar backgroundColor='transparent' barStyle='dark-content' translucent={false}/>
 
       <View style={styles.subContainer1}>
-        <View style={{ marginRight: 'auto', borderWidth: 0.5, borderColor: BLACK, borderRadius: 30 }}>
-          <Image source={logo} style={styles.logo} />
-        </View>
-        <Text style={{ fontSize: 30, fontFamily: 'Poppins-Bold' }}>
+        <Logo style={styles.logo} width='55' height='55' />
+        <Text style={{ fontSize: 30, fontFamily: 'Poppins-Bold', marginTop: '-3%' }}>
           Sign in to Fany
         </Text>
         <View style={styles.inputGroup}>
@@ -122,19 +121,12 @@ const styles = StyleSheet.create({
   subContainer1: {
     height: '38%',
     width: '85%',
-    marginTop: '8%',
     marginBottom: 15,
     justifyContent: 'space-between',
   },
   logo: {
-    width: 55,
-    height: 55,
-    resizeMode: 'contain',
-  },
-  label: {
-    fontSize: 15,
-    color: '#000',
-    marginTop: height > 725 ? '10%' : '7%',  
+    marginTop: '5%',
+    alignSelf: 'center',
   },
   inputGroup: {
     height: '40%',
