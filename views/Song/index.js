@@ -14,6 +14,7 @@ import { isPlaying, isFavourite } from '../../redux/actions/uiAction.js'
 import { useSelector, useDispatch } from 'react-redux'
 import { LinearGradient } from 'expo-linear-gradient'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { Ionicons, Feather, Entypo } from '@expo/vector-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import {
   faHeart as faHeartFill,
@@ -40,7 +41,7 @@ locationsGradient = [0.7, 0.9, 0.95];
 
 // ----- COMPONENT ----- // 
 export default function Song({ navigation }) {
-
+  console.log(StatusBar.currentHeight);
   const { image, title, artist, duration, favourite } = useSelector(state => state.app.song)
   const dispatch = useDispatch()
 
@@ -57,28 +58,9 @@ export default function Song({ navigation }) {
 
   return(
     <View style={ styles.main }>
-
-      <ImageBackground source={{ uri: image }} blurRadius={ 20 } style={{   
-        position: 'absolute',
-        top: '-10%',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        resizeMode: 'stretch'
-      }} />
-      
-      <LinearGradient
-        // Background Linear Gradient
-        colors={ colorsGradient }
-        locations={ locationsGradient }
-        style={ styles.background }
-      />
-
-      <StatusBar
-        translucent={ false }
-        backgroundColor={ '#FF0000' }
-        barStyle='light-content'
-      />
+      <StatusBar translucent={true} barStyle='light-content' />
+      <ImageBackground source={{ uri: image }} blurRadius={ 20 } style={styles.imageBackground} />
+      <LinearGradient colors={ colorsGradient } locations={ locationsGradient } style={ styles.background }/>
 
       <View style={ styles.top }>
         <TouchableOpacity 
@@ -87,11 +69,8 @@ export default function Song({ navigation }) {
             navigation.goBack()
           }}
         >
-          <FontAwesomeIcon
-            icon={ faArrowLeft }
-            color={ _light }
-            size={ 23 }
-          />
+          {/* <Feather name="arrow-left" size={23} color={ _light } /> */}
+          <Entypo name="chevron-small-left" size={25} color={_light} />
         </TouchableOpacity>
         <TouchableOpacity 
           style={ styles.iconBox }
@@ -99,11 +78,7 @@ export default function Song({ navigation }) {
             navigation.navigate('Home')
           }} 
         >
-          <FontAwesomeIcon
-            icon={ faBars }
-            color={ _light }
-            size={ 23 }
-          />
+          <Ionicons name="menu-outline" size={24} color={_light} />
         </TouchableOpacity>
       </View>
 
@@ -177,7 +152,14 @@ const styles = StyleSheet.create({
     flex: 1, 
     backgroundColor: 'transparent',
     width: '100%',
-    marginTop: StatusBar.currentHeight,
+  },
+  imageBackground: {
+    position: 'absolute',
+    top: '-10%',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    resizeMode: 'stretch',
   },
    background: {
     position: 'absolute',
@@ -190,12 +172,11 @@ const styles = StyleSheet.create({
     width: '100%',
     maxHeight: 45, // 50 and icons 25 original
     backgroundColor: 'rgba(50, 50, 50, 0.0)',
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    position: 'absolute',
-    top: 100,
+    paddingHorizontal: 5,
+    marginTop: StatusBar.currentHeight,
   },
   iconBox: {
     width: 50,
