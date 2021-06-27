@@ -12,6 +12,8 @@ import {
 } from 'react-native'
 
 import SvgGoogle from './svg/google'
+import Logo from './svg/logoNegative'
+
 import {
   localSignUp,
   googleSignIn,
@@ -64,7 +66,7 @@ export default function Register({ navigation }) {
   return(
     <View style={styles.container}>  
       <StatusBar backgroundColor='transparent' barStyle='dark-content' translucent={false}/>
-      <Image source={logo} style={styles.logo} />
+      <Logo style={styles.logo} width='55' height='55' />
 
       <View style={styles.inputGroup}>
         <Text style={{ fontSize: 22, fontFamily: 'Poppins-Bold', color: BLACK, marginRight: 'auto' }}>
@@ -154,10 +156,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: 55,
-    height: 55,
     marginTop: '5%',
-    resizeMode: 'contain'
   },
   inputGroup: {
     width: '85%',
