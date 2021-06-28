@@ -5,19 +5,14 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  Dimensions,
 } from 'react-native'
 import { connect } from 'react-redux'
-import { setSong } from '../../redux/actions/uiAction.js'
-import { removeLastItem } from '../../redux/actions/userActions.js'
 
-import { Entypo } from '@expo/vector-icons'
+import { setSong } from '../../redux/actions/uiAction'
+import { removeLastItem } from '../../redux/actions/userActions'
+import Times from '../svg/times'
+import { MAIN, LIGHT, GREY_L } from './searchStyles'
 
-import { MAIN, LIGHT } from './searchStyles'
-
-// ----- CONSTANTS ----- //
-const { width } = Dimensions.get('window')
-    
 
 // ----- COMPONENT ----- //
 function Item({ item, song, setSong, removeLastItem }) {
@@ -27,8 +22,7 @@ function Item({ item, song, setSong, removeLastItem }) {
    
 
   return(
-    <View 
-      style={ styles.container }
+    <View style={ styles.container }
     >    
       <TouchableOpacity 
         style={ styles.dataContainer }
@@ -51,7 +45,8 @@ function Item({ item, song, setSong, removeLastItem }) {
       style={ styles.icon }
       onPress={() => removeLastItem(videoId)}
      >
-      <Entypo name="cross" size={25} color={LIGHT} />
+      <Times width='20' height='20' color={GREY_L}></Times>
+      {/* <Entypo name="cross" size={25} color={LIGHT} /> */}
      </TouchableOpacity>
     </View>
   )
@@ -87,18 +82,18 @@ const styles = StyleSheet.create({
   dataContainer: {
     flexDirection: 'row',
     height: '100%',
-    width: `${(1 - (45 / width)) * 100}%`,
+    width: '90%',
     alignItems: 'center',
   },
   title: {
     marginTop: 'auto',
-    fontSize: 12,
+    fontSize: 13,
     width: '100%',
     fontWeight: 'bold',
     height: 18,
   },
   content: {
-    color: '#BBB',
+    color: GREY_L,
     fontSize: 11,
     marginBottom: 'auto',
   },

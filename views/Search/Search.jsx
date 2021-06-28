@@ -9,11 +9,14 @@ import {
   StatusBar,
   FlatList
 } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
-import { showMenu } from '../../redux/actions/uiAction'
+import { useDispatch } from 'react-redux'
+
 import { useIsFocused } from '@react-navigation/native'
 import { Entypo } from '@expo/vector-icons';
+
+import { showMenu } from '../../redux/actions/uiAction'
 import Result from './Result'
+import Times from '../svg/times'
 import { 
   loadFontsAsync,
   WHITE,
@@ -108,7 +111,7 @@ export default function Search({ navigation }) {
           activeOpacity={0.1}
           onPress={() => navigation.goBack()}
         >
-          <Entypo name='chevron-left' size={25} color={LIGHT} />
+          <Entypo name="chevron-small-left" size={25} color={LIGHT} />
         </TouchableOpacity>
         <TextInput
           autoFocus
@@ -124,7 +127,7 @@ export default function Search({ navigation }) {
           activeOpacity={0.1}
           onPress={() => handleOnChange('')}
         >
-          <Entypo name='cross' size={25} color={LIGHT} />
+          <Times width='20' height='20' color={LIGHT} />
         </TouchableOpacity>
       </View>
       {results && results.length

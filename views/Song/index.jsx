@@ -17,20 +17,12 @@ import { Ionicons, AntDesign, Entypo } from '@expo/vector-icons';
 
 import { isPlaying, isFavourite } from '../../redux/actions/uiAction'
 import Controls from './Controls'
-import {
-  loadFontsAsync,
-  WHITE,
-  GREY_B,
-} from '../MainStyles'
-
-
+import { loadFontsAsync, WHITE, GREY_W, MAIN } from '../MainStyles'
 
 // ----- CONSTANTS ----- // 
 const { width } = Dimensions.get('window');
-const colorsGradient = ['transparent', '#151515', '#101010'],
-      locationsGradient = [0.7, 0.9, 0.95];
-
-
+const colorsGradient = ['transparent', '#151515A0', '#101010'],
+      locationsGradient = [0.7, 0.85, 0.95];
 
 
 // ----- COMPONENT ----- // 
@@ -55,7 +47,7 @@ export default function Song({ navigation }) {
   return(
     <View style={ styles.main }>
       <StatusBar translucent={true} barStyle='light-content' />
-      <ImageBackground source={{ uri: image }} blurRadius={ 20 } style={styles.imageBackground} />
+      <ImageBackground source={{ uri: image }} blurRadius={ 15 } style={styles.imageBackground} />
       <LinearGradient colors={ colorsGradient } locations={ locationsGradient } style={ styles.background }/>
 
       <View style={ styles.header }>
@@ -92,7 +84,7 @@ export default function Song({ navigation }) {
                 { title } 
               </MarqueeText>
                 
-              <Text style={{ fontSize: 12, color: GREY_B, fontFamily: 'Poppins' }}>
+              <Text style={{ fontSize: 12, color: GREY_W, fontFamily: 'Poppins' }}>
                 { artist }  •  { duration ? time(duration) : '00:00' }
               </Text>
             </View>
@@ -102,8 +94,8 @@ export default function Song({ navigation }) {
               onPress={() => isFavouriteDispatch(!favourite) }
             >
               {favourite 
-                ? <AntDesign name="heart" size={20} color="#3a86fc" />
-                : <AntDesign name="hearto" size={20} color="#666" />
+                ? <AntDesign name="heart" size={20} color={MAIN} />
+                : <AntDesign name="hearto" size={20} color={GREY_W} />
               }
             </TouchableOpacity>
           </View>
@@ -129,6 +121,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     resizeMode: 'stretch',
+    transform: [{ rotate: '180deg' }]
   },
    background: {
     position: 'absolute',

@@ -5652,6 +5652,11 @@
   "resolved" "https://registry.npmjs.org/react-native-svg/-/react-native-svg-9.12.0.tgz"
   "version" "9.12.0"
 
+"react-native-track-player@^1.2.7":
+  "integrity" "sha512-U1kA25qm398/kY6BvTojGHt4S1tYuKrJNQpXW+dA+p0B+n4LlPyoidUXfu951YM7aoisg8EmQPsevUFmcXG+cg=="
+  "resolved" "https://registry.npmjs.org/react-native-track-player/-/react-native-track-player-1.2.7.tgz"
+  "version" "1.2.7"
+
 "react-native-vector-icons@>= 6.6.0", "react-native-vector-icons@>= 6.x.x":
   "integrity" "sha512-sHIdBB6Y0dHaot2fMXgy5J/hhCn5YuyN7SKDNFgPzL8KA1oF2/v7mgYMavnK7LIIs2dJoGnDANKf61dsU+TZlg=="
   "resolved" "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-8.1.0.tgz"
@@ -5683,7 +5688,7 @@
     "url" "~0.10.1"
     "whatwg-url-without-unicode" "^8.0.0-3"
 
-"react-native@*", "react-native@> 0.57", "react-native@>= 0.55.x", "react-native@>=0.42.0", "react-native@>=0.50.0", "react-native@>=0.57", "react-native@>=0.60 <=0.64", "react-native@>=0.62.0-rc.0 <0.64.0", "react-native@https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz":
+"react-native@*", "react-native@> 0.57", "react-native@>= 0.55.x", "react-native@>=0.42.0", "react-native@>=0.50.0", "react-native@>=0.57", "react-native@>=0.60 <=0.64", "react-native@>=0.60.0-rc.2", "react-native@>=0.62.0-rc.0 <0.64.0", "react-native@https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz":
   "integrity" "sha512-SHhcKW3LF+6Lx8zEbFNeWEuLKcSLv3seeKhEctdfl8Ey19HWdCzQMlDDKhFELBeyLFjrzhpvl4jVTM4h/Sw+YQ=="
   "resolved" "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz"
   "version" "0.63.2"
@@ -5732,7 +5737,7 @@
   "resolved" "https://registry.npmjs.org/react-refresh/-/react-refresh-0.4.3.tgz"
   "version" "0.4.3"
 
-"react@*", "react@^16.0", "react@^16.13.1", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@>= 16.x.x", "react@~16", "react@16.13.1":
+"react@*", "react@^16.0", "react@^16.13.1", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@>= 16.x.x", "react@>=16.8.6", "react@~16", "react@16.13.1":
   "integrity" "sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w=="
   "resolved" "https://registry.npmjs.org/react/-/react-16.13.1.tgz"
   "version" "16.13.1"
