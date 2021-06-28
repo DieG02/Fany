@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     resizeMode: 'stretch',
-    transform: [{ rotate: '180deg' }]
+    transform: [{ rotate: '180deg' }],
   },
    background: {
     position: 'absolute',
