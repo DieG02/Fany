@@ -16,14 +16,23 @@ import Song from './views/Song'
 import Profile from './views/Profile'
 import Favourites from './views/Favourites'
 
-
 import Footer from './views/Footer'
-// import Youtube from './views/Youtube'
-// import YoutubeExample from './views/YoutubeReact'
-// import Example from './views/example'
 
 
 const { height, width } = Dimensions.get('window');
+
+function SearchTab () {
+  return(
+    <Stack.Navigator
+      screenOptions={{ headerShown: false }}
+      initialRouteName='Search'
+    >
+      <Stack.Screen name='Search' component={ Search } />
+      <Stack.Screen name='SearchBar' component={ SearchBar } />
+    </Stack.Navigator>
+  )
+}
+
 
 function MyTabBar () {
   return(
@@ -33,7 +42,7 @@ function MyTabBar () {
       tabBar={(props) => <Footer {...props}/>}
     >
       <Tab.Screen name='Home' component={ Home } />
-      <Tab.Screen name='Search' component={ Search } />
+      <Tab.Screen name='SearchTab' component={ SearchTab } options={{ unmountOnBlur: true }} />
       <Tab.Screen name='Favourites' component={ Favourites } />
       <Tab.Screen name='Profile' component={ Profile } />
 
@@ -56,8 +65,6 @@ export default function App() {
         <Stack.Screen name='Register' component={ Register } />
 
         <Stack.Screen name='MyTabBar' component={ MyTabBar }/>
-        
-        <Stack.Screen name='SearchBar' component={ SearchBar } />
 
         <Stack.Screen name='Song' component={ Song } />
       </Stack.Navigator>

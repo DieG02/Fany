@@ -156,7 +156,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: DARK,
     width: '100%',
-    height: '100%',
+    // height: '100%',
+    flex: 1,
   },
   searchBar: {
     backgroundColor: '#303030',

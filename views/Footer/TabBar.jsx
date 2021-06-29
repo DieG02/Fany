@@ -22,7 +22,7 @@ export default function TabBar({ props }) {
           Home: { icon: 
             <Fontisto name='home' size={22} color={isFocused ? '#EEE' : "#444D52"} /> 
           },
-          Search: { icon: 
+          SearchTab: { icon: 
             <Ionicons name='search' size={26} color={isFocused ? '#EEE' : "#444D52"} />  
           },
           Favourites: { icon: 

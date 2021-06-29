@@ -20,8 +20,8 @@ import { loadFontsAsync, WHITE, LIGHT } from '../MainStyles'
 // ----- CONSTANTS ----- // 
 const artist = require('../../assets/grey2.jpg') 
 const { height } = Dimensions.get('window')
-const colorsGradient = ['#444', '#202020','#171717', '#151515', '#000'];
-const locationsGradient = [0.00, 0.15, 0.5, 0.8, 0.9];
+const colorsGradient = ['#404040', '#101010', '#000'];
+const locationsGradient = [0, 0.45, 1];
 
 
 // ----- COMPONENT ----- // 
@@ -48,16 +48,17 @@ function Home({ sound, lasts, navigation }) {
         backgroundColor='transparent'
         barStyle='light-content'
       />
+      <View style={ styles.header }>
+        <SvgHome style={{ right: '10%', top: '-15%' }} height={ 120 }/>
+        <Text style={ styles.title }>Home</Text>
+      </View>
 
       <ScrollView 
         style={ styles.container } 
         showsVerticalScrollIndicator={ false }
         onScroll={({ nativeEvent }) => nativeEvent.contentOffset.y}
+        contentContainerStyle={{ paddingBottom: 190 }}
       >
-        <View style={ styles.header }>
-        <SvgHome style={{ right: '10%', top: '-8%' }} height={ 120 }/>
-          <Text style={ styles.title }>Home</Text>
-        </View>
 
 
         <View style={styles.artist}>
@@ -82,7 +83,23 @@ function Home({ sound, lasts, navigation }) {
         </View>
 
 
-        <View style={[ styles.playlist, { marginBottom: Object.entries(sound).length ? '45%' : 100 } ]} >
+        <View style={[ styles.playlist, { marginBottom: '10%' } ]} >
+          <Text style={ [styles.subtittles, { marginBottom: 20 }] }>My playlists</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={ false } >
+            <View style={{ marginHorizontal: 5, flexDirection: 'row' }}>
+              {arr.map((_, i) => <Square src={ artist } key={i}/> )}
+            </View>
+          </ScrollView>
+        </View>
+        <View style={[ styles.playlist, { marginBottom: '10%' } ]} >
+          <Text style={ [styles.subtittles, { marginBottom: 20 }] }>My playlists</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={ false } >
+            <View style={{ marginHorizontal: 5, flexDirection: 'row' }}>
+              {arr.map((_, i) => <Square src={ artist } key={i}/> )}
+            </View>
+          </ScrollView>
+        </View>
+        <View style={[ styles.playlist, { marginBottom: '10%' } ]} >
           <Text style={ [styles.subtittles, { marginBottom: 20 }] }>My playlists</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={ false } >
             <View style={{ marginHorizontal: 5, flexDirection: 'row' }}>
@@ -119,17 +136,19 @@ const styles = StyleSheet.create({
   },
   container: {
     width: '100%',
-    height: '73%',
+    flex: 1,
+    paddingTop: '30%',
   },
 
   header: {
-    height: '17%',
     width: '100%',
-  },
+    position: 'absolute',
+    zIndex: 5,
+ },
   title: {
     color: WHITE,
     fontSize: height > 720 ? 30 : 27,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins-SemiBold',
     marginLeft: 15,
     position: 'absolute',
     top: '25%', 
