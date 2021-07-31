@@ -5,7 +5,6 @@ import {
   IS_FAVOURITE,
   IS_SAVED,
   SET_LOOP,
-  SHOW_MENU,
   SHOW_SONG,
 } from '../types.js'
 
@@ -61,16 +60,18 @@ export async function setTiming(value, sound) {
 
 
 
-export const setSong = async (song) => (dispatch) => {
-  const youtubeURL = 'http://www.youtube.com/watch?v=04GiqLjRO3A';
+export const setSong = (song) => async (dispatch) => {
+  console.log('me ejecute setSong');
+  console.log(song);
+  const youtubeURL = song.url;
   const urls = await ytdl(youtubeURL, { quality: 'highestaudio' });
   console.log(urls)
 
-  dispatch({
-    type: SET_SONG,
-    song,
-    payload: true,
-  })
+  // dispatch({
+  //   type: SET_SONG,
+  //   song,
+  //   payload: true,
+  // })
 }
 
 

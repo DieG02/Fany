@@ -9,12 +9,9 @@ import {
   StatusBar,
   FlatList
 } from 'react-native'
-import { useDispatch } from 'react-redux'
-
 import { useIsFocused } from '@react-navigation/native'
 import { Entypo } from '@expo/vector-icons';
 
-import { showMenu } from '../../redux/actions/uiAction'
 import Result from './Result'
 import Times from '../svg/times'
 import { 
@@ -55,7 +52,6 @@ export default function Search({ navigation }) {
   })
 
   const [loaded, setLoaded] = useState(false);
-  const dispatch = useDispatch()
 
   const search = () => {
     const { base, query, key, max, order } = request;
@@ -100,51 +96,49 @@ export default function Search({ navigation }) {
     <View style={ styles.main }>  
     
       <FocusAwareStatusBar
-        translucent={false}
-        backgroundColor='#303030'
+        translucent={true}
+        backgroundColor='transparent'
         barStyle='light-content'
        />
-
-      <View style={ styles.searchBar }>
-        <TouchableOpacity
-          style={ styles.icon }
-          activeOpacity={0.1}
-          onPress={() => navigation.goBack()}
-        >
-          <Entypo name="chevron-small-left" size={25} color={LIGHT} />
-        </TouchableOpacity>
-        <TextInput
-          autoFocus
-          value={value}
-          style={ styles.input }
-          placeholder='Enter name or URL'
-          placeholderTextColor={GREY}
-          onChangeText={handleOnChange}
-          onSubmitEditing={search}  // --> Add another search button 
-        />
-        <TouchableOpacity
-          style={ styles.icon }
-          activeOpacity={0.1}
-          onPress={() => handleOnChange('')}
-        >
-          <Times width='20' height='20' color={LIGHT} />
-        </TouchableOpacity>
-      </View>
-      {results && results.length
-      ? <FlatList
-          style={{ padding: 15 }}
-          contentContainerStyle={{ paddingBottom: 15 }}
-          data={results}
-          renderItem={renderItem}
-          keyExtractor={(_, index) => index.toString()}
-          onEndReached={handleOnInfinityScroll}
-          onEndReachedThreshold={0.5}
-        />
-      : <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-          <Text style={styles.alternativeText}>No results found :(</Text>
-        </View> 
-      }
-     
+        <View style={ styles.searchBar }>
+          <TouchableOpacity
+            style={ styles.icon }
+            activeOpacity={0.1}
+            onPress={() => navigation.goBack()}
+          >
+            <Entypo name="chevron-small-left" size={25} color={LIGHT} />
+          </TouchableOpacity>
+          <TextInput
+            autoFocus
+            value={value}
+            style={ styles.input }
+            placeholder='Enter name or URL'
+            placeholderTextColor={GREY}
+            onChangeText={handleOnChange}
+            onSubmitEditing={search}  // --> Add another search button 
+          />
+          <TouchableOpacity
+            style={ styles.icon }
+            activeOpacity={0.1}
+            onPress={() => handleOnChange('')}
+          >
+            <Times width='20' height='20' color={LIGHT} />
+          </TouchableOpacity>
+        </View>
+        {results && results.length
+        ? <FlatList
+            style={{ padding: 15 }}
+            contentContainerStyle={{ paddingBottom: 15 }}
+            data={results}
+            renderItem={renderItem}
+            keyExtractor={(_, index) => index.toString()}
+            onEndReached={handleOnInfinityScroll}
+            onEndReachedThreshold={0.5}
+          />
+        : <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+            <Text style={styles.alternativeText}>No results found :(</Text>
+          </View> 
+        }
     </View>
   )
 }
@@ -156,13 +150,14 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: DARK,
     width: '100%',
-    // height: '100%',
+    height: '90%',
     flex: 1,
   },
   searchBar: {
     backgroundColor: '#303030',
     width: '100%',
-    height: 50,
+    height: 50 + StatusBar.currentHeight,
+    paddingTop: StatusBar.currentHeight,
     justifyContent: 'space-between',
     flexDirection: 'row',
   },

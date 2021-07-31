@@ -7,8 +7,8 @@ import {
   StyleSheet,
 } from 'react-native'
 import { connect } from 'react-redux'
-import { setSong } from '../../redux/actions/uiAction'
-import { addRecentItem, addLastItem } from '../../redux/actions/userActions'
+import { setSong } from '../../redux/actions/song'
+import { addRecentItem, addLastItem } from '../../redux/actions/user'
 import { AntDesign } from '@expo/vector-icons'
 
 import {

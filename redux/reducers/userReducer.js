@@ -31,7 +31,7 @@ export default function userInterface(state = initialState, action) {
     case ADD_LAST_ITEM:
       return {
         ...state,
-        lasts: [action.item, ...state.lasts.filter((song) => song.videoId !== action.item.videoId)]
+        lasts: [action.item, ...state.lasts.filter((song) => song.videoId !== action.payload.videoId)]
       }  
 
     case REMOVE_LAST_ITEM:

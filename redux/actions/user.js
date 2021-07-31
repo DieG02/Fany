@@ -6,10 +6,10 @@ import {
 } from '../types.js'
 
 
-export const addRecentItem = (sound) => (dispatch) => {
+export const addRecentItem = (song) => (dispatch) => {
   dispatch({
     type: ADD_RECENT_ITEM,
-    item: sound
+    payload: song
   })
 }
 
@@ -22,7 +22,7 @@ export const removeRecentItem = () => (dispatch) => {
 export const addLastItem = (song) => (dispatch) => {
   dispatch({
     type: ADD_LAST_ITEM,
-    item: song
+    payload: song
   })
 }
 

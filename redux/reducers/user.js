@@ -52,7 +52,7 @@ export default function user(state = initialState, action) {
     case ADD_RECENT_ITEM:
       return {
         ...state,
-        recents: [action.item, ...state.recents]  // Array.unshift(item)
+        recents: [action.payload, ...state.recents]  // Array.unshift(item)
       }
 
     case REMOVE_RECENT_ITEM:
@@ -65,7 +65,7 @@ export default function user(state = initialState, action) {
     case ADD_LAST_ITEM:
       return {
         ...state,
-        lasts: [action.item, ...state.lasts.filter((song) => song.videoId !== action.item.videoId)]
+        lasts: [action.payload, ...state.lasts.filter((song) => song.videoId !== action.payload.videoId)]
       }
 
     case REMOVE_LAST_ITEM:
