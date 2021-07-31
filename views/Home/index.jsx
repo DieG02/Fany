@@ -115,7 +115,7 @@ function Home({ sound, lasts, navigation }) {
 
 function mapStateToProps(state) {
   return {
-    sound: state.audio.sound,
+    recents: state.user.recents,
     lasts: state.user.lasts,
   };
 }

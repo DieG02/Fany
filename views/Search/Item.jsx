@@ -55,7 +55,7 @@ function Item({ item, song, setSong, removeLastItem }) {
 
 function mapStateToProps(state) {
   return {
-    song: state.app.song,
+    song: state.audio.song,
   };
 }
 

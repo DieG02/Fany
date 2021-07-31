@@ -12,7 +12,7 @@ import { WHITE, GREY_W } from '../MainStyles'
 export default function Audio({ props }) {
 
   const { value, setValue, slider, setSlider } = props;
-  const sound = useSelector(state => state.audio.sound);
+  const sound = useSelector(state => state.audio.file);
 
   { sound 
     && setTimeout(() => {

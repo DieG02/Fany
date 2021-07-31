@@ -7,7 +7,7 @@ import TabBar from './TabBar'
 import { MAIN } from '../MainStyles'
 
 export default function Footer({ state, descriptors, navigation, title }) {
-  const ui = useSelector(state => state.app.ui);
+  const ui = useSelector(state => state.audio.status);
   const props = { state, descriptors, navigation, title }
   
   return(

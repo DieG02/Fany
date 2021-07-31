@@ -7,7 +7,7 @@ import {
 
 
 const initialState = {
-  user: {
+  profile: {
     isAuthenticated: false,
     email: '',
     password: '',
@@ -29,7 +29,7 @@ const initialState = {
 //         user: state.payload.user,
 //       }
 //   }
-}
+// }
 
 // <--- TO DO --->
 // export function Artists(state = initialState, action) {
@@ -38,9 +38,16 @@ const initialState = {
 //       return state;
 //   }
 // }
+// <--- TO DO --->
+// export function Playlists(state = initialState, action) {
+//   switch (action.type) {
+//     default:
+//       return state;
+//   }
+// }
 
 
-export function Recents(state = initialState, action) {
+export default function user(state = initialState, action) {
   switch (action.type) {
     case ADD_RECENT_ITEM:
       return {
@@ -54,22 +61,7 @@ export function Recents(state = initialState, action) {
         recents: [...state.recents].filter((x, index) => index !== 21) //Array.pop()
       }
 
-    default:
-      return state;
-  }
-}
 
-// <--- TO DO --->
-// export function Playlists(state = initialState, action) {
-//   switch (action.type) {
-//     default:
-//       return state;
-//   }
-// }
-
-
-export function Lasts(state = initialState, action) {
-  switch (action.type) {
     case ADD_LAST_ITEM:
       return {
         ...state,
@@ -86,3 +78,5 @@ export function Lasts(state = initialState, action) {
       return state;
   }
 }
+
+

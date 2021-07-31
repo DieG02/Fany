@@ -13,10 +13,6 @@ import {
 
 
 const initialState = {
-  ui: {
-    isLoading: false,
-    showSong: false, 
-  },
   song: {
     image: '',
     title: '',
@@ -24,9 +20,10 @@ const initialState = {
     url: '',
     videoId: '',
     // album: '',
-    icon: 'noRepeat'
+    icon: 'noRepeat',
   },
-  info: {
+  status: {
+    showSong: false,
     isPlaying: false,
     isLooping: false,
     isFavourite: false,
@@ -37,49 +34,14 @@ const initialState = {
 }
 
 
-export default function userInterface(state = initialState, action) {
+export default function app(state = initialState, action) {
   switch (action.type) {
-
-    case LOAD_SOUND:
-      return {
-        ...state,
-        sound: action.sound,
-      }
-
-    case LOADING:
-      return {
-        ...state,
-        info: {
-          ...state.info,
-          isLoading: true,
-        }
-      }
-
-    case AUTO_PLAY:
-      return {
-        ...state,
-        info: {
-          ...state.info,
-          isLoading: false,
-          isLoaded: true,
-          isPlaying: true,
-        }
-      }
     case SET_SONG:
-      const { iconImage, image, title, artist, url, videoId } = action.song
       return {
         ...state,
-        ui: {
-          ...state.ui,
-          showSong: action.exist
-        },
         song: {
           ...state.song,
-          image,
-          title,
-          artist,
-          url,
-          videoId,
+          ...action.song,
         }
       }
 
@@ -119,6 +81,45 @@ export default function userInterface(state = initialState, action) {
         }
       }
 
+    case SHOW_SONG:
+      return {
+        ...state,
+        ui: {
+          ...state.ui,
+          showSong: action.value
+        }
+      }
+
+
+
+
+
+    case LOAD_SOUND:
+      return {
+        ...state,
+        sound: action.sound,
+      }
+
+    case LOADING:
+      return {
+        ...state,
+        info: {
+          ...state.info,
+          isLoading: true,
+        }
+      }
+
+    case AUTO_PLAY:
+      return {
+        ...state,
+        info: {
+          ...state.info,
+          isLoading: false,
+          isLoaded: true,
+          isPlaying: true,
+        }
+      }
+
     case SET_LOOP:
       return {
         ...state,
@@ -134,16 +135,6 @@ export default function userInterface(state = initialState, action) {
         song: {
           ...state.song,
           duration: action.miliseconds
-        }
-      }
-
-
-    case SHOW_SONG:
-      return {
-        ...state,
-        ui: {
-          ...state.ui,
-          showSong: action.value
         }
       }
 

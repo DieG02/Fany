@@ -24,8 +24,8 @@ export default function Buttons() {
     repeatOne: [faReplyAll, MAIN]
   };
 
-  const sound = useSelector(state => state.audio.sound);
-  const { playing, save, icon } = useSelector(state => state.app.song)
+  const sound = useSelector(state => state.audio.file);
+  const { playing, save, icon } = useSelector(state => state.audio.song)
   const dispatch = useDispatch();
   const isPlayingDispatch = (value) => dispatch(isPlaying(value)),
         isSavedDispatch = (value) => dispatch(isSaved(value)),

@@ -44,17 +44,14 @@ export async function playSound(sound) {
   await sound.playAsync();
 }
 
-
 export async function pauseSound(sound) {
   await sound.pauseAsync();
 }
-
 
 export async function isLooping(value, sound) {
   console.log('isLooping: ', value);
   await sound.setIsLoopingAsync(value);
 }
-
 
 export async function setTiming(value, sound) {
   const { durationMillis } = await sound.getStatusAsync();
@@ -64,19 +61,15 @@ export async function setTiming(value, sound) {
 
 
 
-
-
-
-
-export const setSong = async (sound) => (dispatch) => {
+export const setSong = async (song) => (dispatch) => {
   const youtubeURL = 'http://www.youtube.com/watch?v=04GiqLjRO3A';
   const urls = await ytdl(youtubeURL, { quality: 'highestaudio' });
   console.log(urls)
-  
+
   dispatch({
     type: SET_SONG,
-    song: sound,
-    exist: true,
+    song,
+    payload: true,
   })
 }
 
@@ -114,13 +107,6 @@ export const setDuration = (number) => {
   return {
     type: SET_DURATION,
     miliseconds: number
-  }
-}
-
-export const showMenu = (boolean) => {
-  return {
-    type: SHOW_MENU,
-    value: boolean
   }
 }
 

@@ -80,7 +80,7 @@ function Result({ videoId, data, song, setSong, addLastItem, addRecentItem }) {
 
 function mapStateToProps(state) {
   return {
-    song: state.app.song,
+    song: state.audio.song,
   };
 }
 

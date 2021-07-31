@@ -15,8 +15,8 @@ import { Ionicons, AntDesign } from '@expo/vector-icons'
 
 export default function Playing() {
 
-  const { url, image, title, artist, duration, favourite, playing } = useSelector(state => state.app.song)
-  const sound = useSelector(state => state.audio.sound);
+  const { url, image, title, artist, duration, favourite, playing } = useSelector(state => state.audio.song)
+  const sound = useSelector(state => state.audio.file);
   const navigation = useNavigation()
   const dispatch = useDispatch()
 

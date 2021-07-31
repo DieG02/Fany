@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux'
-import app from './uiReducer.js'
-import audio from './soundReducer.js'
-import user from './userReducer.js'
+import audio from './song.js';
+import user from './user.js';
 
 const mainReducer = combineReducers({
-    app,
     audio,
     user,
 });

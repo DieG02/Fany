@@ -85,7 +85,7 @@ function Main({ navigation, sound, lasts }) {
 
 function mapStateToProps(state) {
   return {
-    sound: state.audio.sound,
+    sound: state.audio.file,
     lasts: state.user.lasts,
   };
 }

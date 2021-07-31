@@ -31,7 +31,7 @@ export default function Song({ navigation }) {
   const [loaded, setLoaded] = useState(false)
   loadFontsAsync(setLoaded);
 
-  const { image, title, artist, duration, favourite } = useSelector(state => state.app.song)
+  const { image, title, artist, duration, favourite } = useSelector(state => state.audio.song)
   const dispatch = useDispatch()
 
   const isFavouriteDispatch = (value) => dispatch(isFavourite(value));
