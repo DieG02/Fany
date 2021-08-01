@@ -21,8 +21,8 @@ import { loadFontsAsync, WHITE, GREY_W, MAIN } from '../MainStyles'
 
 // ----- CONSTANTS ----- // 
 const { width } = Dimensions.get('window');
-const colorsGradient = ['transparent', '#151515A0', '#101010'],
-      locationsGradient = [0.7, 0.85, 0.95];
+const colorsGradient = ['transparent', '#151515', '#000'],
+      locationsGradient = [0.6, 0.85, 0.95];
 
 
 // ----- COMPONENT ----- // 
