@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   View,
   Image,
@@ -7,8 +7,8 @@ import {
 } from 'react-native'
 import MarqueeText from 'react-native-marquee'
 import { useDispatch, useSelector } from 'react-redux'
-import { isPlaying, isFavourite } from '../../redux/actions/uiAction.js'
-import { loadSound, pauseSound, playSound, isLooping } from '../../redux/actions/soundAction.js'
+import { isPlaying, isFavourite } from '../../redux/actions/song.js'
+import { loadSound, pauseSound, playSound, isLooping } from '../../redux/actions/song.js'
 import { useNavigation } from '@react-navigation/native'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
 
@@ -21,7 +21,8 @@ export default function Playing() {
   const dispatch = useDispatch()
 
   const isPlayingDispatch = (value) => dispatch(isPlaying(value)),
-        isFavouriteDispatch = (value) => dispatch(isFavourite(value));
+        isFavouriteDispatch = (value) => dispatch(isFavourite(value)),
+        loadSoundDispatch = (value, sound) => dispatch(loadSound(value, sound));
 
   const time = (ms) => {
     const a = ms / 1000   // 251,821
@@ -31,21 +32,9 @@ export default function Playing() {
   }
 
   useEffect(() => { 
-    isPlayingDispatch(true)
-    console.log(url)
-    url && loadSound(url, dispatch)
+    isPlayingDispatch(true);
+    loadSoundDispatch(url, sound);
   }, [url])
-
-  useEffect(() => {
-    return sound.unloadAsync
-      ? () => {
-          console.log('Unloading Sound');
-          sound.unloadAsync(); 
-        }
-      : undefined;
-  }, [sound]);
-
-
 
   return(
     <View style={ styles.container }>

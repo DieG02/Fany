@@ -10,8 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { Entypo, Ionicons, Foundation } from '@expo/vector-icons'
 import { faReply, faReplyAll } from '@fortawesome/free-solid-svg-icons'
 
-import { isPlaying, isSaved, setLoop } from '../../redux/actions/uiAction'
-import { playSound, pauseSound, isLooping } from '../../redux/actions/soundAction'
+import { isPlaying, isSaved, setLoop } from '../../redux/actions/song'
+import { playSound, pauseSound, isLooping } from '../../redux/actions/song'
 import { MAIN, WHITE, LIGHT } from '../MainStyles'
 
 

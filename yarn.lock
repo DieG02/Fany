@@ -5677,10 +5677,10 @@
     "escape-string-regexp" "2.0.0"
     "invariant" "2.2.4"
 
-"react-native-ytdl@^4.8.2":
-  "integrity" "sha512-zMIp3J7XXzZk+cQp0l2th5YtDo8fqBmUvmyk1Wg7FloB59QYwc3Ohjc8X/vstngtaw/I40VFIgdbxMokCcd6tw=="
-  "resolved" "https://registry.npmjs.org/react-native-ytdl/-/react-native-ytdl-4.8.2.tgz"
-  "version" "4.8.2"
+"react-native-ytdl@^4.8.3":
+  "integrity" "sha512-BEoSEaERkkmaJwmm6rtig5yXmqArSG7QSF/F1xl91YyGmxO2HW/QyJ0f8uch645jiQ9US/6v2dRRJAp6PxXIqQ=="
+  "resolved" "https://registry.npmjs.org/react-native-ytdl/-/react-native-ytdl-4.8.3.tgz"
+  "version" "4.8.3"
   dependencies:
     "querystring" "^0.2.1"
     "url" "~0.10.1"

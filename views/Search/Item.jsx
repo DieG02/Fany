@@ -8,8 +8,8 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 
-import { setSong } from '../../redux/actions/uiAction'
-import { removeLastItem } from '../../redux/actions/userActions'
+import { setSong } from '../../redux/actions/song'
+import { removeLastItem } from '../../redux/actions/user'
 import Times from '../svg/times'
 import { MAIN, LIGHT, GREY_L } from '../MainStyles'
 

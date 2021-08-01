@@ -37,6 +37,7 @@ function Result({ videoId, data, song, setSong, addLastItem, addRecentItem }) {
     url: `https://www.youtube.com/watch?v=${videoId}`,
     videoId: videoId,
   }
+  
   let color = song.videoId === videoId ? MAIN : LIGHT;
    
   //   fetch(`https://www.googleapis.com/youtube/v3/videos?part=id%2C+snippet&id=${videoId}&key=${GOOGLE_API_KEY}`)
@@ -91,7 +92,7 @@ export default connect(mapStateToProps, { setSong, addLastItem, addRecentItem })
 // ----- STYLERS ----- //
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: DARK,
+    backgroundColor: 'transparent',
     width: '100%',
     height: 60,
     flexDirection: 'row',

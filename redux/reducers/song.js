@@ -21,6 +21,7 @@ const initialState = {
     videoId: '',
     // album: '',
     icon: 'noRepeat',
+    duration: 0,
   },
   status: {
     showSong: false,
@@ -42,7 +43,17 @@ export default function app(state = initialState, action) {
         song: {
           ...state.song,
           ...action.song,
+        },
+        status: {
+          ...state.status,
+          showSong: action.payload
         }
+      }
+
+    case LOAD_SOUND:
+      return {
+        ...state,
+        file: action.payload,
       }
 
     case SET_DURATION:
@@ -94,11 +105,6 @@ export default function app(state = initialState, action) {
 
 
 
-    case LOAD_SOUND:
-      return {
-        ...state,
-        sound: action.sound,
-      }
 
     case LOADING:
       return {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
   View,
   Text,
@@ -83,6 +83,11 @@ export default function Search({ navigation }) {
       })
   }
 
+  const inputRef = useRef();
+  const textInputAction = () => {
+    inputRef.current.focus()
+  }
+
   useEffect(() => {
     const bluringInputs = Keyboard.addListener('keyboardDidHide', () => Keyboard.dismiss());
     return () => bluringInputs.remove();
@@ -110,6 +115,7 @@ export default function Search({ navigation }) {
           </TouchableOpacity>
           <TextInput
             autoFocus
+            ref={inputRef}
             value={value}
             style={ styles.input }
             placeholder='Enter name or URL'
@@ -120,7 +126,10 @@ export default function Search({ navigation }) {
           <TouchableOpacity
             style={ styles.icon }
             activeOpacity={0.1}
-            onPress={() => handleOnChange('')}
+            onPress={() => {
+              handleOnChange('');
+              textInputAction()
+            }}
           >
             <Times width='20' height='20' color={LIGHT} />
           </TouchableOpacity>
@@ -148,7 +157,7 @@ export default function Search({ navigation }) {
 const styles = StyleSheet.create({
   main: {
     alignItems: 'flex-start',
-    backgroundColor: DARK,
+    backgroundColor: '#000',
     width: '100%',
     height: '90%',
     flex: 1,

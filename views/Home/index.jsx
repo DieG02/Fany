@@ -8,7 +8,7 @@ import {
   StatusBar,
 } from 'react-native'
 import { connect } from 'react-redux'
-import { setMenu } from '../../redux/actions/uiAction'
+import { setMenu } from '../../redux/actions/song'
 import { LinearGradient } from 'expo-linear-gradient'
 
 import Circle from './Circle'

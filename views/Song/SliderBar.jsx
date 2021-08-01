@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 import Slider from '@react-native-community/slider'
 
-import { setTiming } from '../../redux/actions/soundAction'
+import { setTiming } from '../../redux/actions/song'
 import { WHITE, GREY_W } from '../MainStyles'
 
 

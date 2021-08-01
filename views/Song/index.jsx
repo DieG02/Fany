@@ -15,7 +15,7 @@ import MarqueeText from 'react-native-marquee'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Ionicons, AntDesign, Entypo } from '@expo/vector-icons';
 
-import { isPlaying, isFavourite } from '../../redux/actions/uiAction'
+import { isPlaying, isFavourite } from '../../redux/actions/song'
 import Controls from './Controls'
 import { loadFontsAsync, WHITE, GREY_W, MAIN } from '../MainStyles'
 
